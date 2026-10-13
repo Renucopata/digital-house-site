@@ -1,0 +1,138 @@
+PHASE 5 — MOTION, RESPONSIVE & ACCESSIBILITY POLISH
+Date: 2026-10-13   Status: completed
+
+==========================================================================================
+1. GOAL
+==========================================================================================
+Scroll reveals (reduced-motion safe), hover/focus polish, responsive audit at 360 / 768 /
+1024 / 1440 px, keyboard navigation, contrast audit, alt texts, check that the WhatsApp button
+never hides critical content, Lighthouse accessibility ≥ 95.
+
+==========================================================================================
+2. DECISIONS (with who confirmed them)
+==========================================================================================
+- Start Phase 5 — user, 2026-10-13.
+- Reveal technique: one IntersectionObserver (RevealObserver) + CSS; no animation library — Claude.
+- Hidden starting state only when JS runs (html.js set by an inline <head> script) AND the user
+  has no reduced-motion preference → content is never hidden without JS or with reduced motion —
+  Claude.
+- The hero is NOT revealed (it must paint immediately: LCP / first impression); only its
+  hand-drawn underline animates in after 0.35s — Claude.
+- Hand-drawn underline animation = left-to-right clip-path wipe (1.1s). First attempt with
+  stroke-dash + pathLength rendered dashed strokes in Chrome because the strokes use
+  non-scaling-stroke → replaced — Claude.
+- Inside a revealed block the underline waits for its block to reveal (manifesto, contacto) —
+  Claude.
+- WhatsApp button focus = double ring (cream 3px + burgundy 2px) so it is visible on light and
+  dark sections (the Phase 1 burgundy outline vanished over the footer) — Claude.
+- Mobile performance (81) is a Phase 6 item per PLAN.md; diagnosis recorded in §9 — Claude.
+
+==========================================================================================
+3. STRUCTURE — files/folders created or modified
+==========================================================================================
+Created
+  src/components/layout/RevealObserver.tsx   client: adds [data-revealed] on first intersection
+  src/lib/reveal.ts                          reveal(index, step) → data-reveal + --reveal-delay
+  docs/phase-5-polish.txt                    this file
+Modified
+  src/app/layout.tsx            inline script (html.js), suppressHydrationWarning on <html>,
+                                <RevealObserver/> mounted globally
+  src/app/globals.css           reveal + draw rules (no-preference only), @keyframes draw,
+                                print override
+  src/components/ui/HandDrawn.tsx       HandUnderline svg gets data-draw
+  src/components/ui/SectionHeading.tsx  `animate` prop (default true) → reveal on the header
+  src/components/sections/QuienesSomos.tsx  cards reveal, staggered 90ms
+  src/components/sections/ComoTrabajamos.tsx steps reveal, staggered 110ms; CTA reveal
+  src/components/sections/Servicios.tsx     index reveal (90ms), each pillar block reveal
+  src/components/sections/Equipo.tsx        cards (staggered), band, clients reveal
+  src/components/sections/Manifiesto.tsx    text reveal, image reveal (+150ms)
+  src/components/sections/Contacto.tsx      whole block reveal (wrapper div)
+  src/components/layout/WhatsAppFloat.tsx   double-ring focus state
+  docs/README.txt
+
+==========================================================================================
+4. SECTIONS / COMPONENTS
+==========================================================================================
+RevealObserver (global, root layout): queries [data-reveal] once after hydration, observes
+  with rootMargin "0px 0px -8% 0px", threshold 0; marks [data-revealed] and stops observing.
+  Fallback without IntersectionObserver: reveals everything immediately. Renders nothing.
+reveal(index = 0, step = 90): spread onto any element → `data-reveal` and, for index > 0,
+  style --reveal-delay = index × step ms.
+Elements with reveal (27 on the landing page): every SectionHeading header (5), Quiénes somos
+  cards (3), process steps (5) + CTA, Servicios index + 5 blocks, Equipo cards (3) + band +
+  clients, Manifiesto text + image, Contacto block. Not revealed: hero, header, footer,
+  WhatsApp button.
+HandUnderline: hero → wipes in at 0.35s after load; others → when their block is revealed.
+
+==========================================================================================
+5. STYLES
+==========================================================================================
+Reveal: opacity 0 → 1 and translateY(12px → 0), 700ms (--duration-slow), --ease-soft, delay
+  --reveal-delay. Only under `@media (prefers-reduced-motion: no-preference)` and `.js`.
+Draw: clip-path inset(0 100% 0 0) → inset(0), 1.1s, --ease-soft, delay 0.35s.
+Print: reveal elements forced visible.
+Reduced motion: no hidden state, no wipe, no logo breathing, no smooth scroll (global rule).
+Focus: global 2px outline in the section accent (offset 3px); WhatsApp button double ring.
+Hover states (unchanged, verified): buttons swap fill/outline; nav underline grows; index
+  links, footer links and email turn burgundy/ivory; Instagram pill fills; WhatsApp lifts 2px.
+
+==========================================================================================
+6. CONTENT — copy used and its source
+==========================================================================================
+No copy changes in this phase. Alt texts verified: hero camera image, manifesto keycaps image,
+logos ("DigitalHouse Growth Studio"); all decorative SVGs aria-hidden.
+
+==========================================================================================
+7. ASSETS
+==========================================================================================
+No new assets.
+
+==========================================================================================
+8. HOW TO RUN / TEST
+==========================================================================================
+  npm run lint → passes · npm run build → passes
+Automated checks (headless Chrome via DevTools Protocol, production build):
+  Reveals: html.js present; 27 reveal elements; 0 hidden inside the first viewport at load;
+    after scrolling all 27 revealed with opacity 1; deep link /#servicio-04 → revealed.
+  Underline: hero and contacto clip-path end at inset(0 …) (fully drawn); visual check: solid
+    double swoosh (no dashes).
+  Keyboard: 28 tab stops in logical order (skip link → logo → nav → CTAs → servicios index →
+    contact → footer → WhatsApp button); every stop has a visible focus indicator and is
+    scrolled into view (not hidden under the sticky header).
+  Reduced motion: 0 hidden elements, no clip-path; logo animation none; scroll-behavior auto.
+  JavaScript disabled: no html.js, 0 hidden elements (content fully readable).
+  Phase 2 regression: all 24 checks pass. Layout: no horizontal overflow at 360/768/1024/1440,
+    all images load.
+Lighthouse 13.5.0 (run once via npx, not a project dependency), localhost production build:
+  Mobile:  Performance 81 · Accessibility 100 · Best Practices 100 · SEO 100
+           (LCP 3.6 s, TBT 360 ms, CLS 0, FCP 1.1 s — simulated slow 4G + 4× CPU)
+  Desktop: Performance 100 · Accessibility 100 · Best Practices 100 · SEO 100
+           (LCP 0.7 s, TBT 10 ms, CLS 0)
+  Accessibility 100 includes axe color-contrast, names/labels, heading order, lang, alt text.
+
+==========================================================================================
+9. PENDING / OPEN QUESTIONS / PLACEHOLDERS
+==========================================================================================
+Phase 6 performance backlog (mobile score 81 → target ≥ 90), from the Lighthouse trace:
+  - Style & Layout ~0.7 s and LCP render delay: the full-section blurred WindowShadow SVG
+    (CSS blur 12px) and the feTurbulence paper-grain data-URI are paint-heavy on a throttled
+    CPU → pre-render both as small optimized images (WebP/PNG tiles).
+  - Hero image: Lighthouse estimates 19 KiB savings (tighter `sizes`).
+  - Render-blocking CSS (~140 ms estimated) and ~54 KiB unused framework JS (Next.js chunks).
+WhatsApp button vs content: verified it never covers the © line (20px clear), stays above the
+  mobile menu, and does not block any focused element; it floats over content while scrolling by
+  design (D6).
+Still open from earlier: GitHub repo is public (recommend Private); changes not yet committed /
+  pushed, so Vercel still shows the earlier version.
+
+==========================================================================================
+10. CHANGELOG
+==========================================================================================
+- 2026-10-13 Added RevealObserver + reveal() helper; html.js inline script; reveal CSS.
+- 2026-10-13 Applied staggered reveals to all landing sections except the hero.
+- 2026-10-13 HandUnderline draw-in; replaced the dash technique with a clip-path wipe after a
+  visual check showed dashed strokes.
+- 2026-10-13 WhatsApp button double-ring focus state.
+- 2026-10-13 Automated reveal / keyboard / reduced-motion / no-JS checks; Phase 2 regression;
+  4-width layout check; Lighthouse mobile + desktop (Accessibility 100).
+- 2026-10-13 npm run lint + npm run build pass.

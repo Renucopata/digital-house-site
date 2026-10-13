@@ -39,6 +39,8 @@ Built with **Next.js (App Router)**. The full phased plan lives in `PLAN.md`.
 | D21 | Publishable from the internal PDF (not on the §5 list): credentials (Nicole Pantoja ex Directora de Marketing de Technogym; Nicole Vidaurre freelance with clients abroad) and the longer value-card / pillar / bio descriptions — rewritten in tú, never including §5 items. |
 | D22 | Images allowed on the site: Sony-camera story and the "Ctrl + N" post. The laptop-on-sneakers screenshot is **not** used. More assets will come later. |
 | D23 | (Phase 1→2, 2026-10-13) The four processed logo files in `public/brand/` are **approved**. The header logo has a slow continuous **"breathing" animation** (scale 1 → 1.03 → 1, 5 s, sine easing), paused on hover and disabled with `prefers-reduced-motion`. Analysis scripts live in `tools/`. |
+| D24 | Vercel production address (until a domain is bought, D11): **https://digital-house-site-indol.vercel.app** — used for metadataBase, Open Graph, sitemap (Phase 6). |
+| D25 | Servicios (#servicios) = **stacked blocks**, all five pillars fully visible (option a). The user likes **option c (summary cards + expandable details)** and may want to try it later → recorded in `docs/IDEAS.txt`. |
 
 ## 2. Working rules (non-negotiable)
 1. **Do not assume.** If anything in a request, the PDFs, the images or this file is ambiguous or

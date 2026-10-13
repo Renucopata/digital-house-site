@@ -28,11 +28,13 @@ export function HandUnderline({ children, className, strokeWidth = 2.25 }: HandU
   return (
     <span className={cn("relative inline-block whitespace-nowrap", className)}>
       {children}
+      {/* data-draw: the swoosh is wiped in from the left (globals.css) */}
       <svg
         aria-hidden="true"
         focusable="false"
         viewBox="0 0 200 24"
         preserveAspectRatio="none"
+        data-draw=""
         className="pointer-events-none absolute -left-[2%] top-[92%] h-[0.38em] w-[104%] text-accent"
       >
         <path {...stroke} strokeWidth={strokeWidth} d="M3 9.5C38 7.2 92 5.4 148 5c18-.1 34 .3 49 1.2" />

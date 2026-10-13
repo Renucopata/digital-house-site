@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { quienesSomos } from "@/content/home";
 import { cn } from "@/lib/cn";
+import { reveal } from "@/lib/reveal";
 
 /** #quienes-somos — positioning statement + the three differentiators (middle card emphasized). */
 export function QuienesSomos() {
@@ -20,6 +21,7 @@ export function QuienesSomos() {
           {quienesSomos.pillars.map((pillar, index) => (
             <li
               key={pillar.title}
+              {...reveal(index)}
               className={cn(
                 pillar.emphasis ? "theme-dark border-transparent" : "theme-light border-line",
                 "flex flex-col gap-5 rounded-card border bg-surface p-7 text-fg sm:p-8",

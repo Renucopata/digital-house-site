@@ -1,0 +1,184 @@
+PHASE 4 — LANDING SECTIONS, PART 2
+Date: 2026-10-13   Status: completed
+
+==========================================================================================
+1. GOAL
+==========================================================================================
+Finish the landing page content: #servicios (5 pillars), #equipo (team + Eventos &
+Patrocinios + clients), the manifesto band ("Nuevas ideas…" + Ctrl+N image) and #contacto
+(closing CTA). After this phase no [PENDIENTE] placeholder remains on the page.
+
+==========================================================================================
+2. DECISIONS (with who confirmed them)
+==========================================================================================
+- Servicios pattern = (a) stacked blocks, everything visible — user, 2026-10-13 (D25).
+  Option (c) summary cards + expandable details liked by the user for a possible future
+  version → written up in docs/IDEAS.txt (I-01) and referenced in CLAUDE.md D25 — user request.
+- Vercel production address https://digital-house-site-indol.vercel.app recorded as D24 (for
+  Phase 6 metadata/sitemap) — user.
+- Hero headline (Phase 3 question): no change requested → kept the 4-line composition — Claude.
+- Servicios also gets a compact index (5 jump links with the short taglines from slide 05) and a
+  sticky big number per block on desktop — Claude.
+- Entregable shown as a dark box inside each block (echoes the portfolio's emphasized bar,
+  without its yellow) — Claude.
+- Team cards on a dark section (Servicios is light, so Equipo dark keeps the rhythm); initials
+  avatars NP · NV · RR (D14) — Claude.
+- Clients (D13): text-only line "Han confiado en nosotros: Fair Play Élite · VIDA" at the end
+  of #equipo, no logos/results — user (suggestion approved), placement by Claude.
+- Manifesto: the post's headline is set as live HTML text (Poppins pattern + hand-drawn
+  underline); the photo is cropped BELOW the baked-in headline so the text is not duplicated.
+  No paper grain on this section (the photo has its own paper texture; the photo's paper color
+  equals --sand) + 12% fade on all four photo edges so it melts into the section — Claude.
+- Contacto: light section, centered, WhatsApp primary CTA with the hand-drawn arrow, email link
+  (D16), Instagram pill; no form (D16) — Claude.
+- Final section rhythm: light (hero) → sand → dark → light (servicios) → dark (equipo) →
+  sand (manifiesto) → light (contacto) → dark (footer) — no two equal bands touch — Claude.
+
+==========================================================================================
+3. STRUCTURE — files/folders created or modified
+==========================================================================================
+Created
+  src/components/sections/Servicios.tsx
+  src/components/sections/Equipo.tsx
+  src/components/sections/Manifiesto.tsx
+  src/components/sections/Contacto.tsx
+  public/images/manifiesto-ctrl-n.jpg        1060x590, 139 KB
+  docs/IDEAS.txt                             future alternatives (I-01 servicios option c)
+  docs/phase-4-sections-part-2.txt           this file
+Modified
+  src/content/home.ts                        + servicios, equipo, manifiesto, contacto (typed)
+  src/app/(site)/page.tsx                    all 7 sections, placeholders removed
+  tools/photos.py                            + manifiesto-ctrl-n.jpg crop
+  CLAUDE.md                                  + D24 (Vercel URL), D25 (servicios pattern, idea I-01)
+  docs/README.txt                            index
+
+==========================================================================================
+4. SECTIONS / COMPONENTS
+==========================================================================================
+Servicios — #servicios (theme light) — aria-labelledby "servicios-title"
+  Top: grid (1 col → 12 cols ≥1024px): SectionHeading (eyebrow "Qué ofrecemos", h2
+  "5 pilares de servicio", lead "Cada uno alimenta al siguiente.") | <nav aria-label="Pilares
+  de servicio"> ordered index: number (Bodoni, accent) + title + short tagline (italic, right-
+  aligned from 640px), hairlines between rows, links to #servicio-01 … #servicio-05.
+  Blocks: <ol>, each <li id="servicio-0N" aria-labelledby>, hairline on top, padding 48px →
+  80px. Left (4/12): big Bodoni number clamp(72px → 136px), sticky under the header on desktop.
+  Right (8/12): h3 title (Bodoni clamp 30 → 44px, with visually hidden "Servicio 0N:"), long
+  tagline (Bodoni italic 21px, accent), description (ink-soft, max 40rem), "INCLUYE" eyebrow +
+  outlined pill chips (14px), Entregable box (theme-dark, rounded-card, eyebrow + text; stacked
+  on mobile, inline from 640px).
+Equipo — #equipo (theme dark) — aria-labelledby "equipo-title"
+  SectionHeading (eyebrow "Equipo", h2, lead). <ul> 1 → 3 columns (≥768px) of cards
+  (hairline border, rounded-card): 64px ivory initials avatar (Bodoni, aria-hidden), h3 name
+  (Poppins 600), role (11px uppercase tracked), summary (Bodoni italic 19px), bio (15px).
+  Band: hairline box with Sparkle + "Eventos & Patrocinios:" + text.
+  Clients: hairline above; "HAN CONFIADO EN NOSOTROS" eyebrow + names in Bodoni
+  (24 → 34px) separated by an accent "·" (aria-hidden).
+Manifiesto — no anchor (theme sand) — aria-labelledby "manifiesto-title"
+  Grid 1 col → 6/6 (≥1024px). h2 in the Ctrl+N pattern: 2 bold burgundy lines (Poppins 600),
+  "Misma pasión por" / "hacer crecer tu negocio." (Poppins 400, "hacer crecer" with
+  HandUnderline; one line on desktop, wraps with extra leading on mobile). Sparkle accent.
+  Image: next/image, lazy, sizes "(min-width:1024px) 48vw, 100vw", CSS mask fading all edges.
+Contacto — #contacto (theme light + window shadow from the left) — aria-labelledby
+  Narrow centered container: eyebrow "Empecemos", h2 Bodoni clamp(40 → 72px) "Entendamos tu
+  negocio primero." ("primero." italic burgundy + HandUnderline), lead, WhatsApp primary CTA
+  (lg) with HandArrow pointing at it (≥768px), "o escríbenos a r.rengel99@gmail.com"
+  (mailto, underlined), InstagramPill.
+
+==========================================================================================
+5. STYLES
+==========================================================================================
+No new tokens. New patterns: chip (rounded-full, 1px --line, 14px, px 16 / py 6); sticky
+number (lg:sticky top = header + 40px); photo edge-fade mask (mask-image two linear gradients,
+mask-composite intersect / -webkit source-in).
+Breakpoints: sm 640 (index taglines inline, entregable inline, clients inline), md 768 (team 3
+columns, contact arrow), lg 1024 (servicios/manifesto two-column layouts, sticky numbers).
+Motion: none added (Phase 5); hover color on index links and contact email.
+
+==========================================================================================
+6. CONTENT — copy used and its source
+==========================================================================================
+Servicios
+  "Qué ofrecemos" / "5 pilares de servicio"          portfolio slide 05
+  "Cada uno alimenta al siguiente."                  internal PDF p5 subtitle (D21)
+  titles, short taglines                             portfolio slide 05 (verbatim)
+  long taglines, INCLUYE items, ENTREGABLE texts     portfolio slides 06–10 (verbatim; chip
+                                                     order as in the rendered slides)
+  descriptions                                       internal PDF p5 (D21), rewritten in tú:
+    01 "Punto de partida: diagnóstico del modelo de negocio (cómo gana dinero, público,
+       diferenciales, cuellos de botella) + estrategia y concepto de marca…" → "Diagnosticamos
+       tu modelo de negocio — cómo gana dinero, tu público, tus diferenciales y tus cuellos de
+       botella — y definimos una estrategia y un concepto de marca alineados a ese entendimiento."
+    02 kept; "del Pilar 1" → "del pilar 01"
+    03 removed internal names "(Pantoja)" / "(René)"; "la empresa ya tiene pero no sabe
+       aprovechar" → "que ya tienes pero no aprovechas"
+    04 removed "Demuestra en números que el Pilar 1 funcionó." (the Entregable says it)
+    05 "línea complementaria que refuerza marca y comunidad" → "…refuerza tu marca y tu comunidad"
+Equipo
+  title, lead                                        portfolio slide 04 ("trabajás" → "trabajas",
+                                                     title gets a final period)
+  names, roles, summaries                            portfolio slide 04; "Estratega digita" →
+                                                     "Estratega digital" (D10); Rene Rengel and
+                                                     role "Herramientas digitales" (D14)
+  bios                                               internal PDF p4 (D21), lightly edited:
+    Pantoja: "Lidera el diagnóstico de negocio y la estrategia de marca, y coordina el proyecto
+      completo. Ex Directora de Marketing de Technogym."
+    Vidaurre: verbatim. Rengel: "del servicio de" → "de"; "herramientas ya existentes" →
+      "herramientas existentes".
+  Eventos & Patrocinios band                         portfolio slide 04 (internal "por ahora" /
+                                                     "se incorporará un especialista" NOT used, §5)
+  "Han confiado en nosotros: Fair Play Élite · VIDA" D13
+Manifiesto                                           IMG-0 post text (D22), verbatim
+Contacto
+  "Empecemos" / "Entendamos tu negocio primero." / lead   portfolio slide 11 ("querés" →
+                                                     "quieres")
+  "Escríbenos por WhatsApp", "o escríbenos a"        functional labels (tú)
+Confidentiality check (§5): no revenue splits, Nivel 1/2, fees, exchange-rate argument,
+"clientes locales", roadmap, "está por cerrar", "Elaborado por", "Documento interno",
+"por ahora", "todóloga" or "argumento de venta" anywhere in src/.
+
+==========================================================================================
+7. ASSETS
+==========================================================================================
+  public/images/manifiesto-ctrl-n.jpg — tools/photos.py: IMG-0 ("WhatsApp Image 2026-10-07 at
+  7.21.04 PM.jpeg", 1254x1254) box 120,580 → 1180,1170 = 1060x590 (keycaps, brush smear,
+  asterisk, arrow, energy lines, handwritten "Creando nuevas estrategias."); below the baked-in
+  headline and its underline. JPEG q92 progressive. Alt: "Teclas Ctrl y N sobre papel kraft, con
+  la anotación a mano «Creando nuevas estrategias.»"
+  Decorative SVG used: Sparkle (equipo band, manifesto), HandUnderline (manifesto, contacto),
+  HandArrow (contacto), WindowShadow (contacto, left).
+
+==========================================================================================
+8. HOW TO RUN / TEST
+==========================================================================================
+  npm run dev → http://localhost:3000
+  npm run lint → passes · npm run build → passes (all routes static)
+  Headless Chrome (production build), full-page captures at 360 / 768 / 1024 / 1440 px after
+  scrolling through the page: all images loaded, no horizontal overflow, sections reviewed.
+  (Note: a capture without scrolling shows lazy images as blank — not a site bug.)
+  Phase 2 behavior test re-run with the full page: all 24 checks pass (anchor offsets,
+  active section incl. "Contacto" at the bottom, mobile menu, WhatsApp button, reduced motion).
+
+==========================================================================================
+9. PENDING / OPEN QUESTIONS / PLACEHOLDERS
+==========================================================================================
+  - No [PENDIENTE] placeholders left on the page.
+  - Team photos: initials avatars until the user sends photos (D14).
+  - Future idea I-01 (servicios option c) — docs/IDEAS.txt.
+  - SECURITY NOTE (raised to the user 2026-10-13): the GitHub repo is public and contains the
+    internal PDF (brand-assets/) and docs/CLAUDE.md that list confidential items. Recommended:
+    make the repo private. The website itself does not serve these files.
+  - Next: Phase 5 (scroll reveals, hover/focus polish, 360/768/1024/1440 audit, contrast,
+    keyboard, Lighthouse a11y ≥ 95), Phase 6 (SEO, OG image, sitemap, JSON-LD with D24 URL,
+    /styleguide handling, Vercel checklist).
+
+==========================================================================================
+10. CHANGELOG
+==========================================================================================
+- 2026-10-13 Recorded D24 (Vercel URL) and D25 (servicios pattern); created docs/IDEAS.txt (I-01).
+- 2026-10-13 Cropped the Ctrl+N keycaps photo (tools/photos.py).
+- 2026-10-13 Added Phase 4 copy to src/content/home.ts (tú, sources annotated).
+- 2026-10-13 Built Servicios (index + stacked blocks), Equipo (cards, band, clients),
+  Manifiesto, Contacto; page now renders all 7 sections.
+- 2026-10-13 Visual fixes after review: manifesto headline width/nowrap, photo edge fade + no
+  grain, mobile leading under the swoosh, sparkle instead of "+", right-aligned index taglines.
+- 2026-10-13 npm run lint + npm run build pass; behavior regression test passes.

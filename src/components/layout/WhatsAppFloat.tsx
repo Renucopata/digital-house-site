@@ -19,7 +19,9 @@ export function WhatsAppFloat() {
         "bg-burgundy text-cream ring-2 ring-cream/80",
         "shadow-[0_6px_20px_-6px_rgb(72_31_30/0.45)]",
         "transition-[transform,background-color] duration-300 ease-soft hover:-translate-y-0.5 hover:bg-burgundy-deep",
-        "focus-visible:outline-burgundy motion-reduce:hover:translate-y-0",
+        // double ring (cream + burgundy) so the focus state is visible on light and dark sections
+        "focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_var(--cream),0_0_0_5px_var(--burgundy)]",
+        "motion-reduce:hover:translate-y-0",
         "right-[calc(var(--wa-offset)+env(safe-area-inset-right))] bottom-[calc(var(--wa-offset)+env(safe-area-inset-bottom))]",
       ].join(" ")}
     >

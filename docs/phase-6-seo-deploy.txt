@@ -1,0 +1,158 @@
+PHASE 6 — SEO, PERFORMANCE & VERCEL DEPLOY
+Date: 2026-10-13   Status: completed
+
+==========================================================================================
+1. GOAL
+==========================================================================================
+Metadata, Open Graph image (brand-styled), sitemap.xml, robots.txt, JSON-LD (Organization /
+ProfessionalService with the confirmed contact data), image optimization, Lighthouse performance
+≥ 90, README with run/deploy steps, Vercel checklist (PLAN.md Phase 6).
+
+==========================================================================================
+2. DECISIONS (with who confirmed them)
+==========================================================================================
+- Start Phase 6 — user, 2026-10-13.
+- Production URL = D24 (https://digital-house-site-indol.vercel.app), kept in ONE place:
+  `site.url` in src/content/site.ts → metadataBase, canonical, Open Graph, sitemap, robots, JSON-LD
+  — user (D24); single-constant approach — Claude.
+- Share image = static PNG built from the approved cream wordmark (never re-typeset, D8/D20) on
+  --burgundy-deep + the public positioning line as a tracked Poppins label. Same file for X/Twitter
+  — Claude.
+- JSON-LD type ProfessionalService (+ WebSite) with ONLY confirmed public data: name, URL, logo,
+  description (CLAUDE.md §1 lines), email (D7), phone (D6), Instagram (D11), language "es".
+  No address, area served, prices, founders or ratings (not provided — not invented) — Claude.
+- /styleguide stays deployed (useful for design review) with noindex,nofollow, left out of the
+  sitemap and NOT blocked in robots.txt (a crawler must fetch it to see the noindex) — Claude.
+  Tell Claude if it should be removed from production instead.
+- Window/leaf shadow: pre-rendered image used as a CSS mask (see §5) instead of a live CSS-blurred
+  SVG — Claude. Paper grain kept as the inline SVG (see §9: an image version was tried and dropped).
+- No new dependencies; Lighthouse run through npx only (not a project dependency) — Claude.
+
+==========================================================================================
+3. STRUCTURE — files/folders created or modified
+==========================================================================================
+Created
+  src/app/opengraph-image.png (+ .alt.txt)   1200x630 share image (Next.js file convention)
+  src/app/twitter-image.png (+ .alt.txt)     same picture for X/Twitter cards
+  src/app/sitemap.ts                         /sitemap.xml (home only)
+  src/app/robots.ts                          /robots.txt (allow all, sitemap + host)
+  src/components/layout/StructuredData.tsx   JSON-LD <script> (ProfessionalService + WebSite)
+  public/textures/window-shadow.webp         pre-rendered blurred gobo shadow, 300x200, 8.5 KB
+  tools/og.py                                builds the share images
+  tools/textures.mjs                         renders window-shadow.webp with headless Chrome
+  README.md                                  run / structure / deploy / custom-domain steps
+  docs/phase-6-seo-deploy.txt                this file
+Modified
+  src/content/site.ts                        + url (D24)
+  src/app/layout.tsx                         metadataBase, canonical, openGraph, twitter metadata
+  src/app/(site)/page.tsx                    renders <StructuredData/>
+  src/components/layout/WindowShadow.tsx     SVG + blur filter → masked div using the webp
+  tools/README.txt, docs/README.txt
+
+==========================================================================================
+4. SECTIONS / COMPONENTS
+==========================================================================================
+StructuredData (server component, rendered once on the home page): one JSON-LD @graph with
+  ProfessionalService "#organizacion" (name, url, description, logo = /brand/logo-monogram-cream.png,
+  image = /opengraph-image.png, email, telephone +59165999740, sameAs Instagram, ContactPoint
+  customer service, language es) and WebSite "#sitio" (inLanguage es, publisher → organization).
+  "<" is escaped in the JSON.
+WindowShadow (same props as before: side, className): absolutely positioned div, background =
+  var(--texture-ink) of the section theme, mask-image window-shadow.webp (cover, centered),
+  opacity 0.07, mirrored with -scale-x-100 for side="left". Visual result unchanged (checked on
+  screenshots, also with boosted contrast).
+
+==========================================================================================
+5. STYLES
+==========================================================================================
+No token, font, spacing or motion changes.
+Window shadow: was an inline SVG with a 12px CSS blur filter re-painted on every frame that touched
+  the hero/contact sections; now the blur is baked into a 300x200 WebP (alpha = shape) used as a
+  mask over --texture-ink. Using it as a mask (not a background image) keeps the theme color and
+  prevents Chrome from picking the shadow as the page's Largest Contentful Paint element (it did,
+  as a background image, during this phase).
+
+==========================================================================================
+6. CONTENT — copy used and its source
+==========================================================================================
+Meta title "DigitalHouse Growth Studio" (D2); template "%s · DigitalHouse Growth Studio".
+Meta / OG / Twitter description: "No vendemos estética. Vendemos crecimiento. Entendemos tu negocio
+  primero. Todo lo demás — marca, contenido, sistema — nace de ahí." (CLAUDE.md §1).
+Share image text: wordmark image + "NO VENDEMOS ESTÉTICA. VENDEMOS CRECIMIENTO." (CLAUDE.md §1).
+Share image alt: "DigitalHouse Growth Studio — No vendemos estética. Vendemos crecimiento."
+JSON-LD: contact data from src/content/contact.ts (D6, D7, D11). No new copy on the page.
+Confidentiality scan of the rendered HTML against the §5 list: no confidential item present
+  (the matches "credibilidad" / "alcance" are ordinary words in approved copy; "10-15" is SVG
+  path data).
+
+==========================================================================================
+7. ASSETS
+==========================================================================================
+opengraph-image.png / twitter-image.png — tools/og.py: 1200x630, flat #51020C, the approved
+  public/brand/logo-wordmark-cream.png pasted at native size (636x209, no scaling), 56px ivory
+  hairline, tagline in Poppins Regular 19px with 0.35em tracking, ivory #F3EBE0. 38 KB.
+window-shadow.webp — tools/textures.mjs: the Phase 2 WindowShadow artwork (viewBox 1200x800) with
+  the same 12px blur, rendered by headless Chrome on a transparent background at 0.25 scale,
+  WebP q70. 8.5 KB.
+
+==========================================================================================
+8. HOW TO RUN / TEST
+==========================================================================================
+  npm run lint → passes · npm run build → passes (routes: /, /styleguide, /robots.txt,
+  /sitemap.xml, /opengraph-image.png, /twitter-image.png, /icon.png, /apple-icon.png)
+Checked on the production build (localhost):
+  /robots.txt → "User-Agent: * / Allow: /", Host + Sitemap with the D24 URL.
+  /sitemap.xml → one <url>: https://digital-house-site-indol.vercel.app/
+  <head> → canonical, og:title/description/url/site_name/type, og:image (+ width 1200, height 630,
+    alt, type), twitter:card summary_large_image + image; JSON-LD present and valid JSON.
+  /styleguide → <meta name="robots" content="noindex, nofollow">.
+  Screenshots 1440 / 768: no horizontal overflow, all images load, window shadow unchanged.
+Lighthouse 13.5.0 (npx), localhost production build, 5 runs each, medians:
+  Mobile (default settings):  Performance 92 (runs 90–93) · Accessibility 100 · Best Practices 100
+                              · SEO 100 — LCP 3.2 s, TBT 114 ms, FCP 1.0 s, CLS 0
+  Desktop:                    Performance 100 · Accessibility 100 · Best Practices 100 · SEO 100
+                              — LCP 0.7 s, TBT 5 ms, FCP 0.3 s
+  (machine benchmarkIndex 1220–1840 during these runs)
+Caveat: earlier runs in this phase were made while the laptop was heavily loaded by other programs
+  (benchmarkIndex ≈ 585, Lighthouse warned "slower CPU than Lighthouse expects") and scored 74–79.
+  Local scores depend on machine load — after deploying, confirm with https://pagespeed.web.dev.
+
+==========================================================================================
+9. PENDING / OPEN QUESTIONS / PLACEHOLDERS
+==========================================================================================
+VERCEL CHECKLIST
+  [x] Repo imported; preset Next.js; root directory ./ (repo root); default commands; no env vars.
+  [x] Production URL recorded (D24) and used for SEO.
+  [ ] Commit + push Phases 4–6 (the live site still shows the "First design" commit).
+  [ ] Make the GitHub repo Private: it contains brand-assets/ (incl. the internal business-model
+      PDF), CLAUDE.md and docs/ that list the confidential items. Strongly recommended before
+      or right after the push.
+  [ ] Vercel plan: a commercial site needs Pro (Hobby is non-commercial only) — owner decision.
+  [ ] After deploy: open /robots.txt, /sitemap.xml; test the share preview (e.g. send the link
+      in WhatsApp); run PageSpeed Insights (mobile + desktop).
+  [ ] Optional: Google Search Console → add the property and submit /sitemap.xml.
+  [ ] When a domain is bought (D11): add it in Vercel → Domains, change `url` in
+      src/content/site.ts, push.
+Performance notes
+  - LCP element on mobile = the hero lead paragraph; the simulated LCP includes the bytes requested
+    before first paint (fonts ≈ 130 KB, framework JS ≈ 150 KB). Traces taken under heavy machine
+    load were too noisy (1.0–2.3 s layout for the same build) to attribute smaller effects.
+  - Tried and dropped: paper grain as a pre-rendered PNG (29 KB request that delayed the simulated
+    LCP; the inline SVG costs no request); the window shadow as a background image (became the
+    LCP element).
+  - Not changed (would alter the approved look or add risk): Bodoni Moda optical-size axis
+    (largest font files, 53 + 45 KB), React/Next.js framework JavaScript (≈ 150 KB; only two small
+    client components exist: Header, RevealObserver).
+Still open from earlier phases: real team photos, more brand assets (D22) when available.
+
+==========================================================================================
+10. CHANGELOG
+==========================================================================================
+- 2026-10-13 site.url (D24); metadataBase, canonical, Open Graph and Twitter metadata.
+- 2026-10-13 Share image (tools/og.py) via the opengraph-image / twitter-image file conventions.
+- 2026-10-13 sitemap.ts, robots.ts; JSON-LD (ProfessionalService + WebSite).
+- 2026-10-13 Window shadow pre-rendered (tools/textures.mjs) and used as a CSS mask; grain image
+  experiment reverted to the inline SVG.
+- 2026-10-13 Performance investigation (Lighthouse ×5 runs, Chrome traces); README.md;
+  tools/README.txt updated.
+- 2026-10-13 npm run lint + npm run build pass.

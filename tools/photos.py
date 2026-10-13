@@ -1,8 +1,10 @@
 """Phase 3+: crops of the approved brand photos (D22) into public/images/.
 Usage: python -I photos.py <brand-assets dir> <public/images dir>
 
-hero-camara-dh.jpg  IMG-2 (Sony camera story, 900x1600) cropped below the baked-in
-                    "SÍGUENOS EN" pill: box 0,400 → 900,1600 = 900x1200 (3:4).
+hero-camara-dh.jpg     IMG-2 (Sony camera story, 900x1600) cropped below the baked-in
+                       "SÍGUENOS EN" pill: box 0,400 → 900,1600 = 900x1200 (3:4). Phase 3.
+manifiesto-ctrl-n.jpg  IMG-0 ("Ctrl + N" post, 1254x1254) cropped below the baked-in headline:
+                       box 120,580 → 1180,1170 = 1060x590. Phase 4.
 JPEG re-encoded once at high quality; next/image serves WebP/AVIF from it.
 """
 import sys, os
@@ -14,6 +16,9 @@ base = "WhatsApp Image 2026-10-07 at 7.21.04 PM"
 
 crops = {
     "hero-camara-dh.jpg": (f"{base} (2).jpeg", (0, 400, 900, 1600)),
+    # IMG-0 "Ctrl + N" post: keycaps, brush smear, asterisk, arrow and the handwritten
+    # "Creando nuevas estrategias." — below the baked-in headline (set as HTML text instead).
+    "manifiesto-ctrl-n.jpg": (f"{base}.jpeg", (120, 580, 1180, 1170)),
 }
 for name, (file, box) in crops.items():
     im = Image.open(os.path.join(src, file)).convert("RGB").crop(box)

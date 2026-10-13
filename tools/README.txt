@@ -22,6 +22,12 @@ icons.py        2      favicon.ico (16/32/48), icon.png (512), apple-icon.png   
                        (180) from public/brand/logo-monogram-cream.png
 photos.py       3      Crops of the approved brand photos (D22) into             photos.py brand-assets public/images
                        public/images/ (hero-camara-dh.jpg = IMG-2, camera only)
+og.py           6      Share image 1200x630: cream wordmark on burgundy-deep +   og.py public/brand <Poppins-Regular.ttf>
+                       tracked tagline → src/app/opengraph-image.png and          src/app
+                       twitter-image.png (Poppins .ttf from github.com/google/fonts, ofl/poppins)
+textures.mjs    6      (Node 22, no deps) Pre-renders the blurred window/leaf     node tools/textures.mjs <chrome.exe>
+                       shadow with headless Chrome → public/textures/             public/textures
+                       window-shadow.webp (300x200, used as a CSS mask)
 
 Crop boxes and colors are hard-coded from the Phase 0 measurements (docs/phase-0-discovery.txt);
 re-check them if a source image changes. Output folders tools/.out, tools/.fonts and tools/.venv

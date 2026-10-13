@@ -1,46 +1,28 @@
-import { Container } from "@/components/layout/Container";
-import { Section, type SectionTheme } from "@/components/layout/Section";
+import { StructuredData } from "@/components/layout/StructuredData";
 import { ComoTrabajamos } from "@/components/sections/ComoTrabajamos";
+import { Contacto } from "@/components/sections/Contacto";
+import { Equipo } from "@/components/sections/Equipo";
 import { Hero } from "@/components/sections/Hero";
+import { Manifiesto } from "@/components/sections/Manifiesto";
 import { QuienesSomos } from "@/components/sections/QuienesSomos";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { navItems } from "@/content/navigation";
+import { Servicios } from "@/components/sections/Servicios";
 
 /*
- * Phase 4 sections are still empty anchor targets (navigation keeps working).
- * Themes alternate after the dark #como-trabajamos; final themes are chosen in Phase 4.
+ * Single landing page (D3). Section rhythm:
+ * light (hero) → sand → dark → light (servicios) → dark (equipo) → sand (manifiesto) →
+ * light (contacto) → dark footer.
  */
-const pendingSections: Record<string, SectionTheme> = {
-  servicios: "light",
-  equipo: "sand",
-  contacto: "light",
-};
-
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <Hero />
       <QuienesSomos />
       <ComoTrabajamos />
-
-      {navItems
-        .filter((item) => item.id in pendingSections)
-        .map((item) => (
-          <Section
-            key={item.id}
-            id={item.id}
-            theme={pendingSections[item.id]}
-            aria-labelledby={`${item.id}-title`}
-            className="min-h-[60vh]"
-          >
-            <Container className="flex flex-col gap-4">
-              <Eyebrow>{item.label}</Eyebrow>
-              <h2 id={`${item.id}-title`} className="font-serif text-h2 text-fg">
-                [PENDIENTE: {item.label} — Fase 4]
-              </h2>
-            </Container>
-          </Section>
-        ))}
+      <Servicios />
+      <Equipo />
+      <Manifiesto />
+      <Contacto />
     </>
   );
 }

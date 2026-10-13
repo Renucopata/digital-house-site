@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { reveal } from "@/lib/reveal";
 import { Eyebrow } from "./Eyebrow";
 
 type SectionHeadingProps = {
@@ -14,6 +15,8 @@ type SectionHeadingProps = {
   font?: "serif" | "sans";
   size?: "display" | "h1" | "h2" | "h3";
   align?: "left" | "center";
+  /** Scroll-reveal (default true). */
+  animate?: boolean;
   className?: string;
 };
 
@@ -37,10 +40,13 @@ export function SectionHeading({
   font = "serif",
   size = "h2",
   align = "left",
+  animate = true,
   className,
 }: SectionHeadingProps) {
   return (
-    <header className={cn("flex flex-col gap-5", align === "center" && "items-center text-center", className)}>
+    <header
+      {...(animate ? reveal() : {})}
+      className={cn("flex flex-col gap-5", align === "center" && "items-center text-center", className)}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       <Tag
         id={titleId}

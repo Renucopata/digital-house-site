@@ -1,0 +1,27 @@
+IDEAS & ALTERNATIVES — kept for the future (not scheduled)
+Each entry: date · who · context · what · how it could be built · status.
+
+------------------------------------------------------------------------------------------
+I-01  Servicios as summary cards + expandable details ("option c")
+------------------------------------------------------------------------------------------
+Date: 2026-10-13 · Requested by: user · Context: Phase 4 pattern choice (CLAUDE.md D25)
+Status: NOT built. Phase 4 ships option (a) "stacked blocks". The user likes this
+alternative and may want to try it later.
+
+What
+  The five pillars appear as a grid of compact summary cards (number 01–05, title, short
+  tagline such as "El punto de partida."). Clicking/tapping a card expands its details:
+  long tagline, description, "Incluye" chips and the "Entregable" box.
+
+How it could be built (notes for whoever picks it up)
+  - Same content source as today: `servicios.pillars` in src/content/home.ts — no copy changes.
+  - Desktop: 5-column (or 3 + 2) card grid; the selected card gets the dark theme and its
+    details open in a full-width panel below the grid (one open at a time).
+    Mobile: stacked cards, each expanding in place (accordion behavior).
+  - Accessibility: each card header is a <button aria-expanded aria-controls>; the panel is a
+    region labelled by the card title; keyboard + focus visible; deep links (#servicio-03)
+    should open the matching card.
+  - Motion: height/opacity transition 400–500ms ease-soft, disabled with reduced motion.
+  - Keep the current stacked component (src/components/sections/Servicios.tsx) so both can be
+    compared (e.g. behind a prop or on a preview branch deployed by Vercel).
+  Estimated effort: one small phase (component + tests + doc).

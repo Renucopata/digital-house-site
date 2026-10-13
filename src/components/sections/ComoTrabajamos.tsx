@@ -6,6 +6,7 @@ import { WhatsAppIcon } from "@/components/ui/icons";
 import { contact } from "@/content/contact";
 import { comoTrabajamos } from "@/content/home";
 import { cn } from "@/lib/cn";
+import { reveal } from "@/lib/reveal";
 
 /**
  * #como-trabajamos — the 5-step process. Vertical timeline on mobile, horizontal from 1024px.
@@ -27,7 +28,7 @@ export function ComoTrabajamos() {
           <span aria-hidden="true" className="absolute top-7 right-[10%] left-[10%] hidden h-px bg-line lg:block" />
 
           {comoTrabajamos.steps.map((step, index) => (
-            <li key={step.title} className="relative flex gap-6 lg:flex-col lg:items-center lg:gap-6 lg:text-center">
+            <li key={step.title} {...reveal(index, 110)} className="relative flex gap-6 lg:flex-col lg:items-center lg:gap-6 lg:text-center">
               <span
                 aria-hidden="true"
                 className={cn(
@@ -50,7 +51,7 @@ export function ComoTrabajamos() {
           ))}
         </ol>
 
-        <div className="flex justify-start lg:justify-center">
+        <div {...reveal()} className="flex justify-start lg:justify-center">
           <Button
             href={contact.whatsappUrl}
             external
