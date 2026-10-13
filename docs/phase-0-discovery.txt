@@ -1,0 +1,363 @@
+PHASE 0 — DISCOVERY & CONFIRMATION
+Date: 2026-10-13   Status: completed (all questions answered by the user)
+
+==========================================================================================
+1. GOAL
+==========================================================================================
+Inventory the source material, read both PDFs, measure the brand palette from the images
+with a script, compare the logo lettering with font candidates, separate PUBLIC from
+INTERNAL content, plan the logo extraction, and collect the questions that block Phase 1.
+No app code was written. No source file was moved, renamed or modified.
+
+==========================================================================================
+2. DECISIONS (with who confirmed them)
+==========================================================================================
+Already confirmed by the user (CLAUDE.md §1.1, 2026-10-13) — not re-asked:
+  D1 identity A only (cream + burgundy; no light blue / yellow) · D2 name "DigitalHouse Growth
+  Studio" · D3 single landing page with anchors · D4 Spanish only, voseo rewritten · D5 business
+  model PDF = context only · D6 WhatsApp +591 65999740, floating button always visible ·
+  D7 r.rengel99@gmail.com · D8 logo = crops of the provided images · D9 Vercel · D10 typo fixes.
+
+Findings in this phase that support those decisions (no new decisions taken):
+  - Both PDFs contain NO raster images (only text/vector shapes) → nothing visual to reuse from
+    them; they are content sources only, which matches D1.
+  - The portfolio deck (Canva export) uses Bookmania Bold / Cambria Italic / Arial with light
+    blue (#C4D4DE-ish) and pale yellow pills → identity B, to be ignored (D1).
+  - The business-model PDF (WeasyPrint) uses Poppins + a script face → identity B, ignored.
+
+Answers from the user (2026-10-13, chat after the Phase 0 summary):
+  P1  Domain not registered → use the Vercel-provided domain (*.vercel.app) for now.
+  P2  Spanish form = TÚ (all voseo rewritten to tú).
+  P3  Client names CAN be shown; spelling "Fair Play Élite".
+  P4  René's full name = "Rene Rengel" (accent: see Q-B). Photos later; for now initials avatars.
+  P5  No official font files. Approved: Bodoni Moda (display serif) + Poppins (sans).
+  P6  Tailwind CSS = yes. Contact form = NO. Contact is via the WhatsApp button.
+  P7  Pre-filled WhatsApp message = yes, along the lines of "Quiero más información".
+  N1  brand-assets/ stays as-is (reference only); CLAUDE.md §3 layout does not apply.
+  N3  René's public title: "Herramientas digitales" (see Q-C for the rest of N3).
+  N4  Palette in §5.3 approved.
+  N5  Official logos = the cream-on-burgundy wordmark lockup (IMG-5) and the "dH" monogram
+      (IMG-3). No vector files yet.
+  N6  No more assets for now; more will come later.
+
+==========================================================================================
+3. STRUCTURE — files/folders created or modified
+==========================================================================================
+Created:
+  docs/phase-0-discovery.txt   this document
+  docs/README.txt              index of phase documents
+Not modified: CLAUDE.md, PLAN.md, everything in brand-assets/.
+
+Analysis scripts (kept OUTSIDE the repo, in the session scratchpad; can be added to the repo
+under e.g. tools/ if the user wants them — ask):
+  analyze.py     inventory + k-means palette + logo ink/background measurements
+  render_pdf.py  PDF page rendering + embedded font/image listing (PyMuPDF)
+  fontcmp.py     logo-vs-font shape comparison (IoU + width ratio + overlay sheets)
+  Tooling: Python 3.14 venv with Pillow 12.3, NumPy 2.5, PyMuPDF 1.28 (scratchpad only, not a
+  project dependency). Candidate fonts downloaded from github.com/google/fonts (scratchpad only).
+
+==========================================================================================
+4. SECTIONS / COMPONENTS
+==========================================================================================
+None built (Phase 0). Planned section list is in PLAN.md (Phases 3–4); content for each one is
+mapped in §6 below.
+
+==========================================================================================
+5. STYLES — measured palette, contrast, typography
+==========================================================================================
+5.1 ASSET INVENTORY (brand-assets/, flat folder — NOT pdf/ + images/ as CLAUDE.md §3 expects)
+
+  ID  File                                              Size (px)   Bytes    Content
+  --  ------------------------------------------------  ----------  -------  -----------------------------
+  IMG-0  WhatsApp Image 2026-10-07 at 7.21.04 PM.jpeg     1254x1254   199 KB   "Ctrl + N" post: kraft paper,
+                                                                              headline "Nuevas ideas. / Más
+                                                                              estrategia. / Misma pasión por
+                                                                              hacer crecer tu negocio.", keycaps
+                                                                              photo, hand-drawn sparkle, asterisk,
+                                                                              arrow, "Creando nuevas estrategias."
+  IMG-1  ... PM (1).jpeg                                   736x1600    104 KB   PHONE SCREENSHOT of an IG story:
+                                                                              laptop on sneakers with wordmark on
+                                                                              screen + "SÍGUENOS EN" pill. Includes
+                                                                              iPhone status bar, IG UI, a personal
+                                                                              profile photo, "Tu historia 9 h" and
+                                                                              a "Hoy abrimos las puertas" sticker
+                                                                              over the image. NOT usable as-is.
+  IMG-2  ... PM (2).jpeg                                   900x1600    156 KB   Clean IG story: Sony DSC-T100 with
+                                                                              "dH GROWTH STUDIO" on screen, "SÍGUENOS
+                                                                              EN" + IG pill @digitalhouse.gs,
+                                                                              window-leaf shadow on beige wall.
+  IMG-3  ... PM (3).jpeg                                  1254x1254     37 KB   "dH" monogram, burgundy on near-white
+                                                                              cream. (no "GROWTH STUDIO" under it)
+  IMG-4  ... PM (4).jpeg                                  1024x1536     37 KB   Wordmark burgundy on cream
+                                                                              ("digital HOUSE" + "GROWTH STUDIO").
+  IMG-5  ... PM (5).jpeg                                  1024x1536     33 KB   Wordmark cream on burgundy.
+  PDF-I  Digital_House_Modelo_de_Negocio.pdf               8 pages A4  42 KB    INTERNAL (header "DOCUMENTO INTERNO").
+  PDF-P  DigitalHouse_Portafolio_Servicios.pptx.pdf       11 slides   704 KB   PUBLIC portfolio (Canva, 16:9).
+  All images: JPEG, RGB, no EXIF, WhatsApp-recompressed (visible JPEG artifacts at edges).
+
+5.2 MEASURED COLORS (script: median of solid pixels / backgrounds; JPEG noise ≈ ±2–3 per channel)
+
+  Source                                    Measured   Notes
+  ----------------------------------------  ---------  -----------------------------------------
+  Monogram ink (IMG-3)                      #680811    brighter burgundy
+  "Nuevas ideas" headline (IMG-0)           #65020C    same family as monogram
+  Handwriting "Creando…" (IMG-0)            #6C0612    same family
+  Wordmark ink (IMG-4)                      #52040C    DEEPER burgundy than the monogram
+  Wordmark background (IMG-5, dark)         #51020C    = wordmark ink of IMG-4
+  Cream ink on burgundy (IMG-5)             #F3EBE0
+  Wordmark background (IMG-4)               #F8F4E9
+  Monogram background (IMG-3)               #FEFBF3    lighter than IMG-4 bg (≠ by ~6 units)
+  Kraft paper background (IMG-0)            #EFE6DC
+  Brush smear behind keycaps (IMG-0)        #E7D8CA
+  Body ink "Misma pasión por…" (IMG-0)      #481F1E    warm dark brown
+  Camera screen background (IMG-2)          #EEE8DC    (photographed, light-affected)
+  No light blue, no yellow present in any brand image.
+
+5.3 PROPOSED TOKENS (vs CLAUDE.md §4.2 approximations) — PENDING USER APPROVAL
+
+  Token            CLAUDE.md   Proposed   Basis
+  ---------------  ---------   --------   ---------------------------------------------
+  --burgundy       #6A0A14     #670812    monogram + headline + handwriting (3 samples)
+  --burgundy-deep  #4E0410     #51020C    dark wordmark background (+ wordmark ink #52040C)
+  --cream          #FBF8F1     #F8F4E9    IMG-4 background → header logo blends seamlessly
+  --ivory          #F5EFE5     #F3EBE0    cream ink used on burgundy (text on dark sections)
+  --sand           #EAE1D6     #EFE6DC    kraft paper of the "Ctrl + N" post
+  (new, optional)  —           #E7D8CA    --sand-deep: brush smears / kraft accents
+  --ink            #3A1A1C     #481F1E    "Misma pasión por…" body text
+  --ink-soft       #6B5552     #6B5552    not present in images → keep CLAUDE.md value
+  --line           burgundy @ 30–60 %  unchanged
+
+  WCAG contrast (computed):
+    ink on cream 12.8 · ink on sand 11.4 · ink-soft on cream 6.3 · ink-soft on sand 5.6 ·
+    ink-soft on sand-deep 4.95 · burgundy on cream 11.8 · burgundy on sand 10.5 ·
+    ivory on burgundy-deep 13.0 · cream on burgundy-deep 14.0 · cream on burgundy 11.8
+    → every pair passes AA for normal text (lowest 4.95).
+
+  Note: the logo images have two different burgundies (monogram #680811 vs wordmark #52040C)
+  and two different creams (#FEFBF3 vs #F8F4E9). Placing IMG-3 on a #F8F4E9 section would show
+  a faint lighter box → see question N4.
+
+5.4 TYPOGRAPHY — logo lettering vs candidates (script: shape IoU after scaling to the logo's
+    box; "width" = candidate natural width ÷ logo width at equal height; 1.00 = same width)
+
+  "HOUSE" (heavy geometric sans):
+    Poppins 800  IoU 0.83 w 1.09  ← clear match (logo is tracked ~tighter)
+    Outfit 800 0.77 · Montserrat 900 0.77 · Poppins 700 0.77 · League Spartan 800 0.76 ·
+    Montserrat 800 0.75 · Lexend 800 0.72
+
+  "GROWTH STUDIO" (tracked label):
+    League Spartan 400 @0.40em 0.60 · Poppins 400 @0.35em 0.46 · Outfit 300 @0.35em 0.44 ·
+    Poppins 300 0.41 · Lexend 300 0.33 · Montserrat 400 0.32
+    (20 px tall text in a JPEG → low-confidence; Poppins 400 is visually equivalent and keeps
+    the family count down.) Tracking ≈ 0.35–0.40em confirmed.
+
+  "Más estrategia." (Ctrl+N post headline):
+    Poppins Medium/SemiBold 0.73 · Poppins 700 0.68 · League Spartan 0.63 · Lexend 0.62 ·
+    Montserrat 0.61 · Outfit 0.59  → the post copy is Poppins.
+
+  "digital" (didone serif):
+    NO close free match. The logo is a CONDENSED high-contrast didone with very tall ascenders
+    and a binocular "g"; every free candidate is 1.3–1.8x wider:
+    Prata 0.26 w1.64 · Libre Bodoni 0.25 w1.57 · Cormorant Garamond 0.25 w1.46 ·
+    Bodoni Moda 0.23 w1.63–1.67 · Playfair Display 0.21 w1.71 · Instrument Serif 0.21 w1.34 ·
+    Italiana 0.20 · Gloock 0.19 · Noto Serif Display (wdth 62) 0.18 w1.33–1.43 · Kalnia ≤0.16
+    Likely a commercial font (official files = P5). Because the logo is always an image (D8),
+    the headline serif only needs to be in the same family, not identical.
+
+  Recommendation (to approve in P5):
+    Display serif  → Bodoni Moda (true didone: vertical stress, hairlines, binocular g;
+                     opsz axis); alternative: Playfair Display. Prata scores slightly higher
+                     numerically but reads heavier/wedge-like, less like the logo.
+    Sans (all)     → Poppins: 800 strong headlines / "HOUSE"-style, 500–600 headline lines,
+                     400 body, 400 UPPERCASE @0.35em labels. One family = matches brand.
+    Handwritten    → SVG hand-drawn assets (CLAUDE.md §4.3); no font needed.
+
+5.5 VISUAL MOTIFS CONFIRMED IN THE IMAGES
+  window/leaf gobo shadows (IMG-1, IMG-2) · kraft paper grain + flecks (IMG-0) · burgundy marker
+  accents: 4-point sparkle, asterisk burst, curved arrow, double underline swoosh, 3 "energy"
+  lines (IMG-0) · IG pill: "SÍGUENOS EN" tracked label, outlined fully rounded pill, IG glyph │
+  thin divider │ @digitalhouse.gs (IMG-1, IMG-2) · headline pattern: bold burgundy lines + regular
+  ink line + swoosh under key phrase (IMG-0).
+
+==========================================================================================
+6. CONTENT — PUBLIC vs INTERNAL MAP
+==========================================================================================
+6.1 PUBLIC — portfolio PDF-P (main source). Slide → planned section:
+  S01 Cover: "DIGITAL HOUSE / Growth Studio" · "Entendemos tu negocio primero. Todo lo demás
+      nace de ahí." · "digitalhouse.studio · [Instagram] · [correo]"   → Hero / footer
+  S02 QUIÉNES SOMOS: "No vendemos estética. / Vendemos crecimiento." · "Lo digital es el motor —
+      la marca, el contenido y las herramientas son la consecuencia de entender primero cómo
+      funciona y crece cada negocio, no el punto de partida." · cards: Mentalidad de negocio /
+      no solo visual · Lo digital al centro / no como canal aparte · Equipo de especialistas /
+      no una sola persona                                              → #inicio + #quienes-somos
+  S03 CÓMO TRABAJAMOS: "Un proceso, no una improvisación" · 1 Diagnóstico "Entendemos tu negocio,
+      tu público y tus cuellos de botella." · 2 Estrategia "Definimos objetivo, ruta y concepto de
+      marca." · 3 Ejecución "El equipo especializado produce lo que el proyecto necesite." ·
+      4 Medición "Reportamos resultados de negocio, no solo vanidad." · 5 Optimización
+      "Ajustamos con datos reales, de forma continua."                → #como-trabajamos
+  S04 EL EQUIPO: "Un equipo de especialistas detrás de cada proyecto" · "Lo mostramos abierto
+      porque es lo que nos hace distintos: no trabajás [voseo] con una sola persona haciendo de
+      todo." · NP Nicole Pantoja — Consultoría de Negocio & Estrategia — "Estratega digita[l]:
+      Marketing, marca y procesos." · NV Nicole Vidaurre — Diseño & Gestión de Contenido —
+      "Identidad visual y contenido para marca." · R René — Desarrollador — "CRMs, apps y
+      herramientas a medida." · "+ Eventos & Patrocinios diseño y ejecución de eventos,
+      negociación de auspicios, a cargo del equipo estratégico."      → #equipo
+  S05 QUÉ OFRECEMOS: "5 pilares de servicio" · 01 Consultoría de Negocio & Marca "El punto de
+      partida." · 02 Gestión de Marca & Contenido "Ejecutado sobre estrategia real." ·
+      03 Procesos & Sistemas Digitales "Lo que existe, o lo que falta construir." ·
+      04 Business Intelligence "Resultados de negocio, no vanidad." · 05 Eventos & Patrocinios
+      "Activaciones con experiencia real."                             → #servicios intro
+  S06–S10 Services 01–05 — tagline / INCLUYE chips / ENTREGABLE:
+      01 "El punto de partida obligatorio de cualquier proyecto." · Diagnóstico de modelo de
+         negocio · Cuellos de botella reales · Estrategia de marca · Ruta y objetivos ·
+         "Estrategia inicial (ruta + objetivo) + primera visualización de marca, si aplica."
+      02 "Todo lo de una agencia de marketing — sobre una estrategia real." · Producción de
+         contenido · Calendario editorial · Copywriting · Dirección de arte · Pauta publicitaria ·
+         Reportes · "Plan mensual ajustable según volumen de contenido y canales — se cotiza a
+         medida."
+      03 "Con lo que ya existe, o con lo que hay que construir." · Diagnóstico de workflows ·
+         Implementación de CRM · Capacitación de equipo · Herramientas a medida · Protocolos de
+         trabajo · "Herramienta implementada y equipo capacitado, o desarrollo a medida."
+      04 "Medimos resultados de negocio real, no solo alcance." · Dashboards de KPIs · Medición de
+         ROI · Reportes ejecutivos · Recomendaciones con datos · "Complementa cualquier pilar —
+         demuestra en números que la estrategia funciona."
+      05 "Activaciones de marca con respaldo de experiencia real." · Diseño de eventos ·
+         Negociación de auspicios · Logística integral · "Con experiencia propia comprobada:
+         campeonato deportivo con auspicios conseguidos de punta a punta."   → #servicios
+      (chip order taken from the rendered slides, not the text extraction)
+  S11 EMPECEMOS: "Entendamos tu negocio primero." · "El primer paso siempre es el mismo: una
+      consultoría para entender dónde estás y a dónde querés [voseo] llegar." · contact line
+      "digitalhouse.studio · [Instagram] · [correo] · [WhatsApp]"     → #contacto
+  From the images (public, already posted): "Nuevas ideas. Más estrategia. Misma pasión por hacer
+  crecer tu negocio." · "Creando nuevas estrategias." · "SÍGUENOS EN @digitalhouse.gs" →
+  manifesto block + IG pill.
+
+  Source-text issues to fix (D10 / P2): "Estratega digita" → "Estratega digital"; voseo
+  "trabajás" (S04) and "querés" (S11) → per P2. Name variants between PDFs (portfolio wins as the
+  public source unless the user says otherwise): pillar 03 "Procesos & Sistemas Digitales"
+  (internal: "Consultoría de Procesos & …"), pillar 04 "Business Intelligence" (internal:
+  "… & Medición").
+
+6.2 INTERNAL — PDF-I (context only). Classification:
+  NEVER PUBLISH (CLAUDE.md §5): "DOCUMENTO INTERNO", "Elaborado por Nicole Pantoja"; p3 channel
+    table + 60/40 & 50/50 splits; "Nivel 1 / Nivel 2"; specialists' fixed fee; 10–15 %
+    coordination fee; p6 exchange-rate argument ("sale más barato… diferencial cambiario");
+    "Los clientes locales no son el foco"; "Fair Play Élite (España) está por cerrar"; p7 roadmap
+    (Fase 1 Credibilidad / Fase 2 Comunicación & Alcance / Fase 3 Educación, cursos y
+    masterclasses); "Próximo paso: formalizar por escrito la estructura de reparto…".
+  ALSO TREATED AS INTERNAL (not on the §5 list, but internal wording): "Eventos & Patrocinios —
+    liderado por Nicole Pantoja (por ahora) … Se incorporará un especialista dedicado a futuro";
+    "Nicole Pantoja no busca ser 'todóloga'…"; "Se comunica así de cara al cliente porque…
+    no es un riesgo, es un argumento de venta"; "René: perfil de desarrollador con proyección
+    internacional"; Fair Play Elite workflow detail.
+  GREY ZONE — not confidential per §5, but appears ONLY in the internal PDF → needs approval (N3):
+    - Credentials: Nicole Pantoja "Ex Directora de Marketing de Technogym"; Nicole Vidaurre
+      "Experiencia previa como freelancer con clientes del exterior".
+    - Longer descriptions of the 3 value cards (p2), the 5 pillars (p5) and the team bios (p4),
+      e.g. "Antes de cualquier pieza de marca o contenido, hay una consultoría que entiende cómo
+      ese negocio específico genera valor, quién es su cliente y cuáles son sus cuellos de
+      botella reales."
+    - René's title: portfolio "Desarrollador" vs internal "Ingeniería de Sistemas & Herramientas
+      Digitales".
+    - "Modelo 100% remoto" (CLAUDE.md §1 already states 100 % remote service → treated as public).
+  ALREADY PUBLIC via CLAUDE.md §1: "No vendemos estética. Vendemos crecimiento." and "Entendemos
+    tu negocio primero. Todo lo demás — marca, contenido, sistema — nace de ahí."
+  Client names: Fair Play Elite / Fair Play Élite (spelling differs inside PDF-I) and VIDA appear
+    ONLY in the internal PDF → hidden until P3 is answered.
+
+==========================================================================================
+7. ASSETS — logo extraction plan (to execute in Phase 1, after approval)
+==========================================================================================
+Ink bounding boxes measured by script (x0,y0 → x1,y1 in source pixels):
+  IMG-3 monogram "dH"           332,359 → 910,896   (578 x 537)
+  IMG-4 wordmark burgundy/cream 157,616 → 898,832   (741 x 216; "digital" 157–503,
+                                                     "HOUSE" 540–898, "GROWTH STUDIO" 382–728)
+  IMG-5 wordmark cream/burgundy 204,636 → 824,829   (620 x 193; "digital" 204–489,
+                                                     "HOUSE" 503–824, "GROWTH STUDIO" 297–683)
+Proposed crops (≈40 px clear space, background kept, no redraw/re-typesetting):
+  public/brand/logo-wordmark-burgundy.(png|webp)  IMG-4 crop 117,576 → 938,872  = 821 x 296 px
+      → max sharp display width ≈ 410 CSS px at 2x (header needs ~160–200 → OK)
+  public/brand/logo-wordmark-cream.(png|webp)     IMG-5 crop 164,596 → 864,869  = 700 x 273 px
+      → ≈ 350 CSS px at 2x (footer → OK)
+  public/brand/monogram-dh.(png|webp)             IMG-3 square crop 261,268 → 981,988 = 720 px
+      → favicon/app icons 32, 180, 192, 512 px derived from it
+Limitations: sources are WhatsApp-recompressed JPEGs (soft edges, artifacts); no vector files.
+Transparent versions possible by keying the flat background, but per CLAUDE.md §4.3 they will be
+shown to the user for approval before any use.
+Lockup inconsistency found: IMG-4 has a space ("digital HOUSE") and "GROWTH STUDIO" set slightly
+right of center; IMG-5 is tight ("digitalHOUSE") with "GROWTH STUDIO" centered; the laptop
+screen in IMG-1 shows a third variant ("│ GROWTH STUDIO" under HOUSE with a divider) → N5.
+Photos: IMG-1 unusable as-is (phone UI + personal profile photo + sticker) → N2. IMG-2 usable
+(clean 900x1600). IMG-0 has its text baked in → N6.
+
+==========================================================================================
+8. HOW TO RUN / TEST
+==========================================================================================
+No app yet. To reproduce the measurements: create a Python venv with pillow, numpy, pymupdf and
+run analyze.py / render_pdf.py / fontcmp.py against brand-assets/ (scripts are in the session
+scratchpad; they can be committed under tools/ if the user asks).
+
+==========================================================================================
+9. PENDING / OPEN QUESTIONS / PLACEHOLDERS
+==========================================================================================
+From CLAUDE.md §1.1: P1 domain · P2 tú/usted · P3 client names + spelling · P4 René full name,
+team photos · P5 font files / approve Bodoni Moda + Poppins · P6 Tailwind, contact form ·
+P7 pre-filled WhatsApp text.
+New from this phase:
+  N1 brand-assets/ is flat with WhatsApp filenames (not pdf/ + images/). Reorganize/rename
+     copies, or keep as-is and update CLAUDE.md §3?
+  N2 IMG-1 (laptop on sneakers) is a phone screenshot with IG UI, a personal profile photo and a
+     sticker. Original story export available? Otherwise drop it.
+  N3 May the grey-zone content from the internal PDF be published (Technogym credential, freelance
+     credential, longer card/pillar/bio texts)? René's public title?
+  N4 Approve the measured palette (§5.3) and an optional --sand-deep token? May logo crop
+     backgrounds be normalized to the exact token color (pixel cleanup, not redraw)?
+  N5 Which wordmark lockup is canonical (IMG-4 vs IMG-5 vs laptop variant)? Vector/high-res
+     logo files available?
+  N6 Mockup photos (laptop, Sony camera, keycaps): are they licensed for web use? For the Ctrl+N
+     image: use the whole post (text baked in) or a version without text?
+Placeholders: none yet (no content placed).
+
+Status after the user's answers (2026-10-13): P1–P7, N1, N4 resolved; N3, N5, N6 partly.
+Follow-up questions still open:
+  Q-A Email (D7): the user said contact is only via the WhatsApp button. Remove the mailto
+      link from the site, or keep it as secondary contact in the footer/contact section?
+  Q-B Name spelling: "René Rengel" (with accent, as in the PDFs) or "Rene Rengel"?
+  Q-C Grey-zone credentials (Technogym, freelance with international clients) and the longer
+      internal descriptions: publish or not? (Only René's title was answered.)
+  Q-D The official lockup exists only as cream-on-burgundy. For cream backgrounds (header):
+      (a) dark burgundy header so the official logo sits on its own background,
+      (b) recolor the same lockup to burgundy-on-cream (pixel recolor, no redraw), or
+      (c) monogram "dH" on cream areas, wordmark only on burgundy areas.
+  Q-E Client names: where and how? (e.g. text-only "Han confiado en nosotros" line, no logos,
+      no results claimed.) Spelling of "VIDA" as written?
+  Q-F Photos: may the Sony-camera story (IMG-2) and the Ctrl+N post (IMG-0, text baked in) be
+      used on the site, i.e. are they the studio's own/licensed images? IMG-1 is dropped.
+  Q-G Exact WhatsApp text, proposed: "Hola, quiero más información sobre DigitalHouse Growth
+      Studio." — OK or plain "Quiero más información"?
+  Q-H May CLAUDE.md §1.1 be updated with these answers (move P1–P7 to confirmed decisions)?
+
+Answers (user, 2026-10-13) — all Phase 0 questions are now RESOLVED:
+  Q-A Keep the email mailto: link.                     Q-B "Rene Rengel" without accent.
+  Q-C Publish everything in the grey zone (credentials + longer descriptions), rewritten in tú.
+  Q-D Option (b): official lockup recolored burgundy-on-cream for the header (show before use).
+  Q-E Text-only line "Han confiado en nosotros: Fair Play Élite · VIDA" (no logos, no results).
+  Q-F IMG-2 (Sony story) and IMG-0 (Ctrl+N post) may be used.
+  Q-G WhatsApp text: "Hola, quiero más información sobre DigitalHouse Growth Studio."
+  Q-H Yes → CLAUDE.md updated: new table D11–D22 replaces "Pending"; §3 file names, §4.2 token
+      values, §4.3 fonts, §5 extra internal phrases + client-name rule, §7 Tailwind + WhatsApp text.
+No open questions remain for Phase 1.
+
+==========================================================================================
+10. CHANGELOG
+==========================================================================================
+- 2026-10-13 Inventoried brand-assets/ (6 JPEG + 2 PDF); noted layout differs from CLAUDE.md §3.
+- 2026-10-13 Extracted PDF text; rendered pages; confirmed no embedded images in either PDF.
+- 2026-10-13 Measured palette from IMG-0..5; proposed token values; WCAG contrast check (all AA).
+- 2026-10-13 Logo lettering vs 20 font configurations: HOUSE = Poppins 800; labels/post =
+  Poppins; "digital" = condensed didone with no free equivalent → Bodoni Moda proposed.
+- 2026-10-13 Built public/internal content map; listed source typos and name variants.
+- 2026-10-13 Measured logo bounding boxes; wrote crop plan.
+- 2026-10-13 Created docs/phase-0-discovery.txt and docs/README.txt.
+- 2026-10-13 Recorded the user's answers to P1–P7 and N1–N6 (§2); listed follow-ups Q-A..Q-H (§9).
+- 2026-10-13 Recorded answers to Q-A..Q-H; updated CLAUDE.md (D11–D22, §3, §4.2, §4.3, §5, §7).

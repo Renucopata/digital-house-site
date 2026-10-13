@@ -1,0 +1,168 @@
+PHASE 3 — LANDING SECTIONS, PART 1
+Date: 2026-10-13   Status: completed
+
+==========================================================================================
+1. GOAL
+==========================================================================================
+Build the first three landing sections with real public copy (rewritten in tú, D12):
+#inicio (hero), #quienes-somos (positioning + 3 differentiators) and #como-trabajamos
+(5-step process). Sections 4–7 remain anchor placeholders until Phase 4.
+
+==========================================================================================
+2. DECISIONS (with who confirmed them)
+==========================================================================================
+- Keep the logo animation as built in Phase 2; start Phase 3 — user, 2026-10-13.
+- Hero image = approved Sony-camera story (D22) cropped to the camera only (the baked-in
+  "SÍGUENOS EN" pill is cut off; the real InstagramPill component is used elsewhere) — Claude.
+- Hero headline: fixed 4-line composition "No vendemos / estética. / Vendemos / crecimiento."
+  (each sentence breaks after its verb) at every width; second sentence in burgundy, last word
+  italic with the hand-drawn underline. Chosen over a 2-line version because a 2-line desktop
+  headline would cap the size at ~48–62px — Claude (easy to change if the user prefers).
+- #quienes-somos title/lead = the CLAUDE.md §1 positioning line ("Entendemos tu negocio
+  primero." / "Todo lo demás — marca, contenido, sistema — nace de ahí."), because the
+  portfolio's slide-02 headline is now the hero — Claude.
+- Card descriptions from the internal PDF p2 (allowed by D21), rewritten for the client, with
+  internal phrasing removed ("es lo que hace el modelo escalable", the gendered "una generalista
+  resolviendo todo sola") — Claude.
+- Middle card ("Lo digital al centro") is dark, echoing the portfolio slide's emphasis — Claude.
+- Process step 1 (Diagnóstico, the mandatory starting point) has a filled circle — Claude.
+- Section rhythm: hero light (+ window shadow) → quiénes somos sand (+ grain) → cómo
+  trabajamos dark. Phase 4 placeholders set to light / sand / light so #contacto no longer
+  merges with the dark footer — Claude (final themes chosen in Phase 4).
+- FIX to Phase 2 header (found at 1024px): nav labels wrapped onto two lines. Now nav links never
+  wrap, gaps reduced, and the header "Empecemos" CTA shows from 1280px (xl); between 1024 and
+  1279px the floating WhatsApp button covers it — Claude.
+
+==========================================================================================
+3. STRUCTURE — files/folders created or modified
+==========================================================================================
+Created
+  src/content/home.ts                        hero, quienesSomos, comoTrabajamos copy (typed)
+  src/components/sections/Hero.tsx
+  src/components/sections/QuienesSomos.tsx
+  src/components/sections/ComoTrabajamos.tsx
+  public/images/hero-camara-dh.jpg           900x1200, 136 KB
+  tools/photos.py                            photo crops (D22) → public/images/
+  docs/phase-3-sections-part-1.txt           this file
+Modified
+  src/app/(site)/page.tsx                    renders Hero, QuienesSomos, ComoTrabajamos + 3 placeholders
+  src/components/ui/SectionHeading.tsx       new `titleId` prop (for aria-labelledby)
+  src/components/layout/Header.tsx           nav whitespace-nowrap, tracking 0.2em, gap 6/8,
+                                             CTA from xl
+  tools/README.txt, docs/README.txt
+
+==========================================================================================
+4. SECTIONS / COMPONENTS
+==========================================================================================
+Hero — src/components/sections/Hero.tsx — #inicio (aria-labelledby "inicio-title")
+  Section theme light + windowShadow, flush, min-height 100svh − header, vertical padding
+  clamp(48px → 104px), content vertically centered.
+  Grid: 1 column (mobile/tablet) → 12 columns from 1024px: text 7 / image 5.
+  Text: Eyebrow "Growth Studio · Servicio 100% remoto"; h1 Bodoni Moda
+  clamp(44px → 92px), line-height 1.02, 4 block lines (with real spaces between them for
+  screen readers); lead (text-lead, ink-soft, max 34rem); buttons: filled lg "Escríbenos por
+  WhatsApp" (wa.me + D17 text, new tab) and outline lg "Cómo trabajamos" (#como-trabajamos).
+  Image: next/image, preload (LCP), sizes "(min-width:1024px) 40vw, (min-width:640px) 26rem,
+  22rem", rounded-card, offset hairline frame (12px), Sparkle top-left. Max width 22rem mobile,
+  26rem from 640px, full column on desktop.
+QuienesSomos — src/components/sections/QuienesSomos.tsx — #quienes-somos
+  Section theme sand + grain. SectionHeading (eyebrow, h2, lead). <ul> of 3 cards:
+  1 column → 3 columns from 768px. Card: number 01–03 (Bodoni 44px, accent, aria-hidden),
+  h3 = title (Poppins 600, text-h3) + contrast phrase (Bodoni italic 21px, "— no solo visual"),
+  description (15px, ink-soft). Cards 1 and 3: theme-light (cream, hairline border);
+  card 2: theme-dark (burgundy-deep, ivory text).
+ComoTrabajamos — src/components/sections/ComoTrabajamos.tsx — #como-trabajamos
+  Section theme dark. SectionHeading (eyebrow, h2). <ol> of 5 steps:
+  mobile = vertical timeline (56px circles on the left, hairline through the centers, text to
+  the right); ≥1024px = 5 columns, centered, horizontal hairline between the first and last
+  circle centers. Circle: Bodoni number; step 1 filled ivory with burgundy number, others
+  outlined. h3 step title (Poppins 500, 18px) with a visually hidden "Paso N:" prefix;
+  description 15px ink-soft (max 13rem on desktop). CTA below: filled lg "Empecemos" → WhatsApp
+  (ivory pill on dark), aria-label "Empecemos: escríbenos por WhatsApp".
+Placeholders — #servicios (light), #equipo (sand), #contacto (light): "[PENDIENTE: … — Fase 4]".
+
+==========================================================================================
+5. STYLES
+==========================================================================================
+No new tokens. Uses: theme-light/sand/dark, texture-grain, WindowShadow, rounded-card,
+text-lead / text-h2 / text-h3, tracking-label, Bodoni italic for contrast phrases.
+Hero h1 size: clamp(2.75rem, 1.4rem + 5vw, 5.75rem) (44px at 360 → 92px at ≥1440).
+Breakpoints: md 768 (cards 3-up), lg 1024 (hero 2 columns, process horizontal, desktop nav),
+xl 1280 (header CTA).
+Motion: none added (scroll reveals are Phase 5); hover states from Button.
+
+==========================================================================================
+6. CONTENT — copy used and its source
+==========================================================================================
+Hero
+  "Growth Studio · Servicio 100% remoto"   brand descriptor (logo) + "Modelo 100% remoto"
+                                           (CLAUDE.md §1; public per Phase 0 / D21)
+  "No vendemos estética. Vendemos crecimiento."   portfolio slide 02 (also CLAUDE.md §1)
+  "Lo digital es el motor — …no el punto de partida."   portfolio slide 02 (verbatim)
+  "Escríbenos por WhatsApp" / "Cómo trabajamos"   functional CTA labels (tú) / nav label
+  Image alt: "Cámara digital con el monograma dH de DigitalHouse Growth Studio en la pantalla,
+  sobre una pared con sombras de ventana."
+Quiénes somos
+  "Entendemos tu negocio primero." + "Todo lo demás — marca, contenido, sistema — nace de ahí."
+                                           CLAUDE.md §1 positioning (internal PDF p2 / p8)
+  Card titles + contrasts                  portfolio slide 02 (verbatim)
+  Card descriptions                        internal PDF p2 (D21), rewritten:
+    1 "…cómo ese negocio específico genera valor, quién es su cliente y cuáles son sus
+       cuellos de botella reales." → "…cómo genera valor tu negocio, quién es tu cliente y
+       cuáles son tus cuellos de botella reales."
+    2 "Marca, contenido y operación están pensados…" → "…pensados para ser accesibles, rápidos
+       y eficientes — porque el negocio que no piensa en digital primero pierde velocidad
+       frente al que sí." (minor wording)
+    3 "Un equipo coordinado de especialistas por área, no una generalista resolviendo todo
+       sola. Eso da confianza, credibilidad, y es lo que hace el modelo escalable." →
+       "Un equipo coordinado de especialistas por área, en lugar de una sola persona
+       resolviéndolo todo. Eso da confianza y credibilidad a cada proyecto."
+Cómo trabajamos
+  "Un proceso, no una improvisación."      portfolio slide 03
+  Steps + descriptions                     portfolio slide 03 (verbatim, already tú), except
+    Medición: "no solo vanidad" → "no solo métricas de vanidad" (clarity; internal PDF p5
+    wording "no solo de vanidad")
+  "Empecemos"                              portfolio slide 11
+Confidentiality check: no §5 item appears; no client names yet (D13 line is a Phase 4 item).
+
+==========================================================================================
+7. ASSETS
+==========================================================================================
+  public/images/hero-camara-dh.jpg — tools/photos.py: IMG-2 ("WhatsApp Image 2026-10-07 at
+  7.21.04 PM (2).jpeg", 900x1600) cropped to box 0,400 → 900,1600 (900x1200, 3:4), re-encoded
+  once (JPEG q92, progressive). Served by next/image as WebP/AVIF at the needed widths.
+  Decorative SVG: WindowShadow (hero), Sparkle (hero image), HandUnderline ("crecimiento.").
+
+==========================================================================================
+8. HOW TO RUN / TEST
+==========================================================================================
+  npm run dev → http://localhost:3000
+  npm run lint → passes · npm run build → passes (all routes static)
+  Screenshots (headless Chrome, production build) at 360, 768, 1024, 1280, 1440 px:
+    no horizontal overflow at any width (only the clipped window-shadow SVG extends past the
+    edge); hero fills the first screen (824px at 1024×900, 876px at 1440×900).
+  Phase 2 behavior test re-run after the header fix: all checks still pass (anchor offsets,
+    active section, mobile menu focus/inert/Escape, WhatsApp button, favicon, reduced motion).
+
+==========================================================================================
+9. PENDING / OPEN QUESTIONS / PLACEHOLDERS
+==========================================================================================
+  - For the user to review: the hero headline composition (4 lines vs 2 lines) and the hero image
+    choice (camera crop).
+  - Phase 4 needs a decision (PLAN.md §4.4): pattern for the 5 services — (a) stacked blocks,
+    all content visible; (b) accordion (one open at a time); (c) cards + expandable details.
+    I will propose it at the start of Phase 4 before building.
+  - Placeholders remaining: #servicios, #equipo, #contacto ("[PENDIENTE: … — Fase 4]").
+  - Scroll-reveal motion for these sections: Phase 5.
+
+==========================================================================================
+10. CHANGELOG
+==========================================================================================
+- 2026-10-13 Added tools/photos.py; cropped the hero photo into public/images/.
+- 2026-10-13 Added src/content/home.ts (Phase 3 copy, tú form, sources annotated).
+- 2026-10-13 Built Hero, QuienesSomos, ComoTrabajamos; wired them into the landing page.
+- 2026-10-13 SectionHeading: titleId prop.
+- 2026-10-13 Fixed header nav wrapping at 1024px (nowrap, tighter gaps, CTA from 1280px).
+- 2026-10-13 Fixed the hero headline to a deterministic 4-line composition with spoken spaces.
+- 2026-10-13 Visual check at 5 widths + Phase 2 behavior regression test: all pass.
+- 2026-10-13 npm run lint + npm run build pass.

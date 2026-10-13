@@ -1,0 +1,77 @@
+/*
+ * Design tokens — DigitalHouse Growth Studio (identity A, CLAUDE.md §4).
+ * Colors measured from the brand images in Phase 0 and approved by the user (D19).
+ * No light blue, no yellow, no pure black / pure white backgrounds.
+ */
+
+:root {
+  /* Brand palette */
+  --burgundy: #670812; /* monogram, headlines, buttons */
+  --burgundy-deep: #51020c; /* dark sections, wordmark ink */
+  --cream: #f8f4e9; /* main background */
+  --ivory: #f3ebe0; /* text on dark, alternate surfaces */
+  --sand: #efe6dc; /* kraft-paper sections */
+  --sand-deep: #e7d8ca; /* brush smears, kraft accents */
+  --ink: #481f1e; /* body text */
+  --ink-soft: #6b5552; /* secondary text */
+
+  /* Layout */
+  --container-max: 72rem; /* 1152px */
+  --gutter: clamp(1.25rem, 0.5rem + 3.5vw, 2.5rem);
+  --section-space: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+
+  /* Motion (CLAUDE.md §4.4: slow, subtle, 400–700ms, 8–16px) */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 200ms;
+  --duration-base: 450ms;
+  --duration-slow: 700ms;
+  --reveal-distance: 12px;
+
+  /* Floating WhatsApp button (D6) */
+  --wa-size: 3.5rem;
+  --wa-offset: 1.25rem;
+
+  /* Sticky header (anchor targets are offset by this) */
+  --header-h: 4rem;
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --header-h: 4.75rem;
+  }
+}
+
+/*
+ * Section themes. Components read these semantic variables, so the same
+ * Button / Eyebrow / InstagramPill works on light, sand and dark sections.
+ */
+:root,
+.theme-light {
+  --surface: var(--cream);
+  --fg: var(--ink);
+  --fg-soft: var(--ink-soft);
+  --accent: var(--burgundy);
+  --on-accent: var(--cream);
+  --line: color-mix(in srgb, var(--burgundy) 40%, transparent);
+  --texture-ink: var(--burgundy-deep);
+}
+
+.theme-sand {
+  --surface: var(--sand);
+  --fg: var(--ink);
+  --fg-soft: var(--ink-soft);
+  --accent: var(--burgundy);
+  --on-accent: var(--cream);
+  --line: color-mix(in srgb, var(--burgundy) 45%, transparent);
+  --texture-ink: var(--burgundy-deep);
+}
+
+.theme-dark {
+  --surface: var(--burgundy-deep);
+  --fg: var(--ivory);
+  --fg-soft: color-mix(in srgb, var(--ivory) 80%, var(--burgundy-deep));
+  --accent: var(--ivory);
+  --on-accent: var(--burgundy-deep);
+  --line: color-mix(in srgb, var(--ivory) 40%, transparent);
+  --texture-ink: #000;
+}
