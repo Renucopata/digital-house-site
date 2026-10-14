@@ -12,5 +12,6 @@ Phase  Document                     Status                      Date
 6      phase-6-seo-deploy.txt       completed                   2026-10-13
 
 Run / deploy: ../README.md
+Content editing: content-editing-guide.txt (where to change each text, contact data, team members)
 Tools: ../tools/README.txt (asset analysis & processing scripts)
 Ideas: IDEAS.txt (future alternatives, e.g. I-01 servicios as expandable cards)

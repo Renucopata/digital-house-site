@@ -1,0 +1,209 @@
+CONTENT EDITING GUIDE — where to change each piece of text and data on the website
+Date: 2026-10-14   (line numbers are from this date; if they shift, search for the quoted text)
+
+==========================================================================================
+0. BEFORE YOU START
+==========================================================================================
+- All the website text lives in 4 files inside src/content/. You never need to touch the
+  components (src/components/) to change text.
+      src/content/contact.ts      WhatsApp number, WhatsApp message, email, Instagram
+      src/content/site.ts         brand name, website address, slogan lines, footer labels
+      src/content/navigation.ts   menu links and menu button texts
+      src/content/home.ts         ALL the text of the page sections (hero → contacto)
+- Only change what is INSIDE the quotes "...". Keep the quotes, the commas at the end of
+  lines, the brackets [ ] and braces { } exactly as they are.
+- If your text contains a double quote ", write it as \" (or use « » instead).
+- Write in Spanish with "tú" (trabajas, quieres), not "vos" — project rule D12.
+- Never publish anything from the confidential list in CLAUDE.md §5.
+- After any change, check it locally and then publish:
+      npm run dev        → open http://localhost:3000 and look at the change
+      npm run build      → must finish without errors
+      git add . ; git commit -m "Update content" ; git push   → Vercel publishes it
+
+==========================================================================================
+1. CONTACT DATA — src/content/contact.ts
+==========================================================================================
+Everything here is used automatically everywhere: floating WhatsApp button, all "Escríbenos
+por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Google data.
+
+  Line 6   const whatsappNumber = "59165999740";
+           WhatsApp number: country code + number, ONLY digits (no +, no spaces).
+           Bolivia example: "591" + "65999740".
+  Line 7   const whatsappMessage = "Hola, quiero más información sobre DigitalHouse Growth Studio.";
+           The message that appears pre-written when someone opens the chat.
+  Line 8   const email = "r.rengel99@gmail.com";
+           Email address (contact section + footer).
+  Line 9   const instagramHandle = "digitalhouse.gs";
+           Instagram user WITHOUT the @.
+  Line 12  phoneDisplay: "+591 65999740",
+           How the number is SHOWN as text (footer). Change it together with line 6.
+
+==========================================================================================
+2. SITE-WIDE DATA — src/content/site.ts
+==========================================================================================
+  Line 6   name: "DigitalHouse Growth Studio",
+           Brand name (browser tab title, Google, share previews, footer ©).
+  Line 8   url: "https://digital-house-site-indol.vercel.app",
+           Website address. Change it when you buy a domain (no "/" at the end). It updates
+           Google, the sitemap and the share previews automatically.
+  Line 10  tagline: "No vendemos estética. Vendemos crecimiento.",
+  Line 12  statement: "Entendemos tu negocio primero. Todo lo demás — ...",
+           Together they form the description Google and WhatsApp/LinkedIn previews show.
+           (The share IMAGE has the tagline drawn into it — see §11 to regenerate it.)
+  Lines 15-21  footerCopy: titles and labels of the footer ("Contacto", "Correo",
+           "Secciones", "Todos los derechos reservados.").
+
+==========================================================================================
+3. MENU — src/content/navigation.ts
+==========================================================================================
+  Lines 10-16  navItems: the menu links. Change only the label: "..." text.
+           Do NOT change id: "..." (they are the section anchors; changing them breaks links).
+  Line 23  cta: "Empecemos",  → text of the menu button that opens WhatsApp.
+  Line 24  ctaAriaLabel: text read by screen readers for that button (keep it similar).
+  Lines 19-25  other texts: "Abrir menú", "Cerrar menú", "Saltar al contenido" (accessibility).
+
+==========================================================================================
+4. HERO (first screen) — src/content/home.ts
+==========================================================================================
+  Line 9   eyebrow: "Growth Studio · Servicio 100% remoto",   → small text above the title.
+  Lines 13-14  title: the big headline, written as 4 lines:
+               ["No vendemos", "estética."],     ← line 1, line 2
+               ["Vendemos", "crecimiento."],     ← line 3, line 4 (line 4 = underlined, italic)
+           Keep short words — the layout is designed for these 4 lines.
+  Line 17  lead: "Lo digital es el motor — ..."   → paragraph under the headline.
+  Line 18  primaryCta: "Escríbenos por WhatsApp",  → main button text.
+  Line 19  secondaryCta: { label: "Cómo trabajamos", ... }  → second button (change label only).
+  Line 24  alt: "..."  → description of the camera photo for blind users / Google.
+  Photo: see §10.
+
+==========================================================================================
+5. QUIÉNES SOMOS — src/content/home.ts
+==========================================================================================
+  Line 36  eyebrow: "Quiénes somos",
+  Line 38  title: "Entendemos tu negocio primero.",
+  Line 39  lead: "Todo lo demás — marca, contenido, sistema — nace de ahí.",
+  Lines 42-60  the 3 cards. Each card is one { ... } block:
+           title: "Mentalidad de negocio",          → bold title
+           contrast: "no solo visual",              → small italic line under the title
+           description: "Antes de cualquier ...",   → card text
+           emphasis: true,                          → (only card 2) the card in burgundy.
+           Put "emphasis: true," on only one card.
+
+==========================================================================================
+6. CÓMO TRABAJAMOS (process) — src/content/home.ts
+==========================================================================================
+  Line 67  eyebrow: "Cómo trabajamos",
+  Line 69  title: "Un proceso, no una improvisación.",
+  Lines 71-76  the 5 steps, one per line:
+           { title: "Diagnóstico", description: "Entendemos tu negocio, ..." },
+           Step numbers (1, 2, 3...) are added automatically. To add a step, copy one line, paste it
+           below and edit it; to remove one, delete its line.
+  Line 78  cta: "Empecemos",  → button under the steps (opens WhatsApp).
+
+==========================================================================================
+7. SERVICIOS (5 pillars) — src/content/home.ts
+==========================================================================================
+  Line 101 eyebrow: "Qué ofrecemos",
+  Line 103 title: "5 pilares de servicio",   ← IMPORTANT: update the number if you add/remove one.
+  Line 104 lead: "Cada uno alimenta al siguiente.",
+  Lines 105-107  labels "Incluye", "Entregable", "Pilares de servicio".
+  Lines 109-170  one { ... } block per service:
+           id: "servicio-01",        → unique anchor; for a new service use the next number
+                                       ("servicio-06"). Numbers 01–05 shown on the page are
+                                       automatic.
+           title: "Consultoría de Negocio & Marca",
+           short: "El punto de partida.",                → shown in the index list
+           tagline: "El punto de partida obligatorio ...", → italic line in the block
+           description: "Diagnosticamos tu modelo ...",
+           includes: ["Diagnóstico de modelo de negocio", "Cuellos de botella reales", ...],
+                     → the bullet list; add/remove items between quotes, separated by commas.
+           deliverable: "Estrategia inicial ...",
+  To ADD a service: copy a whole block from "{" to "}," (e.g. lines 161-170), paste it after
+  the last one (before line 171 "] satisfies ServicePillar[],") and edit the texts + id.
+
+==========================================================================================
+8. EQUIPO (team) — src/content/home.ts
+==========================================================================================
+  Line 185 eyebrow: "Equipo",
+  Line 187 title: "Un equipo de especialistas detrás de cada proyecto.",
+  Line 188 lead: "Lo mostramos abierto porque ...",
+  Lines 190-211  one { ... } block per person:
+           name: "Nicole Pantoja",                           → name
+           initials: "NP",                                   → letters in the circle avatar
+           role: "Consultoría de Negocio & Estrategia",       → small uppercase role
+           summary: "Estratega digital: marketing, marca y procesos.", → italic short line
+           bio: "Lidera el diagnóstico de negocio ...",       → longer description
+
+  TO ADD A TEAM MEMBER: copy this block and paste it right AFTER the closing "}," of Rene
+  Rengel (line 211), BEFORE line 212 "] satisfies TeamMember[],":
+
+    {
+      name: "Nombre Apellido",
+      initials: "NA",
+      role: "Área o cargo",
+      summary: "Frase corta sobre lo que hace.",
+      bio: "Descripción más larga: experiencia, qué aporta al proyecto.",
+    },
+
+  The order of the blocks = the order on the page. To remove someone, delete their whole
+  block from "{" to "},".
+  Layout note: on computers the team shows 3 per row; a 4th person starts a second row on the
+  left. If you add people and want a different arrangement (e.g. 2×2 or 4 in a row), ask Claude
+  — that is a small change in src/components/sections/Equipo.tsx (line 19).
+  Photos instead of initials: not set up yet (D14) — send the photos and ask Claude.
+
+  Line 215-216  extra: the "Eventos & Patrocinios" band under the team (title + text).
+  Line 220 label: "Han confiado en nosotros",
+  Line 221 names: ["Fair Play Élite", "VIDA"],   → client names (text only, no logos — D13).
+           To add a client: ["Fair Play Élite", "VIDA", "Nuevo Cliente"],
+           Only add clients who agreed to be shown.
+
+==========================================================================================
+9. MANIFIESTO and CONTACTO — src/content/home.ts
+==========================================================================================
+Manifiesto (the "Ctrl + N" block)
+  Line 227 strongLines: ["Nuevas ideas.", "Más estrategia."],   → bold burgundy lines
+  Line 228 regularBefore: "Misma pasión por",
+  Line 229 underlined: "hacer crecer",          → words with the hand-drawn underline
+  Line 230 regularAfter: "tu negocio.",
+  Line 235 alt: "..."                           → description of the keyboard photo
+Contacto (closing section)
+  Line 241 eyebrow: "Empecemos",
+  Line 242 titleBefore: "Entendamos tu negocio",
+  Line 243 titleUnderlined: "primero.",         → underlined italic word(s)
+  Line 244 lead: "El primer paso siempre es el mismo: ...",
+  Line 245 primaryCta: "Escríbenos por WhatsApp",
+  Line 246 emailLabel: "o escríbenos a",        → text before the email address
+  (The email address itself comes from contact.ts, §1.)
+
+==========================================================================================
+10. PHOTOS
+==========================================================================================
+  Files live in public/images/:
+      hero-camara-dh.jpg     hero photo (900×1200, vertical 3:4)
+      manifiesto-ctrl-n.jpg  manifiesto photo (1060×590, horizontal)
+  Simplest way to replace one: save the new photo with the SAME file name and the SAME
+  proportions, replace the file, and update its alt text (home.ts lines 24 / 235).
+  If the size is different, also update width / height in home.ts (hero: lines 22-23;
+  manifiesto: lines 233-234) with the new pixel size.
+  Logos (public/brand/) and icons (src/app/favicon.ico, icon.png, apple-icon.png) were
+  processed from the originals with scripts — ask Claude to regenerate them, do not replace
+  them by hand.
+
+==========================================================================================
+11. SHARE PREVIEW IMAGE (WhatsApp / LinkedIn / X link preview)
+==========================================================================================
+  File: src/app/opengraph-image.png (and the identical src/app/twitter-image.png).
+  It has the logo and the slogan "NO VENDEMOS ESTÉTICA. VENDEMOS CRECIMIENTO." drawn into it.
+  If the slogan changes: edit TAGLINE in tools/og.py (line 20) and re-run it (instructions in
+  tools/README.txt), or ask Claude. Its description for blind users is in
+  src/app/opengraph-image.alt.txt and src/app/twitter-image.alt.txt.
+
+==========================================================================================
+12. THINGS THAT ARE NOT SIMPLE TEXT EDITS (ask Claude)
+==========================================================================================
+  - Adding a new SECTION or a new menu item that points to a new section.
+  - Team photos, new brand photos, new logo files.
+  - Changing colors or fonts (design system, CLAUDE.md §4).
+  - Changing the team grid arrangement (see §8).
+  - Option C for Servicios (summary cards + expandable details) — docs/IDEAS.txt, I-01.
