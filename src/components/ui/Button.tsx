@@ -26,7 +26,7 @@ type ButtonProps = CommonProps & {
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2.5 rounded-full border text-center font-sans font-medium leading-tight " +
+  "inline-flex items-center justify-center gap-2.5 rounded-full border text-center font-label font-bold leading-tight " +
   "transition-[background-color,color,border-color,transform] duration-300 ease-soft " +
   "active:translate-y-px motion-reduce:transform-none";
 

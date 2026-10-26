@@ -1,23 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, Poppins } from "next/font/google";
+import { Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { site } from "@/content/site";
 import "./globals.css";
 
-// Approved families (D15). Bodoni Moda = editorial display serif; Poppins = all sans roles.
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
+// Web brief fonts (D26). Manrope = headlines, body and menu (variable 200–800).
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  axes: ["opsz"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "800"],
+// Satoshi = buttons, labels, short highlighted texts. Self-hosted copy from Fontshare
+// (ITF Free Font License, see src/fonts/satoshi/README.txt).
+const satoshi = localFont({
+  variable: "--font-satoshi",
+  src: [
+    { path: "../fonts/satoshi/Satoshi-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/satoshi/Satoshi-Medium.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/satoshi/Satoshi-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../fonts/satoshi/Satoshi-Black.woff2", weight: "900", style: "normal" },
+  ],
   display: "swap",
 });
 
@@ -46,14 +51,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8f4e9",
+  themeColor: "#f7f3ea",
   viewportFit: "cover", // needed for safe-area insets (floating WhatsApp button, D6)
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: the inline script adds the "js" class before React hydrates
-    <html lang="es" className={`${bodoni.variable} ${poppins.variable} h-full`} suppressHydrationWarning>
+    <html lang="es" className={`${manrope.variable} ${satoshi.variable} h-full`} suppressHydrationWarning>
       <head>
         {/* enables scroll-reveal styles only when JS runs (content stays visible without JS) */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

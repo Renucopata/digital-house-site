@@ -71,3 +71,34 @@ Metadata, Open Graph image (brand-styled), sitemap.xml, robots.txt, JSON-LD (Org
 ProfessionalService with the confirmed contact data), image optimization, Lighthouse performance
 ≥ 90, README with run/deploy steps, Vercel checklist (project import, domain P1, Pro plan note).
 Deliverable: `docs/phase-6-seo-deploy.txt` and final `docs/README.txt` index.
+
+---
+# Web brief rework (branch `brief-web`, from 2026-10-23)
+Source: `brand-assets/BriefwebDigitalHouseGrowthStudio.docx`. Decisions D26–D33 in CLAUDE.md.
+Same rules: one phase at a time, phase doc, user approval. Items marked (ask) need the user's
+call before building (the brief does not override every earlier decision).
+
+## Phase 7 — Brief foundation + hero headline
+New color tokens and fonts (D26) across the whole site; hero headline first, in Manrope, with
+"crecimiento" typed letter by letter inside a growing selection box (D32); remove "Technogym" (D33).
+Deliverable: `docs/phase-7-brief-foundation.txt`.
+
+## Phase 8 — Hero, menu, Qué hacemos, ribbon
+Rest of the brief hero (rotating "Soluciones digitales para que…" line in Playfair italic,
+subtitle, buttons Hablemos / Conoce al equipo), menu anchors + "Hablemos" button, "Qué hacemos"
+(three large phrases, centered one highlighted), moving ribbon. Photos: laptop in hero / camera in
+Qué hacemos per brief (ask — D22 excluded the laptop). Textures/hand-drawn accents (ask).
+Deliverable: `docs/phase-8-hero-que-hacemos.txt`.
+
+## Phase 9 — Cómo trabajamos + Servicios
+4 steps with progress line and auto-advancing panel; 6-panel accordion with icons (icon source: ask).
+Deliverable: `docs/phase-9-proceso-servicios.txt`.
+
+## Phase 10 — Equipo, clients, Contacto
+5 flip cards (D30), clients text line (D31), Manifiesto kept (D27), Contacto: WhatsApp / email /
+Instagram + form UI (D28) + Google Calendar link (pending URL).
+Deliverable: `docs/phase-10-equipo-contacto.txt`.
+
+## Phase 11 — QA + merge
+Responsive, keyboard, reduced motion, Lighthouse, link check, brief checklist; merge to main on approval.
+Deliverable: `docs/phase-11-qa.txt`.

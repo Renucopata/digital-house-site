@@ -48,6 +48,11 @@
   --color-burgundy-deep: var(--burgundy-deep);
   --color-cream: var(--cream);
   --color-ivory: var(--ivory);
+  --color-beige: var(--beige);
+  --color-charcoal: var(--charcoal);
+  --color-warm-gray: var(--warm-gray);
+  --color-yellow: var(--yellow);
+  --color-sky: var(--sky);
   --color-sand: var(--sand);
   --color-sand-deep: var(--sand-deep);
   --color-ink: var(--ink);
@@ -61,9 +66,10 @@
   --color-on-accent: var(--on-accent);
   --color-line: var(--line);
 
-  /* Fonts (loaded with next/font in src/app/layout.tsx) */
-  --font-serif: var(--font-bodoni), "Bodoni 72", Didot, Georgia, serif;
-  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  /* Fonts (loaded with next/font in src/app/layout.tsx; web brief, D26) */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* body, menu */
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* headlines, 600–800 */
+  --font-label: var(--font-satoshi), var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* buttons, labels */
 }
 
 @layer base {
@@ -87,9 +93,10 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* text selection = the brief's "caja de selección" colors */
   ::selection {
-    background-color: var(--burgundy);
-    color: var(--cream);
+    background-color: var(--yellow);
+    color: var(--burgundy-deep);
   }
 
   :focus-visible {
@@ -132,6 +139,278 @@
   /* inside a reveal container, the underline waits until the container is revealed */
   .js [data-reveal]:not([data-revealed]) [data-draw] {
     animation: none;
+  }
+}
+
+/*
+ * Selection box (web brief "caja de selección", D32) — <SelectionBox>.
+ * Band #FCE7A6, line and dots #4A0710. Each letter paints its own slice of the band, so a word
+ * that is being typed has a selection that grows with it. Handles: ::before of the first letter
+ * (line + dot on top, left edge) and ::after of the current last letter (line + dot below, right
+ * edge — it is also the typing cursor).
+ */
+.sel {
+  --sel-top: 0.2em; /* band position inside the letter's content box (Manrope metrics) */
+  --sel-h: 1.02em;
+  --sel-dot: max(7px, 0.11em);
+  --sel-line: max(2px, 0.025em);
+  --sel-ink: var(--burgundy-deep); /* the two dots; ivory on dark bands, where burgundy would vanish */
+  color: var(--burgundy-deep);
+}
+
+.theme-dark .sel {
+  --sel-ink: var(--ivory);
+}
+
+.sel-letter {
+  position: relative;
+  background: linear-gradient(var(--yellow), var(--yellow)) 0 var(--sel-top) / 100% var(--sel-h) no-repeat;
+}
+
+.sel-letter[data-first]::before,
+.sel-letter::after {
+  content: "";
+  position: absolute;
+  width: var(--sel-dot);
+  pointer-events: none;
+}
+
+/* top-left handle: dot above, line down the band's left edge */
+.sel-letter[data-first]::before {
+  left: calc(var(--sel-dot) / -2);
+  top: calc(var(--sel-top) - var(--sel-dot));
+  height: calc(var(--sel-h) + var(--sel-dot));
+  background:
+    radial-gradient(circle closest-side, var(--sel-ink) 98%, transparent) top / var(--sel-dot) var(--sel-dot) no-repeat,
+    linear-gradient(var(--burgundy-deep), var(--burgundy-deep)) bottom / var(--sel-line) var(--sel-h) no-repeat;
+}
+
+/* bottom-right handle: line down the band's right edge, dot below. Only the last letter keeps it. */
+.sel-letter::after {
+  right: calc(var(--sel-dot) / -2);
+  top: var(--sel-top);
+  height: calc(var(--sel-h) + var(--sel-dot));
+  background:
+    linear-gradient(var(--burgundy-deep), var(--burgundy-deep)) top / var(--sel-line) var(--sel-h) no-repeat,
+    radial-gradient(circle closest-side, var(--sel-ink) 98%, transparent) bottom / var(--sel-dot) var(--sel-dot) no-repeat;
+  opacity: 0;
+  z-index: 1;
+}
+
+.sel-letter[data-last]::after {
+  opacity: 1;
+}
+
+/*
+ * Typing (D32, repeat D34). <SelectionBox> generates one keyframe set per letter for a full cycle
+ * (empty → letters appear one by one → finished word held with a blinking cursor → repeat) and
+ * passes their names in --sel-in / --sel-cur.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .sel[data-typing] .sel-letter,
+  .sel[data-typing] .sel-after {
+    animation: var(--sel-in) var(--sel-cycle) linear var(--sel-start) var(--sel-runs) both;
+  }
+
+  .sel[data-typing] .sel-letter::after {
+    animation: var(--sel-cur) var(--sel-cycle) linear var(--sel-start) var(--sel-runs) both;
+  }
+}
+
+/*
+ * Pick cards (Quiénes somos, D35). One card at a time is "chosen": dark burgundy, lifted.
+ * At rest the chosen one is the default card ([data-default], the middle one), floating gently
+ * as if waiting to be picked. On devices with hover, the hovered card becomes the chosen one and
+ * the default card goes back to light. Touch devices keep the default card chosen.
+ */
+.pick-card {
+  --surface: var(--ivory);
+  --fg: var(--charcoal);
+  --fg-soft: var(--ink-soft);
+  --accent: var(--burgundy-deep);
+  --line: color-mix(in srgb, var(--burgundy-deep) 35%, transparent);
+  border-color: var(--line);
+  transition:
+    background-color 0.45s var(--ease-soft),
+    border-color 0.45s var(--ease-soft),
+    box-shadow 0.45s var(--ease-soft),
+    transform 0.45s var(--ease-soft);
+}
+
+.pick-card * {
+  transition: color 0.45s var(--ease-soft);
+}
+
+/* the chosen card: same colors as the dark theme */
+.pick-card[data-default] {
+  --surface: var(--burgundy-deep);
+  --fg: var(--ivory);
+  --fg-soft: color-mix(in srgb, var(--ivory) 80%, var(--burgundy-deep));
+  --accent: var(--ivory);
+  border-color: transparent;
+  transform: translateY(-8px);
+  box-shadow: 0 22px 40px -26px rgb(74 7 16 / 0.6);
+}
+
+@media (hover: hover) {
+  .pick-card:hover {
+    --surface: var(--burgundy-deep);
+    --fg: var(--ivory);
+    --fg-soft: color-mix(in srgb, var(--ivory) 80%, var(--burgundy-deep));
+    --accent: var(--ivory);
+    border-color: transparent;
+    transform: translateY(-8px) rotate(-0.6deg);
+    box-shadow: 0 22px 40px -26px rgb(74 7 16 / 0.6);
+  }
+
+  /* another card is hovered → the default card steps back */
+  .pick-group:has(.pick-card:hover) .pick-card[data-default]:not(:hover) {
+    --surface: var(--ivory);
+    --fg: var(--charcoal);
+    --fg-soft: var(--ink-soft);
+    --accent: var(--burgundy-deep);
+    border-color: var(--line);
+    transform: none;
+    box-shadow: none;
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pick-group:not(:has(.pick-card:hover)) .pick-card[data-default] {
+    animation: pick-wait 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes pick-wait {
+  0%,
+  100% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/*
+ * Process line (Cómo trabajamos, D37). Hovering step K fills the connector from step 1 to step K
+ * like a progress bar (ivory = the color of step 1) and fills the dots it passes.
+ * Horizontal layout (≥ 1024px): steps sit in equal columns, so dot K is at (K-1)/(N-1) of the
+ * track, which runs from the first to the last dot center. --steps = N is set on the list.
+ */
+.process-track {
+  /* half a column: (100% − gaps) / N / 2; lg gap = 1.5rem */
+  --half-col: calc((100% - (var(--steps) - 1) * 1.5rem) / var(--steps) / 2);
+  left: var(--half-col);
+  right: var(--half-col);
+}
+
+.process-fill {
+  width: 0;
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.process:has(> li:nth-of-type(2):hover) .process-fill { width: calc(1 / (var(--steps) - 1) * 100%); }
+.process:has(> li:nth-of-type(3):hover) .process-fill { width: calc(2 / (var(--steps) - 1) * 100%); }
+.process:has(> li:nth-of-type(4):hover) .process-fill { width: calc(3 / (var(--steps) - 1) * 100%); }
+.process:has(> li:nth-of-type(5):hover) .process-fill { width: calc(4 / (var(--steps) - 1) * 100%); }
+.process:has(> li:nth-of-type(6):hover) .process-fill { width: calc(5 / (var(--steps) - 1) * 100%); }
+.process:has(> li:nth-of-type(7):hover) .process-fill { width: calc(6 / (var(--steps) - 1) * 100%); }
+.process:has(> li:nth-of-type(8):hover) .process-fill { width: calc(7 / (var(--steps) - 1) * 100%); }
+
+.process-dot {
+  transition:
+    background-color 0.3s var(--ease-soft),
+    border-color 0.3s var(--ease-soft),
+    color 0.3s var(--ease-soft);
+}
+
+/* step 1 always; on hover: the hovered step and every step before it */
+.process > li[data-first] .process-dot,
+.process > li:hover .process-dot,
+.process > li:has(~ li:hover) .process-dot {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* dots fill in order, roughly when the line reaches them */
+.process > li:has(~ li:hover) .process-dot,
+.process > li:hover .process-dot {
+  transition-delay: calc(var(--k) / (var(--steps) - 1) * 0.45s);
+}
+
+/*
+ * Hero rise (D38). The laptop-on-sneakers cutout is pulled up from below the frame into place,
+ * wobbling a little (rotate around its bottom center) as it rises and settles. Once, on load.
+ * Reduced motion: shown in place.
+ */
+.hero-rise {
+  transform-origin: 50% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+  }
+}
+
+@keyframes hero-rise {
+  0% {
+    transform: translateY(78%) rotate(-7deg);
+  }
+  30% {
+    transform: translateY(30%) rotate(4deg);
+  }
+  50% {
+    transform: translateY(6%) rotate(-3deg);
+  }
+  66% {
+    transform: translateY(-1.5%) rotate(2deg);
+  }
+  80% {
+    transform: translateY(0.5%) rotate(-1deg);
+  }
+  91% {
+    transform: translateY(0) rotate(0.4deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/*
+ * Team flip cards (web brief, Equipo). Both faces share one grid cell, so the card is as tall as
+ * its longer face. Turns 180° in 3D (0.6 s, prototype easing) on hover (pointer devices only, so
+ * a tap doesn't leave it stuck), or when <TeamCard> sets [data-flipped] (tap, Enter/Space).
+ * Reduced motion: the global rule makes the turn instant (a plain swap, no rotation).
+ */
+.flip-card {
+  perspective: 1100px;
+}
+
+.flip-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card[data-flipped] .flip-inner {
+  transform: rotateY(180deg);
+}
+
+@media (hover: hover) {
+  .flip-card:hover .flip-inner {
+    transform: rotateY(180deg);
   }
 }
 

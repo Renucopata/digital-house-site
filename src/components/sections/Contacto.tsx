@@ -18,11 +18,11 @@ export function Contacto() {
           <Eyebrow>{contacto.eyebrow}</Eyebrow>
           <h2
             id="contacto-title"
-            className="font-serif text-[clamp(2.5rem,1.6rem+3.6vw,4.5rem)] leading-[1.05] tracking-[-0.015em] text-balance text-fg"
+            className="font-display text-[clamp(2.25rem,1.5rem+3vw,4rem)] leading-[1.08] font-extrabold tracking-[-0.025em] text-balance text-fg"
           >
             {contacto.titleBefore}{" "}
             <HandUnderline strokeWidth={2.5}>
-              <em className="text-accent italic">{contacto.titleUnderlined}</em>
+              <em className="text-accent not-italic">{contacto.titleUnderlined}</em>
             </HandUnderline>
           </h2>
           <p className="max-w-[34rem] text-lead text-fg-soft text-pretty">{contacto.lead}</p>

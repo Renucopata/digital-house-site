@@ -23,7 +23,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr]">
           <div className="flex flex-col gap-6">
             <Logo variant="wordmark-cream" width={240} className="h-auto w-[200px] sm:w-[240px]" />
-            <p className="max-w-sm font-serif text-[1.375rem] leading-snug text-fg">{site.statement}</p>
+            <p className="max-w-sm font-display text-[1.25rem] font-semibold leading-snug text-fg">{site.statement}</p>
           </div>
 
           <nav aria-labelledby="footer-nav-title" className="flex flex-col gap-5">

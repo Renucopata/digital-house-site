@@ -54,8 +54,8 @@ export function SectionHeading({
           sizeClass[size],
           "text-balance text-fg",
           font === "serif"
-            ? "font-serif font-normal tracking-[-0.01em] [&_em]:italic [&_strong]:font-normal [&_strong]:text-accent"
-            : "font-sans font-normal tracking-[-0.015em] [&_strong]:font-semibold [&_strong]:text-accent",
+            ? "font-display font-bold tracking-[-0.025em] [&_strong]:text-accent"
+            : "font-display font-medium tracking-[-0.02em] [&_strong]:font-extrabold [&_strong]:text-accent",
         )}
       >
         {title}

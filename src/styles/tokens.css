@@ -1,19 +1,27 @@
 /*
- * Design tokens — DigitalHouse Growth Studio (identity A, CLAUDE.md §4).
- * Colors measured from the brand images in Phase 0 and approved by the user (D19).
- * No light blue, no yellow, no pure black / pure white backgrounds.
+ * Design tokens — DigitalHouse Growth Studio.
+ * Colors from the web brief brand board (D26, 2026-10-23; replaces the Phase 0 palette of D19).
+ * Yellow and light blue are small accents only (~10 % of the page).
  */
 
 :root {
-  /* Brand palette */
-  --burgundy: #670812; /* monogram, headlines, buttons */
-  --burgundy-deep: #51020c; /* dark sections, wordmark ink */
-  --cream: #f8f4e9; /* main background */
-  --ivory: #f3ebe0; /* text on dark, alternate surfaces */
-  --sand: #efe6dc; /* kraft-paper sections */
-  --sand-deep: #e7d8ca; /* brush smears, kraft accents */
-  --ink: #481f1e; /* body text */
-  --ink-soft: #6b5552; /* secondary text */
+  /* Brand palette (brief names in comments) */
+  --burgundy-deep: #4a0710; /* guinda oscuro — predominant: dark bands, headlines, buttons */
+  --burgundy: #790b1a; /* guinda principal — details only */
+  --ivory: #f7f3ea; /* marfil — main background, text on dark */
+  --beige: #e5dccf; /* beige neutro — secondary backgrounds */
+  --charcoal: #262322; /* carbón — body text */
+  --warm-gray: #a7a19a; /* gris cálido — lines; secondary text on dark only (2.3:1 on ivory) */
+  --yellow: #fce7a6; /* amarillo bebé — selection box, active step */
+  --sky: #d7e8f7; /* celeste bebé — completed steps, details */
+
+  /* Aliases kept from the Phase 1 names, so existing components follow the new palette */
+  --cream: var(--ivory);
+  --sand: var(--beige);
+  --sand-deep: var(--beige);
+  --ink: var(--charcoal);
+  /* secondary text on light: charcoal softened toward ivory, still AA (≈ 6:1) */
+  --ink-soft: color-mix(in srgb, var(--charcoal) 75%, var(--ivory));
 
   /* Layout */
   --container-max: 72rem; /* 1152px */
@@ -47,22 +55,22 @@
  */
 :root,
 .theme-light {
-  --surface: var(--cream);
-  --fg: var(--ink);
+  --surface: var(--ivory);
+  --fg: var(--charcoal);
   --fg-soft: var(--ink-soft);
-  --accent: var(--burgundy);
-  --on-accent: var(--cream);
-  --line: color-mix(in srgb, var(--burgundy) 40%, transparent);
+  --accent: var(--burgundy-deep);
+  --on-accent: var(--ivory);
+  --line: color-mix(in srgb, var(--burgundy-deep) 35%, transparent);
   --texture-ink: var(--burgundy-deep);
 }
 
 .theme-sand {
-  --surface: var(--sand);
-  --fg: var(--ink);
-  --fg-soft: var(--ink-soft);
-  --accent: var(--burgundy);
-  --on-accent: var(--cream);
-  --line: color-mix(in srgb, var(--burgundy) 45%, transparent);
+  --surface: var(--beige);
+  --fg: var(--charcoal);
+  --fg-soft: color-mix(in srgb, var(--charcoal) 80%, var(--beige));
+  --accent: var(--burgundy-deep);
+  --on-accent: var(--ivory);
+  --line: color-mix(in srgb, var(--burgundy-deep) 40%, transparent);
   --texture-ink: var(--burgundy-deep);
 }
 

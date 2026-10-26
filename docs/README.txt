@@ -10,6 +10,7 @@ Phase  Document                     Status                      Date
 4      phase-4-sections-part-2.txt  completed                   2026-10-13
 5      phase-5-polish.txt           completed                   2026-10-13
 6      phase-6-seo-deploy.txt       completed                   2026-10-13
+7      phase-7-brief-foundation.txt completed (branch brief-web) 2026-10-23
 
 Run / deploy: ../README.md
 Content editing: content-editing-guide.txt (where to change each text, contact data, team members)

@@ -5,23 +5,26 @@
  */
 
 export const hero = {
-  // Eyebrow: brand descriptor + "100 % remoto" (CLAUDE.md §1, D21)
-  eyebrow: "Growth Studio · Servicio 100% remoto",
-  // Portfolio slide 02 headline. Fixed 4-line composition (each sentence breaks after its verb);
-  // the second sentence is emphasized and "crecimiento." gets the hand-drawn underline.
+  // Brand descriptor, shown as a pill above the headline (D38)
+  eyebrow: "Growth Studio",
+  // Portfolio slide 02 / web brief headline. Fixed 4-line composition (each sentence breaks after
+  // its verb). The 4th line is the selected word (D32): typed letter by letter in a selection box.
   title: [
     ["No vendemos", "estética."],
-    ["Vendemos", "crecimiento."],
+    ["Vendemos"],
   ],
-  // Portfolio slide 02
-  lead: "Lo digital es el motor — la marca, el contenido y las herramientas son la consecuencia de entender primero cómo funciona y crece cada negocio, no el punto de partida.",
+  selected: { text: "crecimiento", after: "." },
+  // (the paragraph under the headline was removed at the user's request, D38)
   primaryCta: "Escríbenos por WhatsApp",
   secondaryCta: { label: "Cómo trabajamos", href: "#como-trabajamos" },
-  image: {
-    src: "/images/hero-camara-dh.jpg",
-    width: 900,
-    height: 1200,
-    alt: "Cámara digital con el monograma dH de DigitalHouse Growth Studio en la pantalla, sobre una pared con sombras de ventana.",
+  // D38: user-provided pair (brand-assets/digital-house_background.png + _foreground.png), same
+  // 736×920 frame; the foreground is a cutout that slides up over the background on load.
+  media: {
+    width: 736,
+    height: 920,
+    background: "/images/hero-laptop-fondo.png",
+    foreground: "/images/hero-laptop-frente.png",
+    alt: "Laptop con el logo de DigitalHouse Growth Studio sostenida sobre unas zapatillas, frente a una pared con sombras de hojas.",
   },
 } as const;
 
@@ -174,42 +177,75 @@ export const servicios = {
 export type TeamMember = {
   name: string;
   initials: string;
+  /** Front: what they specialize in (web brief: a specialty, not a CV). */
   role: string;
-  /** Short line (portfolio slide 04). */
-  summary: string;
-  /** Longer bio (internal PDF p4, D21), rewritten for the client. */
-  bio: string;
+  /** Front: one-line phrase under the role. */
+  phrase: string;
+  /** Back: their specialty in one sentence. */
+  specialty: string;
+  /** Back: the "Pídele" list. */
+  ask: string[];
+  /** Color of the initials panel on the front (photos may replace it later). */
+  tone: "yellow" | "sky" | "beige";
+  /** Optional approved portrait (e.g. "/images/equipo-nicole.jpg"); without it, big initials. */
+  photo?: string;
 };
 
 export const equipo = {
   eyebrow: "Equipo",
-  // Portfolio slide 04
-  title: "Un equipo de especialistas detrás de cada proyecto.",
-  lead: "Lo mostramos abierto porque es lo que nos hace distintos: no trabajas con una sola persona haciendo de todo.",
+  // Web brief, Equipo. "tu crecimiento" is shown in the selection box.
+  title: "Un equipo de especialistas. Un solo objetivo:",
+  titleSelected: "tu crecimiento",
+  titleAfter: ".",
+  // Shown on the toggle button for screen readers / keyboard (the card flips on hover, tap, Enter/Space)
+  flipLabel: "Ver especialidad de",
+  askLabel: "Pídele",
+  // Web brief table (Equipo). Spelling per D30: Rene (no accent), Matias Rossel.
   members: [
     {
       name: "Nicole Pantoja",
       initials: "NP",
-      role: "Consultoría de Negocio & Estrategia",
-      summary: "Estratega digital: marketing, marca y procesos.",
-      bio: "Lidera el diagnóstico de negocio y la estrategia de marca, y coordina el proyecto completo. Ex Directora de Marketing de Technogym.",
+      role: "Fundadora · Directora de Estrategia",
+      phrase: "La que dirige la orquesta.",
+      specialty: "Piensa la estrategia y dirige a todo el equipo hacia tu objetivo.",
+      ask: ["Diagnóstico y ruta", "Estrategia de marca", "Dirección de cada proyecto"],
+      tone: "yellow",
     },
     {
       name: "Nicole Vidaurre",
       initials: "NV",
-      role: "Diseño & Gestión de Contenido",
-      summary: "Identidad visual y contenido para marca.",
-      bio: "Diseño de identidad visual, creación de contenido y ejecución de la gestión de marca mensual. Experiencia previa como freelancer con clientes del exterior.",
+      role: "Directora Creativa",
+      phrase: "La que hace sentir y da vida a la personalidad visual.",
+      specialty: "Da forma visual a lo que tu marca es.",
+      ask: ["Identidad visual", "Contenido de marca", "Dirección de arte"],
+      tone: "sky",
     },
     {
       name: "Rene Rengel",
       initials: "RR",
-      // D14: public title
-      role: "Herramientas digitales",
-      summary: "CRMs, apps y herramientas a medida.",
-      bio: "Construye la solución técnica de Procesos & Sistemas Digitales: implementación y capacitación en herramientas existentes (CRM, gestión de tareas) o desarrollo de sistemas a medida cuando no hay una solución adecuada en el mercado.",
+      role: "Director de Desarrollo y Soluciones Digitales",
+      phrase: "El que crea la solución digital.",
+      specialty: "Construye lo digital que tu negocio necesita.",
+      ask: ["Webs y apps", "CRMs y automatizaciones", "Herramientas a medida"],
+      tone: "beige",
+    },
+    {
+      // Brief: an ally (own print shop), not a director or staff (D33)
+      name: "Matias Rossel",
+      initials: "MR",
+      role: "Aliado · Producción y Merchandising",
+      phrase: "El que lo hace tangible.",
+      specialty: "Lleva tu marca al mundo físico.",
+      ask: ["Impresos", "Merchandising", "Material de marca"],
+      tone: "yellow",
     },
   ] satisfies TeamMember[],
+  // Web brief closing line under the cards ("juntos", D30); the hint comes from the prototype (D36)
+  closing: {
+    hint: "Pasa el cursor o toca una tarjeta para darle la vuelta.",
+    question: "¿Quién participa en tu proyecto?",
+    answer: "Lo decidimos juntos después de escucharte.",
+  },
   // Portfolio slide 04 band
   extra: {
     title: "Eventos & Patrocinios",

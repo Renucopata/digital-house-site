@@ -31,12 +31,12 @@ export function Servicios() {
                     href={`#${pillar.id}`}
                     className="group flex items-baseline gap-4 py-3 transition-colors duration-300 ease-soft hover:text-accent"
                   >
-                    <span className="w-7 shrink-0 font-serif text-[1.125rem] text-accent">
+                    <span className="w-7 shrink-0 font-display text-[1rem] font-bold text-accent">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className="flex flex-1 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                      <span className="font-medium">{pillar.title}</span>
-                      <span className="text-sm text-fg-soft italic sm:text-right">{pillar.short}</span>
+                      <span className="font-semibold">{pillar.title}</span>
+                      <span className="text-sm text-fg-soft sm:text-right">{pillar.short}</span>
                     </span>
                   </a>
                 </li>
@@ -59,7 +59,7 @@ export function Servicios() {
                 <div className="lg:col-span-4">
                   <span
                     aria-hidden="true"
-                    className="block font-serif text-[clamp(4.5rem,3rem+6vw,8.5rem)] leading-[0.85] text-accent lg:sticky lg:top-[calc(var(--header-h)+2.5rem)]"
+                    className="block font-display text-[clamp(4rem,2.75rem+5vw,7.5rem)] font-extrabold leading-[0.85] tracking-[-0.04em] text-accent lg:sticky lg:top-[calc(var(--header-h)+2.5rem)]"
                   >
                     {number}
                   </span>
@@ -69,12 +69,12 @@ export function Servicios() {
                   <header className="flex flex-col gap-3">
                     <h3
                       id={`${pillar.id}-title`}
-                      className="font-serif text-[clamp(1.875rem,1.4rem+1.8vw,2.75rem)] leading-[1.08] text-balance text-fg"
+                      className="font-display text-[clamp(1.75rem,1.3rem+1.6vw,2.5rem)] font-bold leading-[1.1] tracking-[-0.02em] text-balance text-fg"
                     >
                       <span className="sr-only">Servicio {number}: </span>
                       {pillar.title}
                     </h3>
-                    <p className="font-serif text-[1.3125rem] leading-snug italic text-accent">{pillar.tagline}</p>
+                    <p className="font-display text-[1.1875rem] leading-snug font-semibold text-accent">{pillar.tagline}</p>
                   </header>
 
                   <p className="max-w-[40rem] text-fg-soft">{pillar.description}</p>

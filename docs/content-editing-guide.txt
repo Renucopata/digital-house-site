@@ -1,5 +1,5 @@
 CONTENT EDITING GUIDE — where to change each piece of text and data on the website
-Date: 2026-10-14   (line numbers are from this date; if they shift, search for the quoted text)
+Date: 2026-10-26   (line numbers are from this date; if they shift, search for the quoted text)
 
 ==========================================================================================
 0. BEFORE YOU START
@@ -65,24 +65,25 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
 ==========================================================================================
 4. HERO (first screen) — src/content/home.ts
 ==========================================================================================
-  Line 9   eyebrow: "Growth Studio · Servicio 100% remoto",   → small text above the title.
-  Lines 13-14  title: the big headline, written as 4 lines:
+  Line 9   eyebrow: "Growth Studio",   → the small label in the outlined pill above the title.
+  Lines 13-14  title: the big headline, first 3 lines:
                ["No vendemos", "estética."],     ← line 1, line 2
-               ["Vendemos", "crecimiento."],     ← line 3, line 4 (line 4 = underlined, italic)
-           Keep short words — the layout is designed for these 4 lines.
-  Line 17  lead: "Lo digital es el motor — ..."   → paragraph under the headline.
+               ["Vendemos"],                     ← line 3 (burgundy)
+  Line 16  selected: { text: "crecimiento", after: "." },  ← line 4: the word that is typed
+           letter by letter inside the yellow selection box (repeating); "after" = what follows
+           it outside the box (the period). Keep short words — the layout is designed for 4 lines.
   Line 18  primaryCta: "Escríbenos por WhatsApp",  → main button text.
   Line 19  secondaryCta: { label: "Cómo trabajamos", ... }  → second button (change label only).
-  Line 24  alt: "..."  → description of the camera photo for blind users / Google.
-  Photo: see §10.
+  Line 27  alt: "..."  → description of the laptop image for blind users / Google.
+  Image (two layers that must stay the same size): see §10.
 
 ==========================================================================================
 5. QUIÉNES SOMOS — src/content/home.ts
 ==========================================================================================
-  Line 36  eyebrow: "Quiénes somos",
-  Line 38  title: "Entendemos tu negocio primero.",
-  Line 39  lead: "Todo lo demás — marca, contenido, sistema — nace de ahí.",
-  Lines 42-60  the 3 cards. Each card is one { ... } block:
+  Line 39  eyebrow: "Quiénes somos",
+  Line 41  title: "Entendemos tu negocio primero.",
+  Line 42  lead: "Todo lo demás — marca, contenido, sistema — nace de ahí.",
+  Lines 45-63  the 3 cards. Each card is one { ... } block:
            title: "Mentalidad de negocio",          → bold title
            contrast: "no solo visual",              → small italic line under the title
            description: "Antes de cualquier ...",   → card text
@@ -92,22 +93,22 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
 ==========================================================================================
 6. CÓMO TRABAJAMOS (process) — src/content/home.ts
 ==========================================================================================
-  Line 67  eyebrow: "Cómo trabajamos",
-  Line 69  title: "Un proceso, no una improvisación.",
-  Lines 71-76  the 5 steps, one per line:
+  Line 70  eyebrow: "Cómo trabajamos",
+  Line 72  title: "Un proceso, no una improvisación.",
+  Lines 74-79  the 5 steps, one per line:
            { title: "Diagnóstico", description: "Entendemos tu negocio, ..." },
            Step numbers (1, 2, 3...) are added automatically. To add a step, copy one line, paste it
            below and edit it; to remove one, delete its line.
-  Line 78  cta: "Empecemos",  → button under the steps (opens WhatsApp).
+  Line 81  cta: "Empecemos",  → button under the steps (opens WhatsApp).
 
 ==========================================================================================
 7. SERVICIOS (5 pillars) — src/content/home.ts
 ==========================================================================================
-  Line 101 eyebrow: "Qué ofrecemos",
-  Line 103 title: "5 pilares de servicio",   ← IMPORTANT: update the number if you add/remove one.
-  Line 104 lead: "Cada uno alimenta al siguiente.",
-  Lines 105-107  labels "Incluye", "Entregable", "Pilares de servicio".
-  Lines 109-170  one { ... } block per service:
+  Line 104 eyebrow: "Qué ofrecemos",
+  Line 106 title: "5 pilares de servicio",   ← IMPORTANT: update the number if you add/remove one.
+  Line 107 lead: "Cada uno alimenta al siguiente.",
+  Lines 108-110  labels "Incluye", "Entregable", "Pilares de servicio".
+  Lines 112-173  one { ... } block per service:
            id: "servicio-01",        → unique anchor; for a new service use the next number
                                        ("servicio-06"). Numbers 01–05 shown on the page are
                                        automatic.
@@ -118,43 +119,56 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
            includes: ["Diagnóstico de modelo de negocio", "Cuellos de botella reales", ...],
                      → the bullet list; add/remove items between quotes, separated by commas.
            deliverable: "Estrategia inicial ...",
-  To ADD a service: copy a whole block from "{" to "}," (e.g. lines 161-170), paste it after
-  the last one (before line 171 "] satisfies ServicePillar[],") and edit the texts + id.
+  To ADD a service: copy a whole block from "{" to "}," (e.g. lines 164-173), paste it after
+  the last one (before line 174 "] satisfies ServicePillar[],") and edit the texts + id.
 
 ==========================================================================================
 8. EQUIPO (team) — src/content/home.ts
 ==========================================================================================
-  Line 185 eyebrow: "Equipo",
-  Line 187 title: "Un equipo de especialistas detrás de cada proyecto.",
-  Line 188 lead: "Lo mostramos abierto porque ...",
-  Lines 190-211  one { ... } block per person:
-           name: "Nicole Pantoja",                           → name
-           initials: "NP",                                   → letters in the circle avatar
-           role: "Consultoría de Negocio & Estrategia",       → small uppercase role
-           summary: "Estratega digital: marketing, marca y procesos.", → italic short line
-           bio: "Lidera el diagnóstico de negocio ...",       → longer description
+  Line 195 eyebrow: "Equipo",
+  Line 197 title: "Un equipo de especialistas. Un solo objetivo:",
+  Line 198 titleSelected: "tu crecimiento",     → the words in the yellow selection box
+  Line 199 titleAfter: ".",
+  Line 201 flipLabel: "Ver especialidad de",    → read by screen readers on each card's button
+  Line 202 askLabel: "Pídele",                  → small label on the back of the cards
+  Lines 205-241  one { ... } block per person (one flip card each):
+           name: "Nicole Pantoja",                      → name (front and back)
+           initials: "NP",                              → big letters on the front
+           role: "Fundadora · Directora de Estrategia",  → small uppercase role (front)
+           phrase: "La que dirige la orquesta.",         → phrase at the bottom of the front
+           specialty: "Piensa la estrategia ...",        → first text on the back
+           ask: ["Diagnóstico y ruta", ...],             → the "Pídele" list (back)
+           tone: "yellow",                              → color behind the initials:
+                                                          "yellow", "sky" or "beige"
 
-  TO ADD A TEAM MEMBER: copy this block and paste it right AFTER the closing "}," of Rene
-  Rengel (line 211), BEFORE line 212 "] satisfies TeamMember[],":
+  TO ADD A TEAM MEMBER: copy this block and paste it right AFTER the closing "}," of Matias
+  Rossel (line 241), BEFORE line 242 "] satisfies TeamMember[],":
 
     {
       name: "Nombre Apellido",
       initials: "NA",
-      role: "Área o cargo",
-      summary: "Frase corta sobre lo que hace.",
-      bio: "Descripción más larga: experiencia, qué aporta al proyecto.",
+      role: "Cargo o especialidad",
+      phrase: "La/El que ...",
+      specialty: "Qué hace por tu marca, en una frase.",
+      ask: ["Cosa 1", "Cosa 2", "Cosa 3"],
+      tone: "sky",
     },
 
   The order of the blocks = the order on the page. To remove someone, delete their whole
   block from "{" to "},".
-  Layout note: on computers the team shows 3 per row; a 4th person starts a second row on the
-  left. If you add people and want a different arrangement (e.g. 2×2 or 4 in a row), ask Claude
-  — that is a small change in src/components/sections/Equipo.tsx (line 19).
-  Photos instead of initials: not set up yet (D14) — send the photos and ask Claude.
+  Layout note: computers show 4 cards per row, tablets 2, phones 1. A 5th person starts a
+  new row on the left; for 5 in one row ask Claude (src/components/sections/Equipo.tsx, the
+  "lg:grid-cols-4" class).
+  Photos instead of initials: put the approved photo in public/images/ and add a line
+  photo: "/images/equipo-nombre.jpg",  inside that person's block. It replaces the initials.
 
-  Line 215-216  extra: the "Eventos & Patrocinios" band under the team (title + text).
-  Line 220 label: "Han confiado en nosotros",
-  Line 221 names: ["Fair Play Élite", "VIDA"],   → client names (text only, no logos — D13).
+  Lines 245-247  closing: the text under the cards:
+           hint: "Pasa el cursor o toca una tarjeta para darle la vuelta.",
+           question: "¿Quién participa en tu proyecto?",
+           answer: "Lo decidimos juntos después de escucharte.",
+  Line 251-252  extra: the "Eventos & Patrocinios" band under the team (title + text).
+  Line 256 label: "Han confiado en nosotros",
+  Line 257 names: ["Fair Play Élite", "VIDA"],   → client names (text only, no logos — D13).
            To add a client: ["Fair Play Élite", "VIDA", "Nuevo Cliente"],
            Only add clients who agreed to be shown.
 
@@ -162,30 +176,34 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
 9. MANIFIESTO and CONTACTO — src/content/home.ts
 ==========================================================================================
 Manifiesto (the "Ctrl + N" block)
-  Line 227 strongLines: ["Nuevas ideas.", "Más estrategia."],   → bold burgundy lines
-  Line 228 regularBefore: "Misma pasión por",
-  Line 229 underlined: "hacer crecer",          → words with the hand-drawn underline
-  Line 230 regularAfter: "tu negocio.",
-  Line 235 alt: "..."                           → description of the keyboard photo
+  Line 263 strongLines: ["Nuevas ideas.", "Más estrategia."],   → bold burgundy lines
+  Line 264 regularBefore: "Misma pasión por",
+  Line 265 underlined: "hacer crecer",          → words with the hand-drawn underline
+  Line 266 regularAfter: "tu negocio.",
+  Line 271 alt: "..."                           → description of the keyboard photo
 Contacto (closing section)
-  Line 241 eyebrow: "Empecemos",
-  Line 242 titleBefore: "Entendamos tu negocio",
-  Line 243 titleUnderlined: "primero.",         → underlined italic word(s)
-  Line 244 lead: "El primer paso siempre es el mismo: ...",
-  Line 245 primaryCta: "Escríbenos por WhatsApp",
-  Line 246 emailLabel: "o escríbenos a",        → text before the email address
+  Line 277 eyebrow: "Empecemos",
+  Line 278 titleBefore: "Entendamos tu negocio",
+  Line 279 titleUnderlined: "primero.",         → underlined italic word(s)
+  Line 280 lead: "El primer paso siempre es el mismo: ...",
+  Line 281 primaryCta: "Escríbenos por WhatsApp",
+  Line 282 emailLabel: "o escríbenos a",        → text before the email address
   (The email address itself comes from contact.ts, §1.)
 
 ==========================================================================================
 10. PHOTOS
 ==========================================================================================
   Files live in public/images/:
-      hero-camara-dh.jpg     hero photo (900×1200, vertical 3:4)
-      manifiesto-ctrl-n.jpg  manifiesto photo (1060×590, horizontal)
-  Simplest way to replace one: save the new photo with the SAME file name and the SAME
-  proportions, replace the file, and update its alt text (home.ts lines 24 / 235).
-  If the size is different, also update width / height in home.ts (hero: lines 22-23;
-  manifiesto: lines 233-234) with the new pixel size.
+      hero-laptop-fondo.png   hero background: the wall with leaf shadows (736×920)
+      hero-laptop-frente.png  hero foreground: transparent cutout of the laptop on the sneakers
+                              (736×920, same frame as the background) — it slides up on load
+      manifiesto-ctrl-n.jpg   manifiesto photo (1060×590, horizontal)
+      hero-camara-dh.jpg      camera photo (900×1200) — not used in the hero any more; the brief
+                              places it next to "Qué hacemos" (later phase)
+  Simplest way to replace one: save the new image with the SAME file name and the SAME
+  proportions, replace the file, and update its alt text (home.ts lines 27 / 271).
+  The two hero layers must always have the same size so they line up. If the size changes,
+  update width / height in home.ts (hero: lines 23-24; manifiesto: lines 269-270).
   Logos (public/brand/) and icons (src/app/favicon.ico, icon.png, apple-icon.png) were
   processed from the originals with scripts — ask Claude to regenerate them, do not replace
   them by hand.

@@ -197,7 +197,7 @@ export function Header() {
                       href={`#${item.id}`}
                       onClick={(event) => goToSection(event, item.id)}
                       aria-current={active === item.id ? "true" : undefined}
-                      className="flex items-center justify-between py-4 font-serif text-[1.75rem] leading-tight text-fg aria-[current=true]:text-accent"
+                      className="flex items-center justify-between py-4 font-display text-[1.5rem] font-semibold leading-tight text-fg aria-[current=true]:text-accent"
                     >
                       {item.label}
                     </a>

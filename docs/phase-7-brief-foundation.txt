@@ -1,0 +1,213 @@
+PHASE 7 — BRIEF FOUNDATION (COLORS, FONTS) + HERO HEADLINE
+Date: 2026-10-23 (additions 2026-10-25)   Status: completed   Branch: brief-web
+
+==========================================================================================
+1. GOAL
+==========================================================================================
+Start the web-brief rework (brand-assets/BriefwebDigitalHouseGrowthStudio.docx) on a separate
+branch: apply the brief's colors and fonts to the whole site, rebuild the hero headline with the
+typed "selected" word, and apply the brief's content rule about Technogym.
+
+==========================================================================================
+2. DECISIONS (with who confirmed them)
+==========================================================================================
+- New branch `brief-web` for this work — user, 2026-10-23.
+- The brief does not override every earlier decision; colors and fonts DO follow it (D26) — user.
+- Every section in the brief must be on the page; keep Manifiesto, floating WhatsApp button and
+  the ribbon (D27) — user. Form = UI only for now; scheduling = Google Calendar (D28) — user.
+- Wait for the official transparent logo files (D29); Rene (no accent), Matias Rossel,
+  "juntos" (D30); keep the current client text line (D31) — user.
+- Hero headline first, in the brief's font, "crecimiento" shown selected and typed letter by
+  letter with the selection growing (D32) — user. Interpreted as the brief's "caja de selección"
+  (yellow band, line + dot handles at top-left and bottom-right); typed once on load — Claude.
+- Brief content rules (D33): "Technogym" removed from Nicole Pantoja's bio — brief.
+- Warm gray #A7A19A is used for lines / text on dark only: as text on ivory it is 2.3:1 (fails
+  WCAG AA). Secondary text on light = charcoal mixed 75 % with ivory (6.5:1) — Claude.
+- Satoshi is self-hosted (downloaded from Fontshare) instead of loaded from Fontshare's servers:
+  no third-party request, works with next/font — Claude.
+- Selection effect done in CSS only (no JavaScript, no library): it starts before the page is
+  interactive and needs no hydration — Claude.
+- Old token names (--cream, --ink, --sand…) kept as aliases of the new colors so every existing
+  section switched palette without rewriting it — Claude.
+- Not changed yet (waiting for the user's item-by-item decisions, PLAN.md Phases 8–11): textures
+  (grain, window shadow), hand-drawn accents, section structure, copy other than Technogym.
+
+==========================================================================================
+3. STRUCTURE — files/folders created or modified
+==========================================================================================
+Created
+  src/components/ui/SelectionBox.tsx   "caja de selección" component (optional typing)
+  src/fonts/satoshi/*.woff2            Satoshi 400/500/700/900 (Fontshare) + README.txt (license)
+  docs/phase-7-brief-foundation.txt    this file
+Modified
+  CLAUDE.md          D26–D33 (web brief block), §4.1–4.3 new colors and fonts
+  PLAN.md            Phases 7–11 for the brief rework
+  .gitignore         ~$* (Word lock files, e.g. ~$iefweb…docx while the brief is open)
+  src/styles/tokens.css    brief palette + aliases; light/sand/dark themes re-pointed
+  src/app/globals.css      font tokens (sans/display/label), new color utilities, yellow text
+                           selection, Selection box CSS + keyframes
+  src/app/layout.tsx       Manrope (Google) + Satoshi (local) instead of Bodoni Moda + Poppins;
+                           theme color #f7f3ea
+  src/components/sections/Hero.tsx    new headline (Manrope 800, SelectionBox, no underline)
+  src/content/home.ts      hero title split + `selected`; Technogym removed
+  src/components/{layout/Footer,layout/Header,sections/*,ui/Button,ui/Eyebrow,ui/InstagramPill,
+    ui/SectionHeading}.tsx  font classes: font-serif → font-display (Manrope bold); Bodoni
+                           italics removed (Manrope has no italic); buttons/labels → font-label
+  src/app/styleguide/page.tsx         same font swap + labels
+  docs/content-editing-guide.txt     hero instructions; home.ts line numbers +1 after the hero
+  docs/README.txt
+
+==========================================================================================
+4. SECTIONS / COMPONENTS
+==========================================================================================
+SelectionBox({ text, after?, typing?, delay = 500, step = 85, className? })
+  - Each letter is a span carrying its own slice of the yellow band → the selection widens as
+    letters appear. First letter ::before = top-left handle (dot above, line down the left edge).
+    Each letter ::after = bottom-right handle (line + dot below); only the current last letter
+    shows it, so while typing it acts as the cursor; it blinks 3 times at the end and stays.
+  - `after` (e.g. ".") sits outside the band and appears after the last letter.
+  - typing=false → static selection (for "Cero improvisación" and "tu crecimiento" later).
+  - Accessibility: plain text once in an sr-only span; the letter spans are aria-hidden.
+    Verified: h1 accessible name = "No vendemos estética. Vendemos crecimiento."
+Hero headline: 4 fixed lines — "No vendemos" / "estética." (charcoal) / "Vendemos" (dark
+  burgundy) / "crecimiento" in the selection box + "." — Manrope 800,
+  clamp(40px → 84px), line-height 1.05, tracking -0.035em. Rest of the hero unchanged for now.
+
+==========================================================================================
+5. STYLES
+==========================================================================================
+Colors (tokens.css, brief names): --burgundy-deep #4A0710 guinda oscuro (accent, dark bands,
+  buttons) · --burgundy #790B1A guinda principal (details) · --ivory #F7F3EA marfil (background,
+  text on dark) · --beige #E5DCCF · --charcoal #262322 (body) · --warm-gray #A7A19A (lines) ·
+  --yellow #FCE7A6 · --sky #D7E8F7.
+  Contrast: charcoal/ivory 14.1 · burgundy-deep/ivory 14.3 · burgundy-deep on yellow 12.9 ·
+  secondary text 6.5 (ivory) / 6.7 (beige) / 9.4 (on dark).
+  Text selection (::selection) = yellow + dark burgundy.
+Fonts: --font-sans / --font-display = Manrope (variable 200–800); --font-label = Satoshi
+  (fallback Manrope). Headlines 600–800, body 400, buttons Satoshi 700, labels Satoshi 500.
+Selection box: band top 0.2em, height 1.02em; handle dot max(7px, 0.11em); line max(2px,
+  0.025em). Typing: starts 500 ms after load, 85 ms per letter (~1.4 s total), only under
+  prefers-reduced-motion: no-preference; otherwise the word is shown fully selected.
+
+==========================================================================================
+6. CONTENT — copy used and its source
+==========================================================================================
+Hero headline unchanged ("No vendemos estética. Vendemos crecimiento." — portfolio slide 02 /
+  brief). Nicole Pantoja bio: "… y coordina el proyecto completo." (Technogym sentence removed,
+  brief rule). No other copy changes in this phase.
+
+==========================================================================================
+7. ASSETS
+==========================================================================================
+Satoshi WOFF2 ×4 (≈ 100 KB total) in src/fonts/satoshi — ITF Free Font License (Fontshare).
+No image changes. Logos unchanged (D29).
+
+==========================================================================================
+8. HOW TO RUN / TEST
+==========================================================================================
+  npm run lint → passes · npm run build → passes · tsc --noEmit → passes
+Checked (headless Chrome against the dev server):
+  - Typing frames at 1440 and 390 px: "cre…" at 0.9 s with the right handle on the last letter;
+    full word + period at the end; no horizontal overflow.
+  - Reduced motion: word shown fully selected, no typing.
+  - h1 accessible name correct (no letter-by-letter reading).
+  - Full page at 1440: all sections render with the new palette and fonts.
+  Note: Chrome's "capture beyond viewport" screenshot mode shrinks the selected word (it resizes
+  the page while capturing); a normal screenshot of the same page is correct.
+
+==========================================================================================
+9. PENDING / OPEN QUESTIONS / PLACEHOLDERS
+==========================================================================================
+- Footer logo: the current cream logo has the old burgundy (#51020C) baked in, so a slightly
+  different box shows on the new #4A0710 footer. Fixed when the official transparent files arrive
+  (D29). (The header logo's baked cream differs from the new ivory by 1/255 — invisible.)
+- Brief items still to decide / build (PLAN.md Phases 8–11): rest of the hero (rotating word line
+  in Playfair italic, subtitle, "Hablemos" / "Conoce al equipo"), menu labels, Qué hacemos,
+  ribbon, 4-step process, 6-panel services accordion, 5 flip cards, contact form UI, Google
+  Calendar link (URL pending), photos (laptop in hero per brief vs D22), textures and hand-drawn
+  accents (brief says none; kept until the user decides).
+- The share image (src/app/opengraph-image.png) still uses the old colors and Poppins; regenerate
+  with tools/og.py once the logo files arrive.
+- Prototype mentioned in the brief: link not received yet.
+
+==========================================================================================
+10. CHANGELOG
+==========================================================================================
+- 2026-10-23 Branch brief-web; CLAUDE.md D26–D33, §4 colors/fonts; PLAN.md Phases 7–11.
+- 2026-10-23 Brief palette in tokens.css (aliases for old names); themes re-pointed; contrast
+  checked.
+- 2026-10-23 Manrope + self-hosted Satoshi; font classes swapped site-wide; Bodoni removed.
+- 2026-10-23 SelectionBox component + CSS typing; hero headline rebuilt.
+- 2026-10-23 Technogym removed; .gitignore for Word lock files; editing guide updated.
+- 2026-10-23 lint, typecheck and build pass.
+
+ADDITIONS 2026-10-25 (user request, same phase)
+- D34 Typing repeats: <SelectionBox repeat hold={1000}> — cycle ≈ 2.15 s (0.22 s empty, 11 letters
+  × 85 ms, 1 s hold with blinking cursor). The component generates one @keyframes set per letter
+  for the cycle (inline <style>); names are passed through --sel-in / --sel-cur and globals.css
+  applies them only under prefers-reduced-motion: no-preference. Verified by sampling over two
+  cycles: 0 → 11 letters, cursor on the newest letter, period last, hold, restart.
+- D35 Pick cards (QuienesSomos.tsx + globals.css "Pick cards"): reveal on the <li>, card on an
+  inner <div class="pick-card">. Middle card ([data-default]) = dark, translateY(-8px), soft shadow,
+  floating -8 ↔ -14 px (3.2 s ease-in-out). Hover (hover-capable devices only): hovered card dark +
+  translateY(-8px) rotate(-0.6deg) (card hover from the prototype); the middle card steps back to
+  light via :has(). Colors/transform/shadow transition 0.45 s. Touch: middle card stays chosen.
+  Reduced motion: no float, middle card just raised. Verified: rest, hover card 1, hover card 2,
+  mouse away, reduced motion.
+- D36 Prototype link recorded. Its source (plain HTML/CSS/JS) was read as reference data for later
+  phases: rotating word every 2.3 s with a 0.35 s fade/shift; steps auto-advance every 3.8 s,
+  progress rail 0.6 s; accordion flex 0.65 s cubic-bezier(.2,.8,.2,1); flip cards rotateY 0.6 s;
+  ribbon 28 s linear loop; buttons hover translateY(-2px) rotate(-1deg).
+- D37 Process line (ComoTrabajamos.tsx + globals.css "Process line"): desktop track now runs
+  exactly from the first to the last dot center (computed from --steps and the 1.5rem gap; grid
+  columns = repeat(--steps)), with an ivory fill inside. Hovering step K (anywhere on the step)
+  sets the fill to (K-1)/(N-1) via :has(li:nth-of-type(K):hover) — 0.6 s
+  cubic-bezier(.2,.8,.2,1), so moving between steps grows/shrinks it like a progress bar. Dots up
+  to K fill in ivory (li:hover, li:has(~ li:hover)), each delayed ≈ when the line reaches it.
+  Verified: track 250→1190 px = dot centers; step 3 → 50 % ●●●○○, step 5 → 100 %, step 2 →
+  25 %, mouse away → 0 %. Mobile (vertical timeline): dots fill on hover/tap, the line stays a
+  hairline. Reduced motion: instant.
+- Hero eyebrow briefly removed by the user (2026-10-25), then restored; see D38.
+- D38 Hero (user request): label "GROWTH STUDIO" in an outlined pill (new Eyebrow `pill` prop:
+  1.5px dark-burgundy border, rounded-full, Satoshi bold, trailing tracking compensated); the
+  paragraph under the headline removed (content field deleted). Image = user files
+  brand-assets/digital-house_background.png (wall, RGB) + digital-house_foreground.png (RGBA
+  cutout, 61 % transparent, same 736×920 frame), copied unchanged to
+  public/images/hero-laptop-fondo.png / hero-laptop-frente.png (next/image serves resized WebP).
+  Both preloaded; background alt="" (decorative), foreground carries the alt text. The frame
+  (rounded, overflow hidden) clips the cutout, which rises from translateY(78%) rotate(-7deg)
+  through damped wobbles (+4°, -3°, +2°, -1°, +0.4°) to rest — 1.7 s, starts at 0.25 s, once;
+  transform-origin bottom center (globals.css "Hero rise"). Reduced motion: shown in place.
+  Offset hairline frame and sparkle kept. Camera photo no longer in the hero (file kept for
+  "Qué hacemos"). Verified frames at 1440 / 390 px, no overflow, alt texts.
+- Content editing guide: hero + photos sections rewritten; home.ts line numbers after the hero +2.
+- tools/.venv recreated (Pillow) to inspect the cutout's alpha.
+- Note: `next dev` appends a "nextjs-agent-rules" block to CLAUDE.md (Next.js 16 behavior); left
+  as is.
+
+ADDITIONS 2026-10-26 (user request — Equipo pulled forward from Phase 10)
+- D39 Equipo flip cards. Content = web brief table / prototype (D36), names per D30, roles and
+  phrases confirmed by the user's message: Nicole Pantoja (Fundadora · Directora de Estrategia),
+  Nicole Vidaurre (Directora Creativa), Rene Rengel (Director de Desarrollo y Soluciones
+  Digitales), Matias Rossel (Aliado · Producción y Merchandising). Michelle Vidaurre (brief's
+  5th card) not added — waiting for the user.
+- Files: src/components/ui/TeamCard.tsx (new, client component: state + transparent toggle
+  button with aria-pressed, aria-label "Ver especialidad de <name>"; resets on mouse leave);
+  src/components/sections/Equipo.tsx (title with <SelectionBox> "tu crecimiento", grid
+  1 / 2 (sm) / 4 (lg) columns, closing line; old lead, summary/bio cards removed; Eventos band
+  and clients line unchanged); src/content/home.ts (TeamMember = name, initials, role, phrase,
+  specialty, ask[], tone, photo?; flipLabel, askLabel, closing{hint, question, answer}).
+- Card: both faces in one grid cell (card height = taller face). Front theme-light ivory,
+  initials Manrope 800 on a yellow / sky / beige panel (2:1 on phones, 4:3 from sm), name,
+  Satoshi uppercase role, phrase. Back #790B1A, ivory text, full name in yellow, "PÍDELE" in
+  sky, list with yellow ✦. Ivory 1.5px border on both faces.
+- Motion (globals.css "Team flip cards"): perspective 1100px, rotateY(180deg) 0.6 s
+  cubic-bezier(.2,.8,.2,1). Hover only under (hover: hover); [data-flipped] for tap / Enter /
+  Space. Reduced motion: instant swap via the global rule.
+- Selection box on dark bands: the dots use --sel-ink (ivory under .theme-dark; burgundy
+  elsewhere) so they stay visible; band, lines and text unchanged.
+- Hint text adapted from the prototype ("Toca una tarjeta…") to "Pasa el cursor o toca una
+  tarjeta para darle la vuelta." because desktop flips on hover. "juntas" → "juntos" (D30).
+- Verified (headless Chrome): 1440 px hover → rotateY 180°, away → none; 390 px tap → flipped,
+  tap again → back; Enter on focused card → flipped; aria-labels; no horizontal overflow.
+- Content editing guide §8 rewritten; home.ts line numbers after Equipo +33.

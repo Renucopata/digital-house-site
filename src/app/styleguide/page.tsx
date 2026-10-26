@@ -87,7 +87,7 @@ export default function StyleguidePage() {
       <Section theme="light" grain windowShadow>
         <Container className="flex flex-col gap-4">
           <Eyebrow>Interno · noindex</Eyebrow>
-          <h1 className="font-serif text-h1">Styleguide — Fase 1</h1>
+          <h1 className="font-display font-bold text-h1">Styleguide — Fase 1</h1>
           <p className="max-w-2xl text-fg-soft">
             Tokens, tipografía y componentes base del sitio DigitalHouse Growth Studio. Fuente de verdad:
             CLAUDE.md §4 y docs/phase-1-setup-design-system.txt.
@@ -120,10 +120,10 @@ export default function StyleguidePage() {
 
         <Block title="Tipografía">
           <div className="flex flex-col gap-6">
-            <p className="font-serif text-display">digital estrategia</p>
-            <p className="font-serif text-h1">Entendamos tu negocio primero.</p>
-            <p className="font-serif text-h2">
-              Un proceso, no una <em className="italic">improvisación</em>
+            <p className="font-display font-bold text-display">digital estrategia</p>
+            <p className="font-display font-bold text-h1">Entendamos tu negocio primero.</p>
+            <p className="font-display font-bold text-h2">
+              Un proceso, no una <strong>improvisación</strong>
             </p>
             <p className="font-sans text-h2 font-extrabold uppercase tracking-[-0.01em] text-accent">Crecimiento</p>
             <p className="font-sans text-h3 font-medium">Consultoría de Negocio &amp; Marca</p>
@@ -131,19 +131,19 @@ export default function StyleguidePage() {
               El primer paso siempre es el mismo: una consultoría para entender dónde estás y a dónde quieres llegar.
             </p>
             <p className="max-w-2xl">
-              Cuerpo — Poppins 400, 16px, interlineado 1.7. Antes de cualquier pieza de marca o contenido, hay una
+              Cuerpo — Manrope 400, 16px, interlineado 1.7. Antes de cualquier pieza de marca o contenido, hay una
               consultoría que entiende cómo ese negocio específico genera valor, quién es su cliente y cuáles son sus
               cuellos de botella reales.
             </p>
             <Eyebrow>Growth studio · etiqueta 12px · tracking 0.35em</Eyebrow>
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-1 text-sm text-fg-soft sm:grid-cols-2">
-            <div>display — clamp(48px → 104px) · Bodoni Moda</div>
-            <div>h1 — clamp(40px → 76px) · Bodoni Moda</div>
-            <div>h2 — clamp(32px → 52px) · Bodoni Moda / Poppins 800</div>
-            <div>h3 — clamp(20px → 24px) · Poppins 500</div>
-            <div>lead — clamp(17px → 20px) · Poppins 400</div>
-            <div>label — 12px · Poppins 400 · 0.35em</div>
+            <div>display — clamp(48px → 104px) · Manrope</div>
+            <div>h1 — clamp(40px → 76px) · Manrope</div>
+            <div>h2 — clamp(32px → 52px) · Manrope 700</div>
+            <div>h3 — clamp(20px → 24px) · Manrope 700</div>
+            <div>lead — clamp(17px → 20px) · Manrope 400</div>
+            <div>label — 12px · Satoshi 500 · 0.35em (botones: Satoshi 700)</div>
           </dl>
         </Block>
 
@@ -182,7 +182,7 @@ export default function StyleguidePage() {
 
         <Block title="Acentos dibujados a mano (SVG)">
           <div className="flex flex-wrap items-end gap-12">
-            <p className="font-serif text-h2">
+            <p className="font-display font-bold text-h2">
               Vendemos <HandUnderline>crecimiento</HandUnderline>
             </p>
             <HandArrow />

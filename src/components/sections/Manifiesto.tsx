@@ -28,11 +28,11 @@ export function Manifiesto() {
           <Sparkle className="absolute -top-12 right-4 size-12 sm:right-16 lg:-top-14 lg:right-0" strokeWidth={1.75} />
           <h2
             id="manifiesto-title"
-            className="font-sans text-[clamp(2rem,1.5rem+1.8vw,2.5rem)] leading-[1.25] lg:leading-[1.15] font-normal tracking-[-0.015em] text-fg"
+            className="font-display text-[clamp(2rem,1.5rem+1.8vw,2.5rem)] leading-[1.25] lg:leading-[1.15] font-medium tracking-[-0.015em] text-fg"
           >
             {manifiesto.strongLines.map((line) => (
               <span key={line}>
-                <strong className="block font-semibold text-accent">{line}</strong>{" "}
+                <strong className="block font-extrabold text-accent">{line}</strong>{" "}
               </span>
             ))}
             <span className="block">{manifiesto.regularBefore}</span>{" "}

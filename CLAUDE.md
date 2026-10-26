@@ -42,6 +42,26 @@ Built with **Next.js (App Router)**. The full phased plan lives in `PLAN.md`.
 | D24 | Vercel production address (until a domain is bought, D11): **https://digital-house-site-indol.vercel.app** — used for metadataBase, Open Graph, sitemap (Phase 6). |
 | D25 | Servicios (#servicios) = **stacked blocks**, all five pillars fully visible (option a). The user likes **option c (summary cards + expandable details)** and may want to try it later → recorded in `docs/IDEAS.txt`. |
 
+### Web brief (2026-10-23) — `brand-assets/BriefwebDigitalHouseGrowthStudio.docx`, branch `brief-web`
+The brief does **not** override every earlier decision. The user decides item by item; until then,
+anything below that is not listed keeps the D1–D25 rule.
+| # | Decision |
+|---|---|
+| D26 | **Colors and fonts follow the brief** (replaces D1 color limits, D15, D19 — see §4.2, §4.3). Yellow and light blue are allowed as small accents (~10 % of the page). |
+| D27 | **Every section listed in the brief must be on the page** (Hero, Qué hacemos, ribbon, Cómo trabajamos, Servicios, Equipo, Confían en nosotros, Contacto, footer). Also **keep** the Manifiesto section (D22 image) and the floating WhatsApp button (D6). |
+| D28 | Contact form: **UI only** for now (fields, validation, confirmation/error states); real sending decided later. Scheduling ("agendar") = **Google Calendar** (booking link still pending). |
+| D29 | Logo: **wait for the official transparent files** from Nicole; keep the current files until then (D20, D23). |
+| D30 | Team spelling: **Rene Rengel** (no accent, D14 stands), **Matias Rossel**; closing line uses **"juntos"**. |
+| D31 | Clients: keep the current text-only line (D13) — no logo grid until authorized logos arrive. |
+| D32 | Hero headline "No vendemos estética. Vendemos crecimiento." comes **first**, set in the brief's headline font; the word **"crecimiento"** is shown as **selected text** (brief "caja de selección": yellow band + line and dot at opposite corners) that is **typed letter by letter**, with the selection growing with the word. |
+| D33 | Brief content rules apply: no "Technogym", no "gratuita", no promised results/deadlines/prices, specialists not presented as staff. |
+| D34 | (2026-10-25) The hero typing **repeats**: the word types, stays selected for **1 s** (cursor blinking), clears and types again. |
+| D35 | (2026-10-25) Quiénes somos cards = "pick cards": hovering a card turns it dark burgundy (like the middle card) and lifts it; only one card is dark at a time. At rest the middle card is the chosen one, slightly raised and gently floating "waiting to be picked". |
+| D37 | (2026-10-25) Cómo trabajamos: hovering a step fills the connecting line from step 1 to that step with ivory (the color of step 1), smoothly like a progress bar, and fills the dots it passes; leaving empties it. |
+| D38 | (2026-10-25) Hero: label = **"GROWTH STUDIO" in an outlined pill**; the paragraph under the headline is **removed**; the image is the user-provided pair `brand-assets/digital-house_background.png` (wall) + `digital-house_foreground.png` (cutout of the laptop on the sneakers), the foreground **sliding up into place with a small wobble** on load. This replaces the camera photo in the hero and lifts D22's exclusion of the laptop image. |
+| D39 | (2026-10-26) Equipo = **flip cards** (brief + prototype content). Front (ivory): big initials on a yellow/sky/beige panel (approved photos can replace them later), name, role, phrase. Back (guinda principal `#790B1A`): specialty + "Pídele" list. Turns in 3D (0.6 s) on hover, tap, Enter/Space. Members (user, 2026-10-26): **Nicole Pantoja** (Fundadora · Directora de Estrategia), **Nicole Vidaurre** (Directora Creativa), **Rene Rengel** (Director de Desarrollo y Soluciones Digitales — replaces D14's title), **Matias Rossel** (Aliado · Producción y Merchandising). Title "Un equipo de especialistas. Un solo objetivo: tu crecimiento." with the selection box; closing line "¿Quién participa en tu proyecto? Lo decidimos juntos después de escucharte." The brief's 5th card (Michelle Vidaurre) is **not** shown until the user confirms. |
+| D36 | Prototype referenced by the brief: https://claude.ai/artifact/73cUyYw6yvsBw6b4RRnodk — reference for interactions/timings; **the brief wins** where they differ. |
+
 ## 2. Working rules (non-negotiable)
 1. **Do not assume.** If anything in a request, the PDFs, the images or this file is ambiguous or
    contradictory, STOP and ask the user before writing code. List the doubt, propose options, wait.
@@ -67,38 +87,37 @@ In `/brand-assets/` (flat folder, kept as-is for reference — D18):
 Exact filename ↔ content mapping (IMG-0…IMG-5) is in `docs/phase-0-discovery.txt` §5.1.
 
 ## 4. Design system — source of truth
-### 4.1 Which identity wins (CONFIRMED — D1)
+### 4.1 Which identity wins (CONFIRMED — D1; colors and fonts now from the web brief, D26)
 - **A. Brand identity (images)** — cream/ivory + deep burgundy, editorial, didone serif + heavy
   geometric sans, natural-light photography. → **The only style source for the website.**
 - **B. PDF deck styling** (light blue, pale yellow, yellow script) → **never use**. PDFs = content only.
 
-### 4.2 Color tokens (measured from the images in Phase 0 — approved, D19)
-| Token | Value | Use |
-|---|---|---|
-| `--burgundy` | `#670812` | Logo color, primary text accents, borders, buttons |
-| `--burgundy-deep` | `#51020C` | Full-bleed dark sections (cream logo on it) |
-| `--cream` | `#F8F4E9` | Main page background |
-| `--ivory` | `#F3EBE0` | Text on dark sections, alternate background, cards |
-| `--sand` | `#EFE6DC` | Kraft-paper sections, photo-like backgrounds |
-| `--sand-deep` | `#E7D8CA` | Brush smears / kraft accents |
-| `--ink` | `#481F1E` | Body text (dark warm brown, not pure black) |
-| `--ink-soft` | `#6B5552` | Secondary text |
-| `--line` | `--burgundy` @ ~30–60% | Hairlines, pill borders |
-No light blue, no yellow, no pure black backgrounds, no pure white (#FFF) backgrounds in identity A.
-Only two "moods": light (cream + burgundy) and dark (burgundy + cream). Contrast must pass WCAG AA.
+### 4.2 Color tokens (web brief brand board — D26; replaces the Phase 0 palette of D19)
+| Token | Value | Brief name | Use |
+|---|---|---|---|
+| `--burgundy-deep` | `#4A0710` | Guinda oscuro | **Predominant**: dark bands, headlines, buttons, text accents on ivory |
+| `--burgundy` | `#790B1A` | Guinda principal | Details only (team card backs, rotating hero word) |
+| `--ivory` | `#F7F3EA` | Marfil | Main background; text on dark bands |
+| `--beige` | `#E5DCCF` | Beige neutro | Secondary backgrounds |
+| `--charcoal` | `#262322` | Carbón | Body text |
+| `--warm-gray` | `#A7A19A` | Gris cálido | Lines; secondary text **on dark only** (2.3:1 on ivory fails AA) |
+| `--yellow` | `#FCE7A6` | Amarillo bebé | Accent (~10 %): selection box, active step |
+| `--sky` | `#D7E8F7` | Celeste bebé | Small touch: completed steps, details |
+Secondary text on light backgrounds = charcoal softened toward ivory (`color-mix`), so it keeps AA
+contrast. Old token names (`--cream`, `--ink`, `--sand`…) are kept as aliases so existing components
+keep working. No pure black / pure white backgrounds. Contrast must pass WCAG AA.
 
 ### 4.3 Typography
 - **Logo: never re-typeset.** Use the logos from the provided images (D8, D20): official lockup =
   cream-on-burgundy wordmark (plus its burgundy-on-cream recolor for the header) and the "dH" monogram.
   Crop them, export optimized PNG/WebP at 2x, and place each only on a background matching its own
   (cream logo on burgundy, burgundy logo on cream). If you can produce a transparent version cleanly,
-  show it to the user for approval before using it. No official font files (D15).
-- Display / editorial headlines → **Bodoni Moda** (high-contrast didone, lowercase-friendly, light
-  weight, like "digital" in the logo).
-- Strong headline / emphasis → **Poppins 800**, uppercase allowed (like "HOUSE").
-- Labels / eyebrows → **Poppins 400**, UPPERCASE, very wide tracking (~0.35em), small size
-  (like "GROWTH STUDIO", "SÍGUENOS EN").
-- Body → **Poppins 400**, comfortable line-height (the "Nuevas ideas" post is Poppins).
+  show it to the user for approval before using it. Official transparent files are coming (D29).
+- Fonts (web brief, D26 — replaces Bodoni Moda + Poppins of D15):
+  - **Manrope** 600–800 → headlines and key phrases; Manrope 400–500 → body text and menu.
+  - **Satoshi** 400–900 → buttons, labels, short highlighted texts (self-hosted from Fontshare,
+    Manrope as fallback).
+  - **Playfair Display italic** → only the rotating hero word (brief); the only serif on the site.
 - Handwritten annotations (arrows, "Creando nuevas estrategias") → prefer **SVG hand-drawn assets**;
   if a font is needed, ask first (candidate: *Caveat*). Use sparingly — accents only.
 Fonts are loaded with `next/font`. Final choices are recorded in `docs/phase-1-*.txt`.
@@ -160,3 +179,13 @@ Keep `docs/README.txt` as an index of all phase docs.
   opens `https://wa.me/59165999740` with the D17 pre-filled text (URL-encoded `?text=`) in a new tab with `rel="noopener noreferrer"`, never hidden by
   the mobile menu, footer or cookie bars, respects safe-area insets on iOS.
 - Contact constants live in ONE file: `src/content/contact.ts` (phone, wa.me URL, email, Instagram).
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

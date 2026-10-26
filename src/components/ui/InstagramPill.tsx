@@ -28,7 +28,7 @@ export function InstagramPill({ label = true, className }: InstagramPillProps) {
       >
         <InstagramIcon className="size-5" />
         <span aria-hidden="true" className="h-6 w-px bg-current opacity-70" />
-        <span className="text-[0.95rem] font-normal tracking-[0.01em]">{contact.instagramLabel}</span>
+        <span className="font-label text-[0.95rem] font-medium tracking-[0.01em]">{contact.instagramLabel}</span>
       </a>
     </div>
   );
