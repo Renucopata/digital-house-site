@@ -1,46 +1,53 @@
+import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { quienesSomos } from "@/content/home";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { queHacemos } from "@/content/home";
 import { reveal } from "@/lib/reveal";
 
 /**
- * #quienes-somos — positioning statement + the three differentiators as "pick cards" (D35):
- * the emphasized (middle) card is the chosen one and floats as if waiting to be picked; hovering
- * another card makes that one dark and lifted instead (globals.css, "Pick cards").
- * The reveal sits on the <li>, the card styles and motion on the inner <div>, so the two
- * transforms never fight.
+ * #que-hacemos — web brief "Qué hacemos" (D41): three big phrases, no paragraph, beige band, with
+ * the dH camera photo beside them. One phrase at a time stands out (full color, slides right, a
+ * bar grows on its left); the others fade back. At rest it is the first one; on devices with a
+ * pointer, the one under the mouse (globals.css "Stand-out rows").
+ * The reveal sits on the <li>, the stand-out styles on the inner <p>, so they never fight.
  */
-export function QuienesSomos() {
+export function QueHacemos() {
   return (
-    <Section id="quienes-somos" theme="sand" grain aria-labelledby="quienes-somos-title">
-      <Container className="flex flex-col gap-14 lg:gap-16">
-        <SectionHeading
-          eyebrow={quienesSomos.eyebrow}
-          title={quienesSomos.title}
-          titleId="quienes-somos-title"
-          lead={quienesSomos.lead}
-        />
+    <Section id="que-hacemos" theme="sand" grain aria-labelledby="que-hacemos-title">
+      <Container className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+        <div className="flex flex-col gap-8 lg:col-span-7">
+          <Eyebrow as="h2" id="que-hacemos-title">
+            {queHacemos.eyebrow}
+          </Eyebrow>
+          <ol className="stand-group border-b-[1.5px] border-line">
+            {queHacemos.rows.map((row, index) => (
+              <li key={row.label} {...reveal(index)} className="border-t-[1.5px] border-line">
+                <p data-default={index === 0 ? "" : undefined} className="stand-row flex flex-col gap-3 py-7">
+                  <span className="font-label text-[0.75rem] font-bold tracking-[0.18em] text-accent uppercase">
+                    {row.label}
+                  </span>
+                  <span className="font-display text-[clamp(1.875rem,1.2rem+2.9vw,3.75rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-balance text-fg">
+                    {row.text}
+                  </span>
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
 
-        <ul className="pick-group grid gap-5 pt-2 md:grid-cols-3 lg:gap-6">
-          {quienesSomos.pillars.map((pillar, index) => (
-            <li key={pillar.title} {...reveal(index)} className="flex">
-              <div
-                data-default={pillar.emphasis ? "" : undefined}
-                className="pick-card flex w-full flex-col gap-5 rounded-card border bg-surface p-7 text-fg sm:p-8"
-              >
-                <span aria-hidden="true" className="font-display text-[2.5rem] font-extrabold leading-none text-accent">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="flex flex-col gap-1">
-                  <span className="font-display text-h3 font-bold text-fg">{pillar.title}</span>
-                  <span className="font-display text-[1.125rem] font-semibold text-accent">— {pillar.contrast}</span>
-                </h3>
-                <p className="text-[0.9375rem] leading-relaxed text-fg-soft">{pillar.description}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <figure {...reveal(1)} className="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:col-span-5 lg:max-w-none">
+          {/* offset hairline frame, same treatment as the hero image */}
+          <div aria-hidden="true" className="absolute inset-0 translate-x-3 translate-y-3 rounded-card border border-line" />
+          <Image
+            src={queHacemos.image.src}
+            width={queHacemos.image.width}
+            height={queHacemos.image.height}
+            alt={queHacemos.image.alt}
+            sizes="(min-width: 1024px) 40vw, (min-width: 640px) 26rem, 22rem"
+            className="relative h-auto w-full rounded-card"
+          />
+        </figure>
       </Container>
     </Section>
   );

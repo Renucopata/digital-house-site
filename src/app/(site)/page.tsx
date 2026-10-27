@@ -4,12 +4,13 @@ import { Contacto } from "@/components/sections/Contacto";
 import { Equipo } from "@/components/sections/Equipo";
 import { Hero } from "@/components/sections/Hero";
 import { Manifiesto } from "@/components/sections/Manifiesto";
-import { QuienesSomos } from "@/components/sections/QuienesSomos";
+import { QueHacemos } from "@/components/sections/QueHacemos";
 import { Servicios } from "@/components/sections/Servicios";
+import { Soluciones } from "@/components/sections/Soluciones";
 
 /*
  * Single landing page (D3). Section rhythm:
- * light (hero) → sand → dark → light (servicios) → dark (equipo) → sand (manifiesto) →
+ * light (hero) → light (soluciones, rotating word) → sand (qué hacemos) → dark → light (servicios) → dark (equipo) → sand (manifiesto) →
  * light (contacto) → dark footer.
  */
 export default function Home() {
@@ -17,7 +18,8 @@ export default function Home() {
     <>
       <StructuredData />
       <Hero />
-      <QuienesSomos />
+      <Soluciones />
+      <QueHacemos />
       <ComoTrabajamos />
       <Servicios />
       <Equipo />

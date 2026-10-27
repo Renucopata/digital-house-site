@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Playfair_Display } from "next/font/google";
 import localFont from "next/font/local";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
@@ -10,6 +10,15 @@ import "./globals.css";
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Playfair Display italic = only the rotating word under the hero (web brief); the only serif.
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: "500",
+  style: "italic",
   display: "swap",
 });
 
@@ -58,7 +67,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: the inline script adds the "js" class before React hydrates
-    <html lang="es" className={`${manrope.variable} ${satoshi.variable} h-full`} suppressHydrationWarning>
+    <html lang="es" className={`${manrope.variable} ${satoshi.variable} ${playfair.variable} h-full`} suppressHydrationWarning>
       <head>
         {/* enables scroll-reveal styles only when JS runs (content stays visible without JS) */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

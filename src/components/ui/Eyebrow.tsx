@@ -3,16 +3,18 @@ import { cn } from "@/lib/cn";
 
 type EyebrowProps = {
   children: ReactNode;
-  as?: "p" | "span" | "div";
+  as?: "p" | "span" | "div" | "h2";
+  id?: string;
   /** Outlined, fully rounded "pill" box (hero "GROWTH STUDIO", D38). */
   pill?: boolean;
   className?: string;
 };
 
 /** Tiny uppercase label with very wide tracking (like "GROWTH STUDIO", "SÍGUENOS EN"). */
-export function Eyebrow({ children, as: Tag = "p", pill = false, className }: EyebrowProps) {
+export function Eyebrow({ children, as: Tag = "p", id, pill = false, className }: EyebrowProps) {
   return (
     <Tag
+      id={id}
       className={cn(
         "font-label text-label font-medium uppercase tracking-label text-accent",
         pill

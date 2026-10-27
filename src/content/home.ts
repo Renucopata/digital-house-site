@@ -28,40 +28,33 @@ export const hero = {
   },
 } as const;
 
-export type Pillar = {
-  title: string;
-  contrast: string;
-  description: string;
-  emphasis?: boolean;
-};
+// Below the hero: the "smaller hero" with the rotating word (web brief / prototype, D40).
+export const soluciones = {
+  lead: "Soluciones digitales para que",
+  // Order chosen by the user (2026-10-26). Each one replaces the previous every 2.3 s.
+  words: ["escalen", "te encuentren", "funcionen", "te elijan", "te recuerden"],
+  // Read once by screen readers instead of the changing word
+  srText: "Soluciones digitales para que escalen, te encuentren, funcionen, te elijan y te recuerden.",
+  subtitle: "Estrategia, marca y sistemas, con un equipo de especialistas que trabaja contigo.",
+} as const;
 
-export const quienesSomos = {
-  eyebrow: "Quiénes somos",
-  // CLAUDE.md §1 positioning line, split into title + lead
-  title: "Entendemos tu negocio primero.",
-  lead: "Todo lo demás — marca, contenido, sistema — nace de ahí.",
-  // Titles + contrasts: portfolio slide 02. Descriptions: internal PDF p2 (D21), rewritten in tú.
-  pillars: [
-    {
-      title: "Mentalidad de negocio",
-      contrast: "no solo visual",
-      description:
-        "Antes de cualquier pieza de marca o contenido, hay una consultoría que entiende cómo genera valor tu negocio, quién es tu cliente y cuáles son tus cuellos de botella reales.",
-    },
-    {
-      title: "Lo digital al centro",
-      contrast: "no como canal aparte",
-      description:
-        "Marca, contenido y operación pensados para ser accesibles, rápidos y eficientes — porque el negocio que no piensa en digital primero pierde velocidad frente al que sí.",
-      emphasis: true,
-    },
-    {
-      title: "Equipo de especialistas",
-      contrast: "no una sola persona",
-      description:
-        "Un equipo coordinado de especialistas por área, en lugar de una sola persona resolviéndolo todo. Eso da confianza y credibilidad a cada proyecto.",
-    },
-  ] satisfies Pillar[],
+export type QueHacemosRow = { label: string; text: string };
+
+// Web brief "Qué hacemos": three big phrases, no paragraph (D41). Replaces Quiénes somos.
+export const queHacemos = {
+  eyebrow: "Qué hacemos",
+  rows: [
+    { label: "Primero", text: "Entendemos tu negocio." },
+    { label: "Después", text: "Lo volvemos estrategia, marca y sistemas." },
+    { label: "Y siempre", text: "Lo ejecuta un equipo de especialistas." },
+  ] satisfies QueHacemosRow[],
+  // Brief: the camera with the dH monogram goes next to "Qué hacemos" (IMG-2, D22)
+  image: {
+    src: "/images/hero-camara-dh.jpg",
+    width: 900,
+    height: 1200,
+    alt: "Cámara digital con el monograma dH de DigitalHouse Growth Studio en la pantalla, sobre una pared con sombras de ventana.",
+  },
 } as const;
 
 export type ProcessStep = { title: string; description: string };
@@ -228,6 +221,15 @@ export const equipo = {
       specialty: "Construye lo digital que tu negocio necesita.",
       ask: ["Webs y apps", "CRMs y automatizaciones", "Herramientas a medida"],
       tone: "beige",
+    },
+    {
+      name: "Michelle Vidaurre",
+      initials: "MV",
+      role: "Directora de Eventos y BTL",
+      phrase: "La que hace que se experimente.",
+      specialty: "Hace que tu marca se viva en persona.",
+      ask: ["Eventos y activaciones", "Patrocinios", "Experiencias de marca"],
+      tone: "sky",
     },
     {
       // Brief: an ally (own print shop), not a director or staff (D33)

@@ -27,7 +27,7 @@ export function Equipo() {
           }
         />
 
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:grid-cols-5 xl:gap-5">
           {equipo.members.map((member, index) => (
             <li key={member.name} {...reveal(index)} className="flex">
               <TeamCard member={member} flipLabel={equipo.flipLabel} askLabel={equipo.askLabel} />

@@ -8,7 +8,7 @@ export type NavItem = { id: string; label: string };
 export const homeId = "inicio";
 
 export const navItems: NavItem[] = [
-  { id: "quienes-somos", label: "Quiénes somos" },
+  { id: "que-hacemos", label: "Qué hacemos" },
   { id: "como-trabajamos", label: "Cómo trabajamos" },
   { id: "servicios", label: "Servicios" },
   { id: "equipo", label: "Equipo" },

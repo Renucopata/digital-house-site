@@ -211,3 +211,31 @@ ADDITIONS 2026-10-26 (user request — Equipo pulled forward from Phase 10)
 - Verified (headless Chrome): 1440 px hover → rotateY 180°, away → none; 390 px tap → flipped,
   tap again → back; Enter on focused card → flipped; aria-labels; no horizontal overflow.
 - Content editing guide §8 rewritten; home.ts line numbers after Equipo +33.
+
+ADDITIONS 2026-10-26 (2) (user request)
+- D39 update: Michelle Vidaurre added (brief table: Directora de Eventos y BTL · "La que hace que
+  se experimente." · back "Hace que tu marca se viva en persona." · Pídele: Eventos y
+  activaciones; Patrocinios; Experiencias de marca), tone sky, between Rene and Matias.
+  Grid: 1 / 2 (sm) / 3 (lg) / 5 (xl) columns. Job titles confirmed by the user.
+- Google Calendar postponed by the user (no booking link, nothing implemented).
+- D40 "Smaller hero" (new section src/components/sections/Soluciones.tsx, light theme, top
+  hairline, centered): h2 = sr-only full sentence + visible "Soluciones digitales para que" +
+  <RotatingWord> (new client component src/components/ui/RotatingWord.tsx; 2.3 s interval,
+  0.35 s out = fade + slide down 0.3em via [data-leaving], then text swap and fade + slide up;
+  reduced motion → static first word). Word font: Playfair Display italic 500 (next/font/google,
+  --font-playfair → Tailwind font-accent), guinda principal #790B1A. Subtitle from the brief.
+  Content: home.ts `soluciones` (words in the user's order).
+- D41 "Qué hacemos" replaces "Quiénes somos": QuienesSomos.tsx renamed to QueHacemos.tsx
+  (#que-hacemos, sand + grain), nav label/id updated (navigation.ts). Eyebrow (now can render as
+  h2 with an id) + <ol> of 3 rows (label in Satoshi, phrase Manrope 800). Stand-out rows CSS
+  (globals.css): opacity .45 → 1, padding-left 0 → 1.75rem, 7px accent bar scaleY 0 → 1,
+  0.5 s; first row by default; hover takes over (pointer devices; :has() returns the default);
+  touch devices: all rows full opacity, first keeps the bar. Camera photo (IMG-2) beside it
+  with the hero's offset hairline frame. Old pick-card CSS and the Quiénes somos copy
+  (positioning title/lead + 3 pillars) removed. Content: home.ts `queHacemos`.
+- Verified (headless Chrome, :3000 = user's dev server): word cycle 2.3 s (escalen → te
+  encuentren → … with opacity/translate mid-swap), Playfair italic loaded, sr text; rows rest
+  1/.45/.45, hover row 2 → .45/1/.45, away → back; nav anchors; no horizontal overflow at 1440
+  and 390.
+- Content editing guide §5 rewritten (under the hero + Qué hacemos), §6–§10 line numbers
+  updated, team layout note for 5 cards.

@@ -70,6 +70,7 @@
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* body, menu */
   --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* headlines, 600–800 */
   --font-label: var(--font-satoshi), var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* buttons, labels */
+  --font-accent: var(--font-playfair), Georgia, serif; /* rotating word only (Playfair Display italic) */
 }
 
 @layer base {
@@ -218,77 +219,83 @@
 }
 
 /*
- * Pick cards (Quiénes somos, D35). One card at a time is "chosen": dark burgundy, lifted.
- * At rest the chosen one is the default card ([data-default], the middle one), floating gently
- * as if waiting to be picked. On devices with hover, the hovered card becomes the chosen one and
- * the default card goes back to light. Touch devices keep the default card chosen.
+ * Rotating word (under the hero, D40). <RotatingWord> sets [data-leaving] for 0.35 s: the word
+ * fades out sliding down; then it swaps the text and drops the attribute, so the next word fades
+ * in sliding up into place. Reduced motion: the component never starts the rotation.
  */
-.pick-card {
-  --surface: var(--ivory);
-  --fg: var(--charcoal);
-  --fg-soft: var(--ink-soft);
-  --accent: var(--burgundy-deep);
-  --line: color-mix(in srgb, var(--burgundy-deep) 35%, transparent);
-  border-color: var(--line);
+.rot-word {
+  display: block;
   transition:
-    background-color 0.45s var(--ease-soft),
-    border-color 0.45s var(--ease-soft),
-    box-shadow 0.45s var(--ease-soft),
-    transform 0.45s var(--ease-soft);
+    opacity 0.35s var(--ease-soft),
+    transform 0.35s var(--ease-soft);
 }
 
-.pick-card * {
-  transition: color 0.45s var(--ease-soft);
+.rot-word[data-leaving] {
+  opacity: 0;
+  transform: translateY(0.3em);
 }
 
-/* the chosen card: same colors as the dark theme */
-.pick-card[data-default] {
-  --surface: var(--burgundy-deep);
-  --fg: var(--ivory);
-  --fg-soft: color-mix(in srgb, var(--ivory) 80%, var(--burgundy-deep));
-  --accent: var(--ivory);
-  border-color: transparent;
-  transform: translateY(-8px);
-  box-shadow: 0 22px 40px -26px rgb(74 7 16 / 0.6);
+/*
+ * Stand-out rows (Qué hacemos, D41; prototype timings). One row at a time stands out: full
+ * opacity, slides right and a bar grows down its left edge; the others fade back to 45 %.
+ * At rest it is the first row ([data-default]); with a pointer, the hovered row. Touch devices
+ * (no hover): every row stays fully visible and the first keeps the bar.
+ */
+.stand-row {
+  position: relative;
+  opacity: 0.45;
+  transition:
+    opacity 0.5s var(--ease-soft),
+    padding-left 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.stand-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.75rem;
+  bottom: 1.75rem;
+  width: 7px;
+  border-radius: 4px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.stand-row[data-default] {
+  opacity: 1;
+  padding-left: 1.75rem;
+}
+
+.stand-row[data-default]::before {
+  transform: scaleY(1);
 }
 
 @media (hover: hover) {
-  .pick-card:hover {
-    --surface: var(--burgundy-deep);
-    --fg: var(--ivory);
-    --fg-soft: color-mix(in srgb, var(--ivory) 80%, var(--burgundy-deep));
-    --accent: var(--ivory);
-    border-color: transparent;
-    transform: translateY(-8px) rotate(-0.6deg);
-    box-shadow: 0 22px 40px -26px rgb(74 7 16 / 0.6);
+  .stand-row:hover {
+    opacity: 1;
+    padding-left: 1.75rem;
   }
 
-  /* another card is hovered → the default card steps back */
-  .pick-group:has(.pick-card:hover) .pick-card[data-default]:not(:hover) {
-    --surface: var(--ivory);
-    --fg: var(--charcoal);
-    --fg-soft: var(--ink-soft);
-    --accent: var(--burgundy-deep);
-    border-color: var(--line);
-    transform: none;
-    box-shadow: none;
-    animation: none;
+  .stand-row:hover::before {
+    transform: scaleY(1);
+  }
+
+  /* another row is hovered → the default row steps back */
+  .stand-group:has(.stand-row:hover) .stand-row[data-default]:not(:hover) {
+    opacity: 0.45;
+    padding-left: 0;
+  }
+
+  .stand-group:has(.stand-row:hover) .stand-row[data-default]:not(:hover)::before {
+    transform: scaleY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .pick-group:not(:has(.pick-card:hover)) .pick-card[data-default] {
-    animation: pick-wait 3.2s ease-in-out infinite;
-  }
-}
-
-@keyframes pick-wait {
-  0%,
-  100% {
-    transform: translateY(-8px);
-  }
-  50% {
-    transform: translateY(-14px);
+@media (hover: none) {
+  .stand-row {
+    opacity: 1;
   }
 }
 
