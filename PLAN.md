@@ -73,7 +73,7 @@ ProfessionalService with the confirmed contact data), image optimization, Lighth
 Deliverable: `docs/phase-6-seo-deploy.txt` and final `docs/README.txt` index.
 
 ---
-# Web brief rework (branch `brief-web`, from 2026-10-23)
+# Web brief rework (from 2026-10-23; branch `brief-web` merged into `main` 2026-10-27, work continues on `main`)
 Source: `brand-assets/BriefwebDigitalHouseGrowthStudio.docx`. Decisions D26–D33 in CLAUDE.md.
 Same rules: one phase at a time, phase doc, user approval. Items marked (ask) need the user's
 call before building (the brief does not override every earlier decision).

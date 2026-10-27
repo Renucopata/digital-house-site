@@ -42,7 +42,7 @@ Built with **Next.js (App Router)**. The full phased plan lives in `PLAN.md`.
 | D24 | Vercel production address (until a domain is bought, D11): **https://digital-house-site-indol.vercel.app** — used for metadataBase, Open Graph, sitemap (Phase 6). |
 | D25 | Servicios (#servicios) = **stacked blocks**, all five pillars fully visible (option a). The user likes **option c (summary cards + expandable details)** and may want to try it later → recorded in `docs/IDEAS.txt`. |
 
-### Web brief (2026-10-23) — `brand-assets/BriefwebDigitalHouseGrowthStudio.docx`, branch `brief-web`
+### Web brief (2026-10-23) — `brand-assets/BriefwebDigitalHouseGrowthStudio.docx` (worked on branch `brief-web`, merged into `main` 2026-10-27; all work now happens on `main`)
 The brief does **not** override every earlier decision. The user decides item by item; until then,
 anything below that is not listed keeps the D1–D25 rule.
 | # | Decision |
