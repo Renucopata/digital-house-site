@@ -10,7 +10,7 @@ import { Soluciones } from "@/components/sections/Soluciones";
 
 /*
  * Single landing page (D3). Section rhythm:
- * light (hero) → light (soluciones, rotating word) → sand (qué hacemos) → dark → light (servicios) → dark (equipo) → sand (manifiesto) →
+ * light (hero) → light (soluciones, rotating word) → sand (qué hacemos) → dark → light (servicios, work-area shelf) → dark (equipo) → sand (manifiesto) →
  * light (contacto) → dark footer.
  */
 export default function Home() {

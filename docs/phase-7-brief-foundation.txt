@@ -239,3 +239,26 @@ ADDITIONS 2026-10-26 (2) (user request)
   and 390.
 - Content editing guide §5 rewritten (under the hero + Qué hacemos), §6–§10 line numbers
   updated, team layout note for 5 cards.
+
+ADDITIONS 2026-10-28 (user request)
+- D42 Servicios replaced by the brief/prototype "Áreas de trabajo · Seis áreas. Un solo equipo."
+  (#servicios, light theme; menu label "Servicios" kept). New client component
+  src/components/ui/AreasShelf.tsx: <ul class="shelf"> of 6 panels; each has an <h3><button>
+  (aria-expanded/aria-controls, icon + name) and a region body (area pill, sentence, "includes"
+  list, "Hablemos de esto →" to #contacto). Closed bodies are inert. One open at a time
+  (state, first by default); opens on click/tap/Enter/Space, and on mouseenter when the screen
+  is ≥ 64rem with a pointer.
+- "Work-area shelf" CSS (globals.css). lg+: flex row, 500 px tall, flex-grow 1 → 7 over 0.65 s
+  (prototype easing); closed spines = icon on top + vertical name (writing-mode, rotated 180°),
+  icon tilts on hover; open = icon + name across the top, body at a fixed width (min(35rem,
+  48vw)) fading in after 0.3 s so text does not reflow while the panel widens. Below lg:
+  stacked panels, body opens with grid-template-rows 0fr → 1fr (bottom space via ::after so
+  the collapsed row is really 0). Colors per brief prototype: guinda oscuro, beige, guinda
+  principal, amarillo, guinda oscuro, celeste. Line icons copied from the prototype.
+- Content: home.ts `servicios` (eyebrow, title + titleStrong, linkLabel, 6 areas, closing),
+  texts word for word from the brief table. The 5-pillar copy (ServicePillar) was removed;
+  D25 and IDEAS I-01 marked superseded.
+- Verified (headless Chrome): 1440 px rest 643/92×5 px; hover panel 4 → it grows, the others
+  shrink (mid-transition 148/587), then 643; Enter on a focused tab opens it; aria-expanded and
+  inert follow; 390 px stacked 345/74×5, tap opens; no horizontal overflow.
+- Content editing guide §7 rewritten, §8–§10 line numbers −15.

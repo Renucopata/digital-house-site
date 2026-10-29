@@ -7,6 +7,8 @@ I-01  Servicios as summary cards + expandable details ("option c")
 Date: 2026-10-13 · Requested by: user · Context: Phase 4 pattern choice (CLAUDE.md D25)
 Status: NOT built. Phase 4 ships option (a) "stacked blocks". The user likes this
 alternative and may want to try it later.
+Update 2026-10-28: SUPERSEDED. Servicios is now the web brief's six-area shelf (CLAUDE.md
+D42); the five pillars and their copy were removed from the site.
 
 What
   The five pillars appear as a grid of compact summary cards (number 01–05, title, short

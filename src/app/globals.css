@@ -421,6 +421,160 @@
   }
 }
 
+/*
+ * Work-area shelf (web brief Servicios, D42). <AreasShelf> marks one panel [data-open].
+ * Below lg: stacked panels; the open one unfolds downwards (grid row 0fr → 1fr).
+ * lg and up: six spines in a row, like books on a shelf. The open one grows (flex 1 → 7) and the
+ * others make room; closed spines show the name vertically. The body has a fixed width, so the
+ * text doesn't reflow while the panel widens, and fades in once the panel has room.
+ */
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shelf-panel {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+.shelf-tab {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 22px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.shelf-icon {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  transition: transform 0.5s var(--ease-soft);
+}
+
+.shelf-name {
+  font-size: 1.5rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.shelf-body-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.shelf-panel[data-open] .shelf-body-wrap {
+  grid-template-rows: 1fr;
+}
+
+/* no bottom padding here: it would keep the collapsed row open; the ::after spacer adds it */
+.shelf-body {
+  min-height: 0;
+  padding: 0 22px;
+}
+
+.shelf-body::after {
+  content: "";
+  display: block;
+  height: 24px;
+}
+
+.shelf-panel[data-open] .shelf-tab {
+  cursor: default;
+}
+
+@media (min-width: 64rem) {
+  .shelf {
+    flex-direction: row;
+    height: 500px;
+  }
+
+  .shelf-panel {
+    flex: 1 1 0;
+    border-radius: 1.625rem;
+    transition: flex-grow 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .shelf-panel[data-open] {
+    flex-grow: 7;
+  }
+
+  /* closed: the whole spine is the button, icon on top, name at the bottom */
+  .shelf-head {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .shelf-tab {
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 26px 0;
+  }
+
+  .shelf-name {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 1.5625rem;
+  }
+
+  .shelf-panel:not([data-open]):hover .shelf-icon {
+    transform: rotate(-12deg) scale(1.15);
+  }
+
+  /* open: icon + name across the top */
+  .shelf-panel[data-open] .shelf-head {
+    bottom: auto;
+  }
+
+  .shelf-panel[data-open] .shelf-tab {
+    height: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 28px 30px;
+  }
+
+  .shelf-panel[data-open] .shelf-name {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: clamp(1.625rem, 0.5rem + 2.2vw, 2.625rem);
+  }
+
+  .shelf-panel[data-open] .shelf-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .shelf-body-wrap {
+    display: block;
+    position: absolute;
+    top: 112px;
+    left: 0;
+    width: min(35rem, 48vw);
+    opacity: 0;
+    transition: opacity 0.35s var(--ease-soft);
+  }
+
+  .shelf-panel[data-open] .shelf-body-wrap {
+    opacity: 1;
+    transition: opacity 0.5s var(--ease-soft) 0.3s;
+  }
+
+  .shelf-body {
+    padding: 0 30px 30px;
+  }
+}
+
 @keyframes draw {
   to {
     clip-path: inset(0 0 0 0);

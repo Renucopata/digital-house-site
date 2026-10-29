@@ -76,95 +76,80 @@ export const comoTrabajamos = {
 } as const;
 
 /* ------------------------------------------------------------------------------------------
- * Phase 4
+ * Servicios — web brief "Seis áreas. Un solo equipo." (D42): six vertical panels in a row, like
+ * books on a shelf; one open, the others show their name on the spine. Replaces the 5 stacked
+ * pillars (D25).
  * ---------------------------------------------------------------------------------------- */
 
-export type ServicePillar = {
-  /** Anchor id inside #servicios, e.g. "servicio-01". */
-  id: string;
-  title: string;
-  /** Short tagline (portfolio slide 05). */
-  short: string;
-  /** Long tagline (portfolio slides 06–10). */
-  tagline: string;
-  /** Internal PDF p5 description (D21), rewritten for the client. */
-  description: string;
+export type WorkArea = {
+  /** Panel name, on the spine (brief "Tarjeta"). */
+  name: string;
+  /** Service line, shown as a pill when open. */
+  area: string;
+  /** Short description (brief "Descripción corta", after the service line). */
+  text: string;
+  /** Brief "Al abrir, incluye". */
   includes: string[];
-  deliverable: string;
+  icon: "lens" | "sparkle" | "cursor" | "bars" | "burst" | "box";
+  tone: "burgundy-deep" | "beige" | "burgundy" | "yellow" | "sky";
 };
 
 export const servicios = {
-  eyebrow: "Qué ofrecemos",
-  // Portfolio slide 05 title + internal PDF p5 subtitle (D21)
-  title: "5 pilares de servicio",
-  lead: "Cada uno alimenta al siguiente.",
-  includesLabel: "Incluye",
-  deliverableLabel: "Entregable",
-  indexLabel: "Pilares de servicio",
-  pillars: [
+  eyebrow: "Áreas de trabajo",
+  title: "Seis áreas.",
+  titleStrong: "Un solo equipo.",
+  linkLabel: "Hablemos de esto",
+  areas: [
     {
-      id: "servicio-01",
-      title: "Consultoría de Negocio & Marca",
-      short: "El punto de partida.",
-      tagline: "El punto de partida obligatorio de cualquier proyecto.",
-      description:
-        "Diagnosticamos tu modelo de negocio — cómo gana dinero, tu público, tus diferenciales y tus cuellos de botella — y definimos una estrategia y un concepto de marca alineados a ese entendimiento.",
-      includes: ["Diagnóstico de modelo de negocio", "Cuellos de botella reales", "Estrategia de marca", "Ruta y objetivos"],
-      deliverable: "Estrategia inicial (ruta + objetivo) + primera visualización de marca, si aplica.",
+      name: "Entender",
+      area: "Consultoría de negocio",
+      text: "La radiografía de tu negocio y una ruta clara.",
+      includes: ["Diagnóstico del modelo de negocio", "Estrategia y ruta de trabajo", "Concepto de marca"],
+      icon: "lens",
+      tone: "burgundy-deep",
     },
     {
-      id: "servicio-02",
-      title: "Gestión de Marca & Contenido",
-      short: "Ejecutado sobre estrategia real.",
-      tagline: "Todo lo de una agencia de marketing — sobre una estrategia real.",
-      description:
-        "Todo lo que implicaría contratar una agencia de marketing — contenido, redes, calendario, pauta — ejecutado sobre la estrategia del pilar 01, no de forma aislada.",
-      includes: [
-        "Producción de contenido",
-        "Calendario editorial",
-        "Copywriting",
-        "Dirección de arte",
-        "Pauta publicitaria",
-        "Reportes",
-      ],
-      deliverable: "Plan mensual ajustable según volumen de contenido y canales — se cotiza a medida.",
+      name: "Que se note",
+      area: "Marca y contenido",
+      text: "Identidad y gestión mensual, con estrategia detrás.",
+      includes: ["Contenido y calendario editorial", "Copywriting y dirección de arte", "Pauta y reportes"],
+      icon: "sparkle",
+      tone: "beige",
     },
     {
-      id: "servicio-03",
-      title: "Procesos & Sistemas Digitales",
-      short: "Lo que existe, o lo que falta construir.",
-      tagline: "Con lo que ya existe, o con lo que hay que construir.",
-      description:
-        "Diagnosticamos los flujos de trabajo de tu equipo y aplicamos la solución que corresponda: implementación y capacitación en herramientas digitales que ya tienes pero no aprovechas, o una herramienta a medida cuando no existe una adecuada.",
-      includes: [
-        "Diagnóstico de workflows",
-        "Implementación de CRM",
-        "Capacitación de equipo",
-        "Herramientas a medida",
-        "Protocolos de trabajo",
-      ],
-      deliverable: "Herramienta implementada y equipo capacitado, o desarrollo a medida.",
+      name: "Que funcione",
+      area: "Sistemas digitales",
+      text: "Webs, CRMs, apps y herramientas a medida.",
+      includes: ["Implementación de herramientas existentes", "Capacitación a tu equipo", "Desarrollo a medida"],
+      icon: "cursor",
+      tone: "burgundy",
     },
     {
-      id: "servicio-04",
-      title: "Business Intelligence",
-      short: "Resultados de negocio, no vanidad.",
-      tagline: "Medimos resultados de negocio real, no solo alcance.",
-      description: "Métricas de negocio real — conversión, retención, ROI — no solo métricas de vanidad.",
-      includes: ["Dashboards de KPIs", "Medición de ROI", "Reportes ejecutivos", "Recomendaciones con datos"],
-      deliverable: "Complementa cualquier pilar — demuestra en números que la estrategia funciona.",
+      name: "Que se mida",
+      area: "Business Intelligence",
+      text: "Tableros y datos para decidir con números.",
+      includes: ["Tableros de KPIs", "Medición de ROI", "Reportes ejecutivos"],
+      icon: "bars",
+      tone: "yellow",
     },
     {
-      id: "servicio-05",
-      title: "Eventos & Patrocinios",
-      short: "Activaciones con experiencia real.",
-      tagline: "Activaciones de marca con respaldo de experiencia real.",
-      description:
-        "Diseño y ejecución de eventos, búsqueda y negociación de auspicios — una línea complementaria que refuerza tu marca y tu comunidad.",
-      includes: ["Diseño de eventos", "Negociación de auspicios", "Logística integral"],
-      deliverable: "Con experiencia propia comprobada: campeonato deportivo con auspicios conseguidos de punta a punta.",
+      name: "Que se viva",
+      area: "Eventos y BTL",
+      text: "Activaciones, experiencias y patrocinios.",
+      includes: ["Diseño de eventos y activaciones", "Negociación de auspicios", "Logística"],
+      icon: "burst",
+      tone: "burgundy-deep",
     },
-  ] satisfies ServicePillar[],
+    {
+      name: "Que se toque",
+      area: "Producción y merchandising",
+      text: "Con nuestro aliado de imprenta.",
+      includes: ["Impresos y material de marca", "Merchandising", "Piezas para eventos"],
+      icon: "box",
+      tone: "sky",
+    },
+  ] satisfies WorkArea[],
+  closing: "No eliges de un menú. Nos cuentas tu negocio y armamos la propuesta.",
 } as const;
 
 export type TeamMember = {
