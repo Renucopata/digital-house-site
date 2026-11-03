@@ -33,28 +33,38 @@ function Brand({ brand, hidden }: { brand: ClientBrand; hidden?: boolean }) {
 }
 
 /**
- * Client brands passing right to left without stopping (D43), ivory on guinda oscuro, full width.
- * CSS only (globals.css "Logo marquee"): the list is rendered twice and the track slides −50 %,
- * so the loop has no seam. The second copy is hidden from screen readers. Reduced motion → the
- * brands sit still, wrapped and centered, shown once.
+ * One row: its brands rendered four times; the track slides −50 % (two copies), so the loop has
+ * no seam and a half-length row still covers very wide screens. Only the first copy is read by
+ * screen readers.
+ */
+function MarqueeRow({ brands, reverse }: { brands: readonly ClientBrand[]; reverse?: boolean }) {
+  return (
+    <div className={reverse ? "marquee marquee-reverse" : "marquee"}>
+      <div className="marquee-track">
+        {[0, 1, 2, 3].map((copy) => (
+          <ul key={copy} aria-hidden={copy > 0 || undefined} className="marquee-list">
+            {brands.map((brand) => (
+              <Brand key={brand.name} brand={brand} hidden={copy > 0} />
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Client brands passing without stopping (D43), ivory on guinda oscuro, full width, in two rows:
+ * the first half of the brands moves right to left, the second half left to right.
+ * CSS only (globals.css "Logo marquee"). Reduced motion → the brands sit still, wrapped and
+ * centered, shown once.
  */
 export function LogoMarquee({ brands, label }: LogoMarqueeProps) {
+  const half = Math.ceil(brands.length / 2);
   return (
-    <div className="marquee-band theme-dark bg-burgundy-deep text-ivory">
-      <div className="marquee">
-        <div className="marquee-track">
-          <ul aria-label={label} className="marquee-list">
-            {brands.map((brand) => (
-              <Brand key={brand.name} brand={brand} />
-            ))}
-          </ul>
-          <ul aria-hidden="true" className="marquee-list">
-            {brands.map((brand) => (
-              <Brand key={brand.name} brand={brand} hidden />
-            ))}
-          </ul>
-        </div>
-      </div>
+    <div role="group" aria-label={label} className="marquee-band theme-dark bg-burgundy-deep text-ivory">
+      <MarqueeRow brands={brands.slice(0, half)} />
+      <MarqueeRow brands={brands.slice(half)} reverse />
     </div>
   );
 }

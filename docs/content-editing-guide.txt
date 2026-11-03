@@ -181,7 +181,8 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
   Line 258 eyebrow: "Credenciales",
   Lines 259-261  title: "Marcas que confían" + titleSoft: "(o confiaron)" (lighter) +
                  titleAfter: "en nuestro equipo."
-  Lines 263-277  one line per brand, in the order they pass:
+  Lines 263-277  one line per brand, in the order they pass. Two rows: the first half of the
+                 list (rounded up — 8 of 15) moves right to left, the rest left to right.
            { name: "Guinness", logo: { src: "/clients/guinness.png", width: 727 }, size: 2.5 },
              name  → read by screen readers (and shown as text if there is no logo)
              logo  → the ivory lettering file in public/clients/ and its width in pixels
