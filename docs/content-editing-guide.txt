@@ -1,5 +1,5 @@
 CONTENT EDITING GUIDE — where to change each piece of text and data on the website
-Date: 2026-10-26   (line numbers are from this date; if they shift, search for the quoted text)
+Date: 2026-10-29   (line numbers are from this date; if they shift, search for the quoted text)
 
 ==========================================================================================
 0. BEFORE YOU START
@@ -173,27 +173,42 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
            question: "¿Quién participa en tu proyecto?",
            answer: "Lo decidimos juntos después de escucharte.",
   Lines 238-239  extra: the "Eventos & Patrocinios" band under the team (title + text).
-  Line 243 label: "Han confiado en nosotros",
-  Line 244 names: ["Fair Play Élite", "VIDA"],   → client names (text only, no logos — D13).
-           To add a client: ["Fair Play Élite", "VIDA", "Nuevo Cliente"],
-           Only add clients who agreed to be shown.
+  (The client names moved to their own section, CREDENCIALES — §8b.)
+
+==========================================================================================
+8b. CREDENCIALES (client logos carousel) — src/content/home.ts
+==========================================================================================
+  Line 258 eyebrow: "Credenciales",
+  Lines 259-261  title: "Marcas que confían" + titleSoft: "(o confiaron)" (lighter) +
+                 titleAfter: "en nuestro equipo."
+  Lines 263-277  one line per brand, in the order they pass:
+           { name: "Guinness", logo: { src: "/clients/guinness.png", width: 727 }, size: 2.5 },
+             name  → read by screen readers (and shown as text if there is no logo)
+             logo  → the ivory lettering file in public/clients/ and its width in pixels
+             size  → height on screen in rem: ~2.5 for wide one-line names, ~4 for stacked ones,
+                     so they all look the same size
+           { name: "VIDA" },   → a brand WITHOUT a logo file: the name is set as text.
+  TO ADD A BRAND as text: copy { name: "VIDA" }, and change the name.
+  TO ADD A BRAND with its logo: put the image in brand-assets/logos/ and ask Claude to cut out
+  the lettering (tools/client_logos.py makes the ivory file in public/clients/).
+  To remove a brand, delete its line. Only show brands that agreed to be shown.
 
 ==========================================================================================
 9. MANIFIESTO and CONTACTO — src/content/home.ts
 ==========================================================================================
 Manifiesto (the "Ctrl + N" block)
-  Line 250 strongLines: ["Nuevas ideas.", "Más estrategia."],   → bold burgundy lines
-  Line 251 regularBefore: "Misma pasión por",
-  Line 252 underlined: "hacer crecer",          → words with the hand-drawn underline
-  Line 253 regularAfter: "tu negocio.",
-  Line 258 alt: "..."                           → description of the keyboard photo
+  Line 283 strongLines: ["Nuevas ideas.", "Más estrategia."],   → bold burgundy lines
+  Line 284 regularBefore: "Misma pasión por",
+  Line 285 underlined: "hacer crecer",          → words with the hand-drawn underline
+  Line 286 regularAfter: "tu negocio.",
+  Line 291 alt: "..."                           → description of the keyboard photo
 Contacto (closing section)
-  Line 264 eyebrow: "Empecemos",
-  Line 265 titleBefore: "Entendamos tu negocio",
-  Line 266 titleUnderlined: "primero.",         → underlined italic word(s)
-  Line 267 lead: "El primer paso siempre es el mismo: ...",
-  Line 268 primaryCta: "Escríbenos por WhatsApp",
-  Line 269 emailLabel: "o escríbenos a",        → text before the email address
+  Line 297 eyebrow: "Empecemos",
+  Line 298 titleBefore: "Entendamos tu negocio",
+  Line 299 titleUnderlined: "primero.",         → underlined italic word(s)
+  Line 300 lead: "El primer paso siempre es el mismo: ...",
+  Line 301 primaryCta: "Escríbenos por WhatsApp",
+  Line 302 emailLabel: "o escríbenos a",        → text before the email address
   (The email address itself comes from contact.ts, §1.)
 
 ==========================================================================================
@@ -206,9 +221,9 @@ Contacto (closing section)
       manifiesto-ctrl-n.jpg   manifiesto photo (1060×590, horizontal)
       hero-camara-dh.jpg      camera photo next to "Qué hacemos" (900×1200)
   Simplest way to replace one: save the new image with the SAME file name and the SAME
-  proportions, replace the file, and update its alt text (home.ts lines 27 / 56 / 258).
+  proportions, replace the file, and update its alt text (home.ts lines 27 / 56 / 291).
   The two hero layers must always have the same size so they line up. If the size changes,
-  update width / height in home.ts (hero: lines 23-24; camera: 54-55; manifiesto: lines 256-257).
+  update width / height in home.ts (hero: lines 23-24; camera: 54-55; manifiesto: lines 289-290).
   Logos (public/brand/) and icons (src/app/favicon.ico, icon.png, apple-icon.png) were
   processed from the originals with scripts — ask Claude to regenerate them, do not replace
   them by hand.

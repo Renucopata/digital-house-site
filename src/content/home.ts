@@ -238,11 +238,44 @@ export const equipo = {
     title: "Eventos & Patrocinios",
     text: "Diseño y ejecución de eventos y negociación de auspicios, a cargo del equipo estratégico.",
   },
-  // D13: text only, no logos, no results
-  clients: {
-    label: "Han confiado en nosotros",
-    names: ["Fair Play Élite", "VIDA"],
-  },
+} as const;
+
+/* ------------------------------------------------------------------------------------------
+ * Credenciales — web brief "Confían en nosotros" (D43): the brands the team has worked with, as
+ * a carousel that never stops moving left. Lettering only, in ivory (tools/client_logos.py
+ * → public/clients/); brands without a file are set as text in the same color.
+ * ---------------------------------------------------------------------------------------- */
+
+export type ClientBrand = {
+  name: string;
+  /** Ivory lettering on transparent, 160 px tall. Without it, the name is set as text. */
+  logo?: { src: string; width: number };
+  /** Display height in rem (wide one-line marks smaller, stacked marks taller, so they look even). */
+  size?: number;
+};
+
+export const credenciales = {
+  eyebrow: "Credenciales",
+  title: "Marcas que",
+  titleSoft: "confiaron",
+  titleAfter: "en nuestro equipo.",
+  brands: [
+    { name: "Fair Play Élite" },
+    { name: "Guinness", logo: { src: "/clients/guinness.png", width: 727 }, size: 2.5 },
+    { name: "Universidad Católica Boliviana", logo: { src: "/clients/ucb.png", width: 367 }, size: 4 },
+    { name: "Carabao", logo: { src: "/clients/carabao.png", width: 472 }, size: 3.5 },
+    { name: "VIDA" },
+    { name: "Technogym", logo: { src: "/clients/technogym.png", width: 928 }, size: 2.5 },
+    { name: "Burguesa", logo: { src: "/clients/burguesa.png", width: 737 }, size: 3 },
+    { name: "Italia Bolivia", logo: { src: "/clients/italia-bolivia.png", width: 402 }, size: 4 },
+    { name: "Fury Cup", logo: { src: "/clients/fury-cup.png", width: 739 }, size: 3 },
+    { name: "La Suprema", logo: { src: "/clients/la-suprema.png", width: 373 }, size: 4 },
+    { name: "Schmidts Pharma", logo: { src: "/clients/schmidts-pharma.png", width: 478 }, size: 3.75 },
+    { name: "Totto", logo: { src: "/clients/totto.png", width: 474 }, size: 3 },
+    { name: "IALS", logo: { src: "/clients/ials.png", width: 281 }, size: 3.5 },
+    { name: "Aster Surgery", logo: { src: "/clients/aster-surgery.png", width: 1701 }, size: 1.75 },
+    { name: "Zareliz", logo: { src: "/clients/zareliz.png", width: 439 }, size: 4 },
+  ] satisfies ClientBrand[],
 } as const;
 
 export const manifiesto = {

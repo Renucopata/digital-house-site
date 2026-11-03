@@ -575,6 +575,91 @@
   }
 }
 
+/*
+ * Logo marquee (Credenciales, D43). Two identical lists side by side; the track slides −50 %
+ * (one list's width) in a linear loop, so the restart is invisible. Item padding instead of a
+ * flex gap keeps both halves exactly equal. Soft fade at both edges. Each logo's height comes
+ * from --logo-h (content `size`), 70 % on phones.
+ */
+.marquee {
+  overflow: hidden;
+  padding-block: 2.5rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+
+.marquee-list {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.marquee-item {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 4.5rem;
+  padding-inline: 1.75rem;
+}
+
+.marquee-logo {
+  width: auto;
+  height: calc(var(--logo-h) * 0.7);
+  max-width: none;
+}
+
+@media (min-width: 40rem) {
+  .marquee {
+    padding-block: 3.25rem;
+  }
+
+  .marquee-item {
+    height: 5rem;
+    padding-inline: 3rem;
+  }
+
+  .marquee-logo {
+    height: var(--logo-h);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* reduced motion: no movement; the brands wrap, centered, shown once */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .marquee-track {
+    width: auto;
+    justify-content: center;
+    animation: none;
+  }
+
+  .marquee-list {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
+  }
+
+  .marquee-list[aria-hidden] {
+    display: none;
+  }
+}
+
 @keyframes draw {
   to {
     clip-path: inset(0 0 0 0);

@@ -1,6 +1,5 @@
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Sparkle } from "@/components/ui/HandDrawn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SelectionBox } from "@/components/ui/SelectionBox";
@@ -10,8 +9,8 @@ import { reveal } from "@/lib/reveal";
 
 /**
  * #equipo — web brief Equipo: title with "tu crecimiento" in the selection box, the flip cards
- * (TeamCard: big initials until approved photos, specialty on the back), the closing line, the
- * Eventos & Patrocinios band and the text-only client line (D13).
+ * (TeamCard: big initials until approved photos, specialty on the back), the closing line and the
+ * Eventos & Patrocinios band. (The client line moved to #credenciales, D43.)
  */
 export function Equipo() {
   return (
@@ -49,23 +48,6 @@ export function Equipo() {
           </span>
         </p>
 
-        <div {...reveal()} className="flex flex-col gap-4 border-t border-line pt-10 sm:flex-row sm:items-baseline sm:gap-8">
-          <Eyebrow as="span" className="shrink-0">
-            {equipo.clients.label}
-          </Eyebrow>
-          <ul className="flex flex-wrap items-baseline gap-x-5 gap-y-2 font-display font-bold text-[clamp(1.375rem,1.1rem+1.1vw,2rem)] text-fg">
-            {equipo.clients.names.map((name, index) => (
-              <li key={name} className="flex items-baseline gap-5">
-                {index > 0 ? (
-                  <span aria-hidden="true" className="text-accent">
-                    ·
-                  </span>
-                ) : null}
-                {name}
-              </li>
-            ))}
-          </ul>
-        </div>
       </Container>
     </Section>
   );

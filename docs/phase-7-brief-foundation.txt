@@ -262,3 +262,25 @@ ADDITIONS 2026-10-28 (user request)
   shrink (mid-transition 148/587), then 643; Enter on a focused tab opens it; aria-expanded and
   inert follow; 390 px stacked 345/74×5, tap opens; no horizontal overflow.
 - Content editing guide §7 rewritten, §8–§10 line numbers −15.
+
+ADDITIONS 2026-10-29 (user request)
+- D43 new section Credenciales (src/components/sections/Credenciales.tsx, #credenciales, light,
+  after Equipo, not in the menu). Eyebrow "Credenciales", brief title "Marcas que confían (o
+  confiaron) en nuestro equipo." ("(o confiaron)" lighter, kept on one line).
+- src/components/ui/LogoMarquee.tsx (server component, CSS only): full-width guinda oscuro band;
+  the brand list is rendered twice and the track slides translateX(-50%) in a 60 s linear
+  loop (seamless); item padding instead of gap so both halves are equal; logos fade at the
+  edges (mask on the inner viewport, not the band). Second copy aria-hidden with empty alts.
+  Logos load eagerly (lazy loading left the clipped ones blank). Reduced motion: no animation,
+  one copy, wrapped and centered. Heights per brand from content `size` (rem), 70 % on phones.
+- Logos: user files brand-assets/logos/*.jpeg (13). tools/client_logos.py measures each
+  background, computes ink coverage (projection or distance), erases symbols / sub-lines / ®™
+  (rectangles, lines, an ellipse for La Suprema's ring, an opening for Fury Cup's wire globe)
+  and writes ivory-on-transparent PNGs, 160 px tall, to public/clients/ (8–53 KB each).
+  User choices: white letters on a dark band; main name only; Technogym included (exception
+  to D33). Fair Play Élite and VIDA have no files → set as text (Manrope 800, ivory).
+- Equipo: the text-only client line (D13) and its content were removed (moved here).
+- Verified (headless Chrome, the user's dev server on :3000): track moves ~69 px/s at 1440 and
+  ~47 px/s at 390; 26/26 logo images load; screen readers get one list of 15 names; reduced
+  motion → static wrapped grid, copy hidden; no horizontal overflow.
+- Content editing guide: §8 client lines removed, new §8b Credenciales, §9–§10 line numbers +33.
