@@ -17,15 +17,7 @@ export const hero = {
   // (the paragraph under the headline was removed at the user's request, D38)
   primaryCta: "Escríbenos por WhatsApp",
   secondaryCta: { label: "Cómo trabajamos", href: "#como-trabajamos" },
-  // D38: user-provided pair (brand-assets/digital-house_background.png + _foreground.png), same
-  // 736×920 frame; the foreground is a cutout that slides up over the background on load.
-  media: {
-    width: 736,
-    height: 920,
-    background: "/images/hero-laptop-fondo.png",
-    foreground: "/images/hero-laptop-frente.png",
-    alt: "Laptop con el logo de DigitalHouse Growth Studio sostenida sobre unas zapatillas, frente a una pared con sombras de hojas.",
-  },
+  // (the laptop image beside the headline was removed at the user's request, D44)
 } as const;
 
 // Below the hero: the "smaller hero" with the rotating word (web brief / prototype, D40).
@@ -36,25 +28,6 @@ export const soluciones = {
   // Read once by screen readers instead of the changing word
   srText: "Soluciones digitales para que escalen, te encuentren, funcionen, te elijan y te recuerden.",
   subtitle: "Estrategia, marca y sistemas, con un equipo de especialistas que trabaja contigo.",
-} as const;
-
-export type QueHacemosRow = { label: string; text: string };
-
-// Web brief "Qué hacemos": three big phrases, no paragraph (D41). Replaces Quiénes somos.
-export const queHacemos = {
-  eyebrow: "Qué hacemos",
-  rows: [
-    { label: "Primero", text: "Entendemos tu negocio." },
-    { label: "Después", text: "Lo volvemos estrategia, marca y sistemas." },
-    { label: "Y siempre", text: "Lo ejecuta un equipo de especialistas." },
-  ] satisfies QueHacemosRow[],
-  // Brief: the camera with the dH monogram goes next to "Qué hacemos" (IMG-2, D22)
-  image: {
-    src: "/images/hero-camara-dh.jpg",
-    width: 900,
-    height: 1200,
-    alt: "Cámara digital con el monograma dH de DigitalHouse Growth Studio en la pantalla, sobre una pared con sombras de ventana.",
-  },
 } as const;
 
 export type ProcessStep = { title: string; description: string };

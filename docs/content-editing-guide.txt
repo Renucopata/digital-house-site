@@ -56,7 +56,7 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
 ==========================================================================================
 3. MENU — src/content/navigation.ts
 ==========================================================================================
-  Lines 10-16  navItems: the menu links. Change only the label: "..." text.
+  Lines 10-15  navItems: the menu links. Change only the label: "..." text.
            Do NOT change id: "..." (they are the section anchors; changing them breaks links).
   Line 23  cta: "Empecemos",  → text of the menu button that opens WhatsApp.
   Line 24  ctaAriaLabel: text read by screen readers for that button (keep it similar).
@@ -74,47 +74,40 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
            it outside the box (the period). Keep short words — the layout is designed for 4 lines.
   Line 18  primaryCta: "Escríbenos por WhatsApp",  → main button text.
   Line 19  secondaryCta: { label: "Cómo trabajamos", ... }  → second button (change label only).
-  Line 27  alt: "..."  → description of the laptop image for blind users / Google.
-  Image (two layers that must stay the same size): see §10.
+  (The hero has no image since 2026-11-03, D44.)
 
 ==========================================================================================
-5. UNDER THE HERO and QUÉ HACEMOS — src/content/home.ts
+5. UNDER THE HERO — src/content/home.ts
 ==========================================================================================
   Under the hero ("smaller hero"):
-  Line 33  lead: "Soluciones digitales para que",
-  Line 35  words: ["escalen", "te encuentren", "funcionen", "te elijan", "te recuerden"],
+  Line 25  lead: "Soluciones digitales para que",
+  Line 27  words: ["escalen", "te encuentren", "funcionen", "te elijan", "te recuerden"],
            → the words that take turns (big burgundy italic). Order = order on the page.
            To add one: ["escalen", "te encuentren", "nueva palabra"],
-  Line 37  srText: the whole sentence read once by screen readers — if you change the words,
+  Line 29  srText: the whole sentence read once by screen readers — if you change the words,
            update it too.
-  Line 38  subtitle: "Estrategia, marca y sistemas, ...",
-
-  Qué hacemos:
-  Line 45  eyebrow: "Qué hacemos",
-  Lines 47-49  the 3 phrases, one per line:
-           { label: "Primero", text: "Entendemos tu negocio." },
-           label = small uppercase word, text = the big phrase.
-  Line 56  alt: "..."  → description of the camera photo.
+  Line 30  subtitle: "Estrategia, marca y sistemas, ...",
+  (The Qué hacemos section was removed on 2026-11-03, D44.)
 
 ==========================================================================================
 6. CÓMO TRABAJAMOS (process) — src/content/home.ts
 ==========================================================================================
-  Line 63  eyebrow: "Cómo trabajamos",
-  Line 65  title: "Un proceso, no una improvisación.",
-  Lines 67-72  the 5 steps, one per line:
+  Line 36  eyebrow: "Cómo trabajamos",
+  Line 38  title: "Un proceso, no una improvisación.",
+  Lines 40-45  the 5 steps, one per line:
            { title: "Diagnóstico", description: "Entendemos tu negocio, ..." },
            Step numbers (1, 2, 3...) are added automatically. To add a step, copy one line, paste it
            below and edit it; to remove one, delete its line.
-  Line 74  cta: "Empecemos",  → button under the steps (opens WhatsApp).
+  Line 47  cta: "Empecemos",  → button under the steps (opens WhatsApp).
 
 ==========================================================================================
 7. SERVICIOS (6 work areas, "books on a shelf") — src/content/home.ts
 ==========================================================================================
-  Line 98  eyebrow: "Áreas de trabajo",
-  Line 99  title: "Seis áreas.",            ← IMPORTANT: update the number if you add/remove one.
-  Line 100 titleStrong: "Un solo equipo.",  → second half of the title, in burgundy
-  Line 101 linkLabel: "Hablemos de esto",   → link at the bottom of each open panel (→ Contacto)
-  Lines 103-150  one { ... } block per area (6 panels), in page order:
+  Line 71  eyebrow: "Áreas de trabajo",
+  Line 72  title: "Seis áreas.",            ← IMPORTANT: update the number if you add/remove one.
+  Line 73 titleStrong: "Un solo equipo.",  → second half of the title, in burgundy
+  Line 74 linkLabel: "Hablemos de esto",   → link at the bottom of each open panel (→ Contacto)
+  Lines 76-123  one { ... } block per area (6 panels), in page order:
            name: "Entender",                    → the name on the spine (keep it short: the
                                                   closed panel shows it vertically)
            area: "Consultoría de negocio",      → the outlined pill when the panel is open
@@ -124,20 +117,20 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
            icon: "lens",   → one of "lens", "sparkle", "cursor", "bars", "burst", "box"
            tone: "burgundy-deep",  → panel color: "burgundy-deep", "burgundy", "beige",
                                      "yellow" or "sky"
-  Line 152 closing: "No eliges de un menú. ...",  → the sentence under the panels.
+  Line 125 closing: "No eliges de un menú. ...",  → the sentence under the panels.
   Adding a 7th area works (copy a block from "{" to "},"), but the row gets tighter on
   laptops; ask Claude to check the layout.
 
 ==========================================================================================
 8. EQUIPO (team) — src/content/home.ts
 ==========================================================================================
-  Line 173 eyebrow: "Equipo",
-  Line 175 title: "Un equipo de especialistas. Un solo objetivo:",
-  Line 176 titleSelected: "tu crecimiento",     → the words in the yellow selection box
-  Line 177 titleAfter: ".",
-  Line 179 flipLabel: "Ver especialidad de",    → read by screen readers on each card's button
-  Line 180 askLabel: "Pídele",                  → small label on the back of the cards
-  Lines 183-228  one { ... } block per person (5 people) (one flip card each):
+  Line 146 eyebrow: "Equipo",
+  Line 148 title: "Un equipo de especialistas. Un solo objetivo:",
+  Line 149 titleSelected: "tu crecimiento",     → the words in the yellow selection box
+  Line 150 titleAfter: ".",
+  Line 152 flipLabel: "Ver especialidad de",    → read by screen readers on each card's button
+  Line 153 askLabel: "Pídele",                  → small label on the back of the cards
+  Lines 156-201  one { ... } block per person (5 people) (one flip card each):
            name: "Nicole Pantoja",                      → name (front and back)
            initials: "NP",                              → big letters on the front
            role: "Fundadora · Directora de Estrategia",  → small uppercase role (front)
@@ -168,20 +161,20 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
   Photos instead of initials: put the approved photo in public/images/ and add a line
   photo: "/images/equipo-nombre.jpg",  inside that person's block. It replaces the initials.
 
-  Lines 232-234  closing: the text under the cards:
+  Lines 205-207  closing: the text under the cards:
            hint: "Pasa el cursor o toca una tarjeta para darle la vuelta.",
            question: "¿Quién participa en tu proyecto?",
            answer: "Lo decidimos juntos después de escucharte.",
-  Lines 238-239  extra: the "Eventos & Patrocinios" band under the team (title + text).
+  Lines 211-212  extra: the "Eventos & Patrocinios" band under the team (title + text).
   (The client names moved to their own section, CREDENCIALES — §8b.)
 
 ==========================================================================================
 8b. CREDENCIALES (client logos carousel) — src/content/home.ts
 ==========================================================================================
-  Line 258 eyebrow: "Credenciales",
-  Lines 259-261  title: "Marcas que confían" + titleSoft: "(o confiaron)" (lighter) +
+  Line 231 eyebrow: "Credenciales",
+  Lines 232-234  title: "Marcas que confían" + titleSoft: "(o confiaron)" (lighter) +
                  titleAfter: "en nuestro equipo."
-  Lines 263-277  one line per brand, in the order they pass. Two rows: the first half of the
+  Lines 236-250  one line per brand, in the order they pass. Two rows: the first half of the
                  list (rounded up — 8 of 15) moves right to left, the rest left to right.
            { name: "Guinness", logo: { src: "/clients/guinness.png", width: 727 }, size: 2.5 },
              name  → read by screen readers (and shown as text if there is no logo)
@@ -198,33 +191,28 @@ por WhatsApp" buttons, the footer, the email link, the Instagram pill and the Go
 9. MANIFIESTO and CONTACTO — src/content/home.ts
 ==========================================================================================
 Manifiesto (the "Ctrl + N" block)
-  Line 283 strongLines: ["Nuevas ideas.", "Más estrategia."],   → bold burgundy lines
-  Line 284 regularBefore: "Misma pasión por",
-  Line 285 underlined: "hacer crecer",          → words with the hand-drawn underline
-  Line 286 regularAfter: "tu negocio.",
-  Line 291 alt: "..."                           → description of the keyboard photo
+  Line 256 strongLines: ["Nuevas ideas.", "Más estrategia."],   → bold burgundy lines
+  Line 257 regularBefore: "Misma pasión por",
+  Line 258 underlined: "hacer crecer",          → words with the hand-drawn underline
+  Line 259 regularAfter: "tu negocio.",
+  Line 264 alt: "..."                           → description of the keyboard photo
 Contacto (closing section)
-  Line 297 eyebrow: "Empecemos",
-  Line 298 titleBefore: "Entendamos tu negocio",
-  Line 299 titleUnderlined: "primero.",         → underlined italic word(s)
-  Line 300 lead: "El primer paso siempre es el mismo: ...",
-  Line 301 primaryCta: "Escríbenos por WhatsApp",
-  Line 302 emailLabel: "o escríbenos a",        → text before the email address
+  Line 270 eyebrow: "Empecemos",
+  Line 271 titleBefore: "Entendamos tu negocio",
+  Line 272 titleUnderlined: "primero.",         → underlined italic word(s)
+  Line 273 lead: "El primer paso siempre es el mismo: ...",
+  Line 274 primaryCta: "Escríbenos por WhatsApp",
+  Line 275 emailLabel: "o escríbenos a",        → text before the email address
   (The email address itself comes from contact.ts, §1.)
 
 ==========================================================================================
 10. PHOTOS
 ==========================================================================================
   Files live in public/images/:
-      hero-laptop-fondo.png   hero background: the wall with leaf shadows (736×920)
-      hero-laptop-frente.png  hero foreground: transparent cutout of the laptop on the sneakers
-                              (736×920, same frame as the background) — it slides up on load
       manifiesto-ctrl-n.jpg   manifiesto photo (1060×590, horizontal)
-      hero-camara-dh.jpg      camera photo next to "Qué hacemos" (900×1200)
-  Simplest way to replace one: save the new image with the SAME file name and the SAME
-  proportions, replace the file, and update its alt text (home.ts lines 27 / 56 / 291).
-  The two hero layers must always have the same size so they line up. If the size changes,
-  update width / height in home.ts (hero: lines 23-24; camera: 54-55; manifiesto: lines 289-290).
+  Simplest way to replace it: save the new image with the SAME file name and the SAME
+  proportions, replace the file, and update its alt text (home.ts line 264).
+  If the size changes, update width / height in home.ts (lines 262-263).
   Logos (public/brand/) and icons (src/app/favicon.ico, icon.png, apple-icon.png) were
   processed from the originals with scripts — ask Claude to regenerate them, do not replace
   them by hand.

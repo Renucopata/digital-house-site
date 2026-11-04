@@ -236,70 +236,6 @@
 }
 
 /*
- * Stand-out rows (Qué hacemos, D41; prototype timings). One row at a time stands out: full
- * opacity, slides right and a bar grows down its left edge; the others fade back to 45 %.
- * At rest it is the first row ([data-default]); with a pointer, the hovered row. Touch devices
- * (no hover): every row stays fully visible and the first keeps the bar.
- */
-.stand-row {
-  position: relative;
-  opacity: 0.45;
-  transition:
-    opacity 0.5s var(--ease-soft),
-    padding-left 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.stand-row::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 1.75rem;
-  bottom: 1.75rem;
-  width: 7px;
-  border-radius: 4px;
-  background: var(--accent);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.stand-row[data-default] {
-  opacity: 1;
-  padding-left: 1.75rem;
-}
-
-.stand-row[data-default]::before {
-  transform: scaleY(1);
-}
-
-@media (hover: hover) {
-  .stand-row:hover {
-    opacity: 1;
-    padding-left: 1.75rem;
-  }
-
-  .stand-row:hover::before {
-    transform: scaleY(1);
-  }
-
-  /* another row is hovered → the default row steps back */
-  .stand-group:has(.stand-row:hover) .stand-row[data-default]:not(:hover) {
-    opacity: 0.45;
-    padding-left: 0;
-  }
-
-  .stand-group:has(.stand-row:hover) .stand-row[data-default]:not(:hover)::before {
-    transform: scaleY(0);
-  }
-}
-
-@media (hover: none) {
-  .stand-row {
-    opacity: 1;
-  }
-}
-
-/*
  * Process line (Cómo trabajamos, D37). Hovering step K fills the connector from step 1 to step K
  * like a progress bar (ivory = the color of step 1) and fills the dots it passes.
  * Horizontal layout (≥ 1024px): steps sit in equal columns, so dot K is at (K-1)/(N-1) of the
@@ -345,45 +281,6 @@
 .process > li:has(~ li:hover) .process-dot,
 .process > li:hover .process-dot {
   transition-delay: calc(var(--k) / (var(--steps) - 1) * 0.45s);
-}
-
-/*
- * Hero rise (D38). The laptop-on-sneakers cutout is pulled up from below the frame into place,
- * wobbling a little (rotate around its bottom center) as it rises and settles. Once, on load.
- * Reduced motion: shown in place.
- */
-.hero-rise {
-  transform-origin: 50% 100%;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero-rise {
-    animation: hero-rise 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
-  }
-}
-
-@keyframes hero-rise {
-  0% {
-    transform: translateY(78%) rotate(-7deg);
-  }
-  30% {
-    transform: translateY(30%) rotate(4deg);
-  }
-  50% {
-    transform: translateY(6%) rotate(-3deg);
-  }
-  66% {
-    transform: translateY(-1.5%) rotate(2deg);
-  }
-  80% {
-    transform: translateY(0.5%) rotate(-1deg);
-  }
-  91% {
-    transform: translateY(0) rotate(0.4deg);
-  }
-  100% {
-    transform: none;
-  }
 }
 
 /*
