@@ -48,3 +48,9 @@ __pycache__/
 
 # Word/Office lock files
 ~$*
+
+# local audit report (not uploaded)
+/audit-report.txt
+
+.mcp.json
+.claude/settings.json

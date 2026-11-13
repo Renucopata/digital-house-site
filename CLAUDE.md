@@ -30,17 +30,14 @@ Built with **Next.js (App Router)**. The full phased plan lives in `PLAN.md`.
 | D12 | Spanish form = **tú**, used consistently (rewrite all voseo: "trabajás" → "trabajas", "querés" → "quieres"). |
 | D13 | Client names may be shown, as a text-only line (e.g. "Han confiado en nosotros: Fair Play Élite · VIDA") — no logos, no results/metrics. Spelling: **Fair Play Élite**, **VIDA**. |
 | D14 | Team: Nicole Pantoja, Nicole Vidaurre, **Rene Rengel** (no accent). Initials avatars (NP · NV · RR) until photos arrive. Rene's title: **"Herramientas digitales"**. |
-| D15 | No official font files. Approved: **Bodoni Moda** (display serif) + **Poppins** (all sans: 800 strong headlines, 500–600 headline lines, 400 body, 400 uppercase labels @ ~0.35em). |
 | D16 | **Tailwind CSS: yes.** **No contact form.** Contact = WhatsApp (floating button + CTAs) + email `mailto:` link kept. |
 | D17 | Pre-filled WhatsApp message: **"Hola, quiero más información sobre DigitalHouse Growth Studio."** |
 | D18 | `brand-assets/` stays as-is (flat folder, WhatsApp filenames) — reference only. |
-| D19 | Approved palette = measured values in §4.2. |
 | D20 | Official logos: the **cream-on-burgundy wordmark** lockup ("digitalHOUSE", centered "GROWTH STUDIO") and the **"dH" monogram**. No vector files yet. Header (cream) uses that same lockup **recolored burgundy-on-cream** (pixel recolor only, no redraw) — show it to the user before use. |
 | D21 | Publishable from the internal PDF (not on the §5 list): credentials (Nicole Pantoja ex Directora de Marketing de Technogym; Nicole Vidaurre freelance with clients abroad) and the longer value-card / pillar / bio descriptions — rewritten in tú, never including §5 items. |
 | D22 | Images allowed on the site: Sony-camera story and the "Ctrl + N" post. The laptop-on-sneakers screenshot is **not** used. More assets will come later. |
 | D23 | (Phase 1→2, 2026-10-13) The four processed logo files in `public/brand/` are **approved**. The header logo has a slow continuous **"breathing" animation** (scale 1 → 1.03 → 1, 5 s, sine easing), paused on hover and disabled with `prefers-reduced-motion`. Analysis scripts live in `tools/`. |
 | D24 | Vercel production address (until a domain is bought, D11): **https://digital-house-site-indol.vercel.app** — used for metadataBase, Open Graph, sitemap (Phase 6). |
-| D25 | Servicios (#servicios) = **stacked blocks**, all five pillars fully visible (option a). The user likes **option c (summary cards + expandable details)** and may want to try it later → recorded in `docs/IDEAS.txt`. **Superseded by D42** (2026-10-28). |
 
 ### Web brief (2026-10-23) — `brand-assets/BriefwebDigitalHouseGrowthStudio.docx` (worked on branch `brief-web`, merged into `main` 2026-10-27; all work now happens on `main`)
 The brief does **not** override every earlier decision. The user decides item by item; until then,
@@ -56,7 +53,6 @@ anything below that is not listed keeps the D1–D25 rule.
 | D32 | Hero headline "No vendemos estética. Vendemos crecimiento." comes **first**, set in the brief's headline font; the word **"crecimiento"** is shown as **selected text** (brief "caja de selección": yellow band + line and dot at opposite corners) that is **typed letter by letter**, with the selection growing with the word. |
 | D33 | Brief content rules apply: no "Technogym", no "gratuita", no promised results/deadlines/prices, specialists not presented as staff. |
 | D34 | (2026-10-25) The hero typing **repeats**: the word types, stays selected for **1 s** (cursor blinking), clears and types again. |
-| D35 | (2026-10-25) Quiénes somos cards = "pick cards": hovering a card turns it dark burgundy (like the middle card) and lifts it; only one card is dark at a time. At rest the middle card is the chosen one, slightly raised and gently floating "waiting to be picked". **Superseded by D41** (the section became "Qué hacemos"). |
 | D37 | (2026-10-25) Cómo trabajamos: hovering a step fills the connecting line from step 1 to that step with ivory (the color of step 1), smoothly like a progress bar, and fills the dots it passes; leaving empties it. |
 | D38 | (2026-10-25) Hero: label = **"GROWTH STUDIO" in an outlined pill**; the paragraph under the headline is **removed**; the image is the user-provided pair `brand-assets/digital-house_background.png` (wall) + `digital-house_foreground.png` (cutout of the laptop on the sneakers), the foreground **sliding up into place with a small wobble** on load. This replaces the camera photo in the hero and lifts D22's exclusion of the laptop image. |
 | D39 | (2026-10-26) Equipo = **flip cards** (brief + prototype content). Front (ivory): big initials on a yellow/sky/beige panel (approved photos can replace them later), name, role, phrase. Back (guinda principal `#790B1A`): specialty + "Pídele" list. Turns in 3D (0.6 s) on hover, tap, Enter/Space. Members (user, 2026-10-26): **Nicole Pantoja** (Fundadora · Directora de Estrategia), **Nicole Vidaurre** (Directora Creativa), **Rene Rengel** (Director de Desarrollo y Soluciones Digitales — replaces D14's title), **Matias Rossel** (Aliado · Producción y Merchandising). Title "Un equipo de especialistas. Un solo objetivo: tu crecimiento." with the selection box; closing line "¿Quién participa en tu proyecto? Lo decidimos juntos después de escucharte." **Michelle Vidaurre** (Directora de Eventos y BTL) added as 5th card, between Rene and Matias (user, 2026-10-26); job titles confirmed as in the brief. Layout: 5 in a row on wide screens. |
@@ -97,16 +93,7 @@ Exact filename ↔ content mapping (IMG-0…IMG-5) is in `docs/phase-0-discovery
 - **B. PDF deck styling** (light blue, pale yellow, yellow script) → **never use**. PDFs = content only.
 
 ### 4.2 Color tokens (web brief brand board — D26; replaces the Phase 0 palette of D19)
-| Token | Value | Brief name | Use |
-|---|---|---|---|
-| `--burgundy-deep` | `#4A0710` | Guinda oscuro | **Predominant**: dark bands, headlines, buttons, text accents on ivory |
-| `--burgundy` | `#790B1A` | Guinda principal | Details only (team card backs, rotating hero word) |
-| `--ivory` | `#F7F3EA` | Marfil | Main background; text on dark bands |
-| `--beige` | `#E5DCCF` | Beige neutro | Secondary backgrounds |
-| `--charcoal` | `#262322` | Carbón | Body text |
-| `--warm-gray` | `#A7A19A` | Gris cálido | Lines; secondary text **on dark only** (2.3:1 on ivory fails AA) |
-| `--yellow` | `#FCE7A6` | Amarillo bebé | Accent (~10 %): selection box, active step |
-| `--sky` | `#D7E8F7` | Celeste bebé | Small touch: completed steps, details |
+Values, brief names and uses: `src/styles/tokens.css`.
 Secondary text on light backgrounds = charcoal softened toward ivory (`color-mix`), so it keeps AA
 contrast. Old token names (`--cream`, `--ink`, `--sand`…) are kept as aliases so existing components
 keep working. No pure black / pure white backgrounds. Contrast must pass WCAG AA.
@@ -169,8 +156,6 @@ Date: <YYYY-MM-DD>   Status: <completed | partial>
 Keep `docs/README.txt` as an index of all phase docs.
 
 ## 7. Tech conventions (confirm in Phase 0 / Phase 1)
-- Next.js latest stable, App Router, TypeScript, ESLint. Record exact versions in phase-1 doc.
-- Styling: Tailwind CSS (confirmed, D16) with design tokens as CSS variables.
 - Images via `next/image`; fonts via `next/font`; metadata via the Metadata API.
 - Structure: `src/app`, `src/components/{layout,sections,ui}`, `src/content` (copy as typed data,
   never hard-coded inside components), `src/styles`, `public/brand`.

@@ -1,8 +1,3 @@
-/**
- * Landing-page copy (Phase 3). Spanish, tú form (D12).
- * Sources: portfolio PDF (public) slides 02–03 and 11; internal PDF p2 descriptions approved for
- * publication (D21) and rewritten for the client; CLAUDE.md §1 positioning; IMG-2 photo (D22).
- */
 
 export const hero = {
   // Brand descriptor, shown as a pill above the headline (D38)
