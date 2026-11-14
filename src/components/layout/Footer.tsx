@@ -11,7 +11,7 @@ const linkClass =
   "underline decoration-line underline-offset-4 transition-colors duration-300 ease-soft hover:text-fg hover:decoration-current";
 
 /**
- * Site footer: cream logo on burgundy (D20), positioning line, sections, contact, IG pill.
+ * Site footer: cream logo on burgundy (D20; the line under it was removed, D44), sections, contact, IG pill.
  * No grain here: the logo file has its background baked in and must sit on a flat surface.
  */
 export function Footer() {
@@ -21,9 +21,8 @@ export function Footer() {
     <Section as="footer" id="site-footer" theme="dark" className="pb-[calc(var(--wa-size)+var(--wa-offset)*2)]">
       <Container className="flex flex-col gap-14">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr]">
-          <div className="flex flex-col gap-6">
+          <div>
             <Logo variant="wordmark-cream" width={240} className="h-auto w-[200px] sm:w-[240px]" />
-            <p className="max-w-sm font-display text-[1.25rem] font-semibold leading-snug text-fg">{site.statement}</p>
           </div>
 
           <nav aria-labelledby="footer-nav-title" className="flex flex-col gap-5">

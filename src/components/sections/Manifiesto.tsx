@@ -18,6 +18,7 @@ const edgeFade = {
 /**
  * Manifesto band (no nav anchor) — the "Ctrl + N" post: headline as live text in the post's
  * typographic pattern, keycaps photo fading into the kraft section (paper color = --sand).
+ * The photo shows on tablets and computers only (D46); phones get the headline alone.
  * No grain overlay here: the photo carries its own paper texture.
  */
 export function Manifiesto() {
@@ -42,7 +43,8 @@ export function Manifiesto() {
           </h2>
         </div>
 
-        <figure {...reveal(1, 150)} className="lg:col-span-6">
+        {/* Hidden on phones (D46); next/image is lazy, so phones never download it. */}
+        <figure {...reveal(1, 150)} className="hidden md:block lg:col-span-6">
           <Image
             src={manifiesto.image.src}
             width={manifiesto.image.width}
