@@ -284,6 +284,45 @@
 }
 
 /*
+ * Hero rise (D38). The laptop-on-sneakers cutout is pulled up from below the frame into place,
+ * wobbling a little (rotate around its bottom center) as it rises and settles. Once, on load.
+ * Reduced motion: shown in place.
+ */
+.hero-rise {
+  transform-origin: 50% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+  }
+}
+
+@keyframes hero-rise {
+  0% {
+    transform: translateY(78%) rotate(-7deg);
+  }
+  30% {
+    transform: translateY(30%) rotate(4deg);
+  }
+  50% {
+    transform: translateY(6%) rotate(-3deg);
+  }
+  66% {
+    transform: translateY(-1.5%) rotate(2deg);
+  }
+  80% {
+    transform: translateY(0.5%) rotate(-1deg);
+  }
+  91% {
+    transform: translateY(0) rotate(0.4deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/*
  * Team flip cards (web brief, Equipo). Both faces share one grid cell, so the card is as tall as
  * its longer face. Turns 180° in 3D (0.6 s, prototype easing) on hover (pointer devices only, so
  * a tap doesn't leave it stuck), or when <TeamCard> sets [data-flipped] (tap, Enter/Space).

@@ -17,7 +17,16 @@ export const hero = {
   // (the paragraph under the headline was removed at the user's request, D38)
   primaryCta: "Escríbenos por WhatsApp",
   secondaryCta: { label: "Cómo trabajamos", href: "#como-trabajamos" },
-  // (the laptop image beside the headline was removed at the user's request, D44)
+  // D38: user-provided pair (brand-assets/digital-house_background.png + _foreground.png), same
+  // 736×920 frame; the foreground is a cutout that slides up over the background on load.
+  // Shown on tablets and computers only, not on phones (D45).
+  media: {
+    width: 736,
+    height: 920,
+    background: "/images/hero-laptop-fondo.png",
+    foreground: "/images/hero-laptop-frente.png",
+    alt: "Laptop con el logo de DigitalHouse Growth Studio sostenida sobre unas zapatillas, frente a una pared con sombras de hojas.",
+  },
 } as const;
 
 // Below the hero: the "smaller hero" with the rotating word (web brief / prototype, D40).
