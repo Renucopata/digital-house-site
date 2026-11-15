@@ -5,7 +5,7 @@ Each phase ends with: `npm run build` + `npm run lint` passing (from Phase 1 on)
 doc in `docs/`, a summary to the user, and a STOP for approval. See CLAUDE.md §1.1, §2 and §6.
 
 ---
-
+000
 ## Phase 0 — Discovery & confirmation (no app code)
 1. Inventory `/brand-assets/` (filenames, dimensions, formats, backgrounds).
 2. Read both PDFs. Build a content map: PUBLIC (portfolio) vs INTERNAL (business model, context only).
