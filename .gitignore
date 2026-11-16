@@ -51,6 +51,7 @@ __pycache__/
 
 # local audit report (not uploaded)
 /audit-report.txt
+/
 
 .mcp.json
 .claude/settings.json
