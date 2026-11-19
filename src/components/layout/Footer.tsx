@@ -1,73 +1,106 @@
-import { Container } from "@/components/layout/Container";
-import { Section } from "@/components/layout/Section";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { InstagramPill } from "@/components/ui/InstagramPill";
+import { useTranslations } from "next-intl";
+import { CtaButton } from "@/components/ui/CtaButton";
 import { Logo } from "@/components/ui/Logo";
 import { contact } from "@/content/contact";
-import { navItems } from "@/content/navigation";
-import { footerCopy, site } from "@/content/site";
+import { site } from "@/content/site";
+import { Link } from "@/i18n/navigation";
+import { LanguageSwitch } from "./LanguageSwitch";
 
-const linkClass =
-  "underline decoration-line underline-offset-4 transition-colors duration-300 ease-soft hover:text-fg hover:decoration-current";
-
-/**
- * Site footer: cream logo on burgundy (D20; the line under it was removed, D44), sections, contact, IG pill.
- * No grain here: the logo file has its background baked in and must sit on a flat surface.
+/*
+ * Closing CTA + footer (two26 effect 12): big humorous closing line, CTA, email, menu, socials,
+ * looping-stroke texture and the big logo at the bottom.
+ * P1: static. P4 adds the line reveals, kinetic letters and the stretching logo.
+ * The footer is burgundy-deep for now so the cream wordmark (baked background) matches it.
  */
 export function Footer() {
+  const t = useTranslations("footer");
+  const tNav = useTranslations("nav");
+  const tA11y = useTranslations("a11y");
+  const lines = t.raw("closingLines") as string[];
   const year = new Date().getFullYear();
 
   return (
-    <Section as="footer" id="site-footer" theme="dark" className="pb-[calc(var(--wa-size)+var(--wa-offset)*2)]">
-      <Container className="flex flex-col gap-14">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr]">
-          <div>
-            <Logo variant="wordmark-cream" width={240} className="h-auto w-[200px] sm:w-[240px]" />
+    <footer id="site-footer" className="theme-dark relative overflow-hidden bg-surface text-fg">
+      <FooterTexture />
+      <div className="relative mx-auto max-w-[90rem] px-[var(--gutter)] pt-16 pb-8 md:pt-24">
+        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="flex flex-col items-start gap-6">
+            <h2 className="font-display text-[clamp(3rem,7vw,6rem)] leading-[0.92] uppercase">
+              {lines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h2>
+            <CtaButton tone="light">{t("cta")}</CtaButton>
+            <div>
+              <p className="font-label text-label tracking-[0.2em] text-fg-soft uppercase">{t("emailLabel")}</p>
+              <a href={contact.mailto} className="text-lg underline-offset-4 hover:underline">
+                {contact.email}
+              </a>
+            </div>
           </div>
 
-          <nav aria-labelledby="footer-nav-title" className="flex flex-col gap-5">
-            <Eyebrow as="span">
-              <span id="footer-nav-title">{footerCopy.navTitle}</span>
-            </Eyebrow>
-            <ul className="flex flex-col gap-2.5 text-fg-soft">
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  <a href={`#${item.id}`} className="transition-colors duration-300 ease-soft hover:text-fg">
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+          <nav aria-labelledby="footer-menu">
+            <p id="footer-menu" className="font-label text-label tracking-[0.2em] text-fg-soft uppercase">
+              {t("menuTitle")}
+            </p>
+            <ul className="mt-3 flex flex-col gap-2 text-lg">
+              <li>
+                <Link href="/proyectos" className="underline-offset-4 hover:underline">
+                  {tNav("work")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/nosotros" className="underline-offset-4 hover:underline">
+                  {tNav("about")}
+                </Link>
+              </li>
+              <li>
+                <LanguageSwitch className="px-0 text-lg font-normal text-fg" />
+              </li>
             </ul>
           </nav>
 
-          <div className="flex flex-col gap-5">
-            <Eyebrow as="span">{footerCopy.contactTitle}</Eyebrow>
-            <dl className="flex flex-col gap-3 text-fg-soft">
-              <div>
-                <dt className="text-sm">{footerCopy.whatsappLabel}</dt>
-                <dd>
-                  <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                    {contact.phoneDisplay}
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-sm">{footerCopy.emailLabel}</dt>
-                <dd>
-                  <a href={contact.mailto} className={linkClass}>
-                    {contact.email}
-                  </a>
-                </dd>
-              </div>
-            </dl>
-            <InstagramPill className="mt-2 items-start" />
+          <div>
+            <p className="font-label text-label tracking-[0.2em] text-fg-soft uppercase">{t("socialTitle")}</p>
+            <ul className="mt-3 flex flex-col gap-2 text-lg">
+              <li>
+                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
+                  Instagram ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
+                </a>
+              </li>
+              <li>
+                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
+                  WhatsApp ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <p className="border-t border-line pt-6 text-sm text-fg-soft">
-          © {year} {site.name}. {footerCopy.rights}
+        <p className="mt-16 text-xs text-fg-soft">
+          © {year} {site.name}. {t("rights")}
         </p>
-      </Container>
-    </Section>
+        <div className="mt-4">
+          <Logo variant="wordmark-cream" width={318} className="h-auto w-full max-w-[318px]" />
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/** Looping hand-drawn strokes across the footer, very low contrast (our own drawing). */
+function FooterTexture() {
+  return (
+    <svg aria-hidden="true" className="pointer-events-none absolute inset-0 size-full opacity-10" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      <path
+        d="M-60 180c160-90 260 120 140 170s-60-260 120-230 140 260 300 200 40-250 200-220 120 270 300 210 60-240 220-200 110 250 290 190M-40 620c180-120 300 110 170 180s-40-270 150-230 160 250 320 180 20-260 190-210 140 260 310 190 50-250 230-190"
+        stroke="currentColor"
+        strokeWidth="26"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

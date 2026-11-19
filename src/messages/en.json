@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "homeTitle": "DigitalHouse Growth Studio",
+    "workTitle": "Work",
+    "aboutTitle": "About"
+  },
+  "a11y": {
+    "skipLink": "Skip to content",
+    "mainNav": "Main navigation",
+    "homeLabel": "DigitalHouse Growth Studio: go to home",
+    "whatsapp": "Message us on WhatsApp",
+    "opensNewTab": "(opens in a new tab)"
+  },
+  "nav": {
+    "work": "Work",
+    "about": "About",
+    "cta": "Let's talk",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "language": "Language",
+    "switchTo": "Español",
+    "switchToShort": "ES"
+  },
+  "contact": {
+    "dialogLabel": "Contact",
+    "close": "Close",
+    "headingLines": ["Tell us about", "your business"],
+    "subline": "or just say hi, that works too",
+    "intro": "First we understand your business. Everything else grows from there.",
+    "whatsappLabel": "Message us on WhatsApp",
+    "emailLabel": "Email",
+    "instagramLabel": "Follow us",
+    "illustrationPending": "[PENDING: contact overlay illustration]"
+  },
+  "footer": {
+    "closingLines": ["Okay, enough", "scrolling for", "today"],
+    "cta": "Let's talk",
+    "emailLabel": "Write to us",
+    "menuTitle": "Menu",
+    "socialTitle": "Social",
+    "rights": "All rights reserved."
+  },
+  "placeholder": {
+    "home": "Home: the sections arrive in phase 3.",
+    "work": "Work: the page arrives in phase 5.",
+    "about": "About: the page arrives in phase 5."
+  }
+}

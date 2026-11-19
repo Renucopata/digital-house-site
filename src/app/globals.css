@@ -53,6 +53,7 @@
   --color-warm-gray: var(--warm-gray);
   --color-yellow: var(--yellow);
   --color-sky: var(--sky);
+  --color-hot: var(--hot);
   --color-sand: var(--sand);
   --color-sand-deep: var(--sand-deep);
   --color-ink: var(--ink);
@@ -68,7 +69,7 @@
 
   /* Fonts (loaded with next/font in src/app/layout.tsx; web brief, D26) */
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* body, menu */
-  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* headlines, 600–800 */
+  --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif; /* headlines, all caps (N5) */
   --font-label: var(--font-satoshi), var(--font-manrope), ui-sans-serif, system-ui, sans-serif; /* buttons, labels */
   --font-accent: var(--font-playfair), Georgia, serif; /* rotating word only (Playfair Display italic) */
 }

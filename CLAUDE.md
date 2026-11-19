@@ -1,191 +1,113 @@
-# CLAUDE.md — Digital House · Growth Studio (website)
+# CLAUDE.md — DigitalHouse Growth Studio · new design (branch `new-design`)
 
-This file is read at the start of every Claude Code session. Follow it strictly.
+Read at the start of every Claude Code session. Follow it strictly.
 
-## 1. Project in one paragraph
-Marketing website for **Digital House — Growth Studio**, a business/brand/digital consultancy.
-Positioning: *"No vendemos estética. Vendemos crecimiento."* and
-*"Entendemos tu negocio primero. Todo lo demás — marca, contenido, sistema — nace de ahí."*
-Public-facing site, Spanish copy, focused on attracting international clients (100% remote service).
-Built with **Next.js (App Router)**. The full phased plan lives in `PLAN.md`.
+## 1. The project
+Marketing website for **DigitalHouse Growth Studio**, a business, brand and digital consultancy
+(*"No vendemos estética. Vendemos crecimiento."*). On this branch the site is rebuilt to copy the
+**structure, section rhythm, motion and interactions of https://two26.studio**, with Digital House's
+own brand, logo, copy and content. Never copy two26's text, logo, illustrations, photos, videos or
+project names. The old one-page site stays on `main` until the new design is approved.
 
-## 1.1 Confirmed decisions (by the user, 2026-10-13)
-| # | Decision |
-|---|---|
-| D1 | Style = identity A (images: cream + burgundy). **No light blue, no yellow** anywhere. |
-| D2 | Brand name as written on the site: **"DigitalHouse Growth Studio"** (logo itself = provided images). |
-| D3 | **Single landing page** with anchor navigation (no `/servicios/[slug]` routes). |
-| D4 | All copy in **Spanish**. Voseo from the PDFs must be rewritten (form tú vs usted: see Pending). |
-| D5 | The business-model PDF is context only; §5 confidentiality list stands. |
-| D6 | WhatsApp: **+591 65999740** → `https://wa.me/59165999740`. A **floating WhatsApp button is visible at all times** (every scroll position, every breakpoint) and opens the chat. |
-| D7 | Email: **r.rengel99@gmail.com** (`mailto:` link). |
-| D8 | Logo = the logo files provided in the images (crop/extract from them; do not redraw or re-typeset). |
-| D9 | Hosting: **Vercel**. |
-| D10 | Fix source typos: "Estratega digita" → "Estratega digital"; client name spelled consistently. |
+**Instruction files:**
+- This file: rules and decisions.
+- `docs/NEW-DESIGN.md`: the approved plan (animation map, file tree, content schema, phases),
+  open questions and the progress log. Read it before any work on this branch.
 
-### Confirmed after Phase 0 (by the user, 2026-10-13 — details in `docs/phase-0-discovery.txt`)
-| # | Decision |
-|---|---|
-| D11 | Domain: none registered → use the Vercel-provided `*.vercel.app` domain for now. Instagram: `@digitalhouse.gs`. |
-| D12 | Spanish form = **tú**, used consistently (rewrite all voseo: "trabajás" → "trabajas", "querés" → "quieres"). |
-| D13 | Client names may be shown, as a text-only line (e.g. "Han confiado en nosotros: Fair Play Élite · VIDA") — no logos, no results/metrics. Spelling: **Fair Play Élite**, **VIDA**. |
-| D14 | Team: Nicole Pantoja, Nicole Vidaurre, **Rene Rengel** (no accent). Initials avatars (NP · NV · RR) until photos arrive. Rene's title: **"Herramientas digitales"**. |
-| D15 | No official font files. Approved: **Bodoni Moda** (display serif) + **Poppins** (all sans: 800 strong headlines, 500–600 headline lines, 400 body, 400 uppercase labels @ ~0.35em). |
-| D16 | **Tailwind CSS: yes.** **No contact form.** Contact = WhatsApp (floating button + CTAs) + email `mailto:` link kept. |
-| D17 | Pre-filled WhatsApp message: **"Hola, quiero más información sobre DigitalHouse Growth Studio."** |
-| D18 | `brand-assets/` stays as-is (flat folder, WhatsApp filenames) — reference only. |
-| D19 | Approved palette = measured values in §4.2. |
-| D20 | Official logos: the **cream-on-burgundy wordmark** lockup ("digitalHOUSE", centered "GROWTH STUDIO") and the **"dH" monogram**. No vector files yet. Header (cream) uses that same lockup **recolored burgundy-on-cream** (pixel recolor only, no redraw) — show it to the user before use. |
-| D21 | Publishable from the internal PDF (not on the §5 list): credentials (Nicole Pantoja ex Directora de Marketing de Technogym; Nicole Vidaurre freelance with clients abroad) and the longer value-card / pillar / bio descriptions — rewritten in tú, never including §5 items. |
-| D22 | Images allowed on the site: Sony-camera story and the "Ctrl + N" post. The laptop-on-sneakers screenshot is **not** used. More assets will come later. |
-| D23 | (Phase 1→2, 2026-10-13) The four processed logo files in `public/brand/` are **approved**. The header logo has a slow continuous **"breathing" animation** (scale 1 → 1.03 → 1, 5 s, sine easing), paused on hover and disabled with `prefers-reduced-motion`. Analysis scripts live in `tools/`. |
-| D24 | Vercel production address (until a domain is bought, D11): **https://digital-house-site-indol.vercel.app** — used for metadataBase, Open Graph, sitemap (Phase 6). |
-| D25 | Servicios (#servicios) = **stacked blocks**, all five pillars fully visible (option a). The user likes **option c (summary cards + expandable details)** and may want to try it later → recorded in `docs/IDEAS.txt`. **Superseded by D42** (2026-10-28). |
+If they disagree, STOP and ask. The old `docs/phase-*.txt` files and `PLAN.md` describe the old site:
+history only, never instructions.
 
-### Web brief (2026-10-23) — `brand-assets/BriefwebDigitalHouseGrowthStudio.docx` (worked on branch `brief-web`, merged into `main` 2026-10-27; all work now happens on `main`)
-The brief does **not** override every earlier decision. The user decides item by item; until then,
-anything below that is not listed keeps the D1–D25 rule.
-| # | Decision |
-|---|---|
-| D26 | **Colors and fonts follow the brief** (replaces D1 color limits, D15, D19 — see §4.2, §4.3). Yellow and light blue are allowed as small accents (~10 % of the page). |
-| D27 | **Every section listed in the brief must be on the page** (Hero, Qué hacemos, ribbon, Cómo trabajamos, Servicios, Equipo, Confían en nosotros, Contacto, footer). Also **keep** the Manifiesto section (D22 image) and the floating WhatsApp button (D6). |
-| D28 | Contact form: **UI only** for now (fields, validation, confirmation/error states); real sending decided later. Scheduling ("agendar") = **Google Calendar** (booking link still pending). |
-| D29 | Logo: **wait for the official transparent files** from Nicole; keep the current files until then (D20, D23). |
-| D30 | Team spelling: **Rene Rengel** (no accent, D14 stands), **Matias Rossel**; closing line uses **"juntos"**. |
-| D31 | Clients: keep the current text-only line (D13) — no logo grid until authorized logos arrive. |
-| D32 | Hero headline "No vendemos estética. Vendemos crecimiento." comes **first**, set in the brief's headline font; the word **"crecimiento"** is shown as **selected text** (brief "caja de selección": yellow band + line and dot at opposite corners) that is **typed letter by letter**, with the selection growing with the word. |
-| D33 | Brief content rules apply: no "Technogym", no "gratuita", no promised results/deadlines/prices, specialists not presented as staff. |
-| D34 | (2026-10-25) The hero typing **repeats**: the word types, stays selected for **1 s** (cursor blinking), clears and types again. |
-| D35 | (2026-10-25) Quiénes somos cards = "pick cards": hovering a card turns it dark burgundy (like the middle card) and lifts it; only one card is dark at a time. At rest the middle card is the chosen one, slightly raised and gently floating "waiting to be picked". **Superseded by D41** (the section became "Qué hacemos"). |
-| D37 | (2026-10-25) Cómo trabajamos: hovering a step fills the connecting line from step 1 to that step with ivory (the color of step 1), smoothly like a progress bar, and fills the dots it passes; leaving empties it. |
-| D38 | (2026-10-25) Hero: label = **"GROWTH STUDIO" in an outlined pill**; the paragraph under the headline is **removed**; the image is the user-provided pair `brand-assets/digital-house_background.png` (wall) + `digital-house_foreground.png` (cutout of the laptop on the sneakers), the foreground **sliding up into place with a small wobble** on load. This replaces the camera photo in the hero and lifts D22's exclusion of the laptop image. |
-| D39 | (2026-10-26) Equipo = **flip cards** (brief + prototype content). Front (ivory): big initials on a yellow/sky/beige panel (approved photos can replace them later), name, role, phrase. Back (guinda principal `#790B1A`): specialty + "Pídele" list. Turns in 3D (0.6 s) on hover, tap, Enter/Space. Members (user, 2026-10-26): **Nicole Pantoja** (Fundadora · Directora de Estrategia), **Nicole Vidaurre** (Directora Creativa), **Rene Rengel** (Director de Desarrollo y Soluciones Digitales — replaces D14's title), **Matias Rossel** (Aliado · Producción y Merchandising). Title "Un equipo de especialistas. Un solo objetivo: tu crecimiento." with the selection box; closing line "¿Quién participa en tu proyecto? Lo decidimos juntos después de escucharte." **Michelle Vidaurre** (Directora de Eventos y BTL) added as 5th card, between Rene and Matias (user, 2026-10-26); job titles confirmed as in the brief. Layout: 5 in a row on wide screens. |
-| D40 | (2026-10-26) Under the hero, a **"smaller hero"**: "Soluciones digitales para que" + a rotating word in **Playfair Display italic**, guinda principal — order **escalen, te encuentren, funcionen, te elijan, te recuerden**; every 2.3 s the word fades out sliding down and the next fades in sliding up (0.35 s). Plus the brief subtitle "Estrategia, marca y sistemas, con un equipo de especialistas que trabaja contigo." Reduced motion: static first word. |
-| D41 | (2026-10-26) **"Quiénes somos" → "Qué hacemos"** (`#que-hacemos`, menu label too): three big phrases, no paragraph — Primero / Entendemos tu negocio. · Después / Lo volvemos estrategia, marca y sistemas. · Y siempre / Lo ejecuta un equipo de especialistas. One stands out at a time (full color, slides right, bar grows on its left; others at 45 %): the first at rest, the hovered one with a mouse. Beige band with the dH camera photo beside it (brief). Replaces the pick cards (D35). Google Calendar: **not implemented for now** (D28 scheduling postponed). |
-| D42 | (2026-10-28) **Servicios** (`#servicios`, menu label unchanged) = the brief/prototype "Áreas de trabajo · Seis áreas. Un solo equipo.": six vertical panels in a row **like books on a shelf** — one open, the others closed with the name on the spine; hovering (wide screens) or clicking/tapping a panel opens it and the others make room (0.65 s). Areas, colors, icons and texts from the brief table: Entender, Que se note, Que funcione, Que se mida, Que se viva, Que se toque; closing "No eliges de un menú. Nos cuentas tu negocio y armamos la propuesta." Below lg the panels stack and open downwards. **Replaces D25** (5 stacked pillars removed). |
-| D43 | (2026-10-29) New section **Credenciales** (`#credenciales`, after Equipo; not in the menu) — brief "Confían en nosotros", title "Marcas que confían (o confiaron) en nuestro equipo.": the brands pass **without stopping** (CSS marquee, 60 s loop) on a full-width guinda oscuro band, in **two rows** (user, 2026-11-03): first half of the list right to left, second half left to right. Logos = **only the lettering** of the user-provided images (`brand-assets/logos/`), main name only (no symbols, sub-lines, ®/™), recolored **ivory** on transparent by `tools/client_logos.py` → `public/clients/`; Fair Play Élite and VIDA (no files) set as text in the same color. Brands (user, 2026-10-29): Fair Play Élite, Guinness, Universidad Católica Boliviana, Carabao, VIDA, Technogym, Burguesa, Italia Bolivia, Fury Cup, La Suprema, Schmidts Pharma, Totto, IALS, Aster Surgery, Zareliz. **Technogym is allowed here as a client logo — exception to D33, user decision.** Replaces the text-only client line under Equipo (D13, D31). Reduced motion: static, wrapped. |
-| D44 | (2026-11-03, branch `trim-sections`) Removed at the user's request: the **Qué hacemos** section (D41) and its menu item; the **hero laptop-on-sneakers image** (D38) — brought back by D45; the **line under the footer logo**. Credenciales has no bottom padding: the logo band closes the section. |
-| D45 | (2026-11-14, branch `trim-sections`) The **hero laptop image + rise animation (D38) are back, on tablets and computers only** (≥ 768px, beside the headline). **Phones: no image** — text and CTAs only, and the images are not downloaded there. |
-| D46 | (2026-11-14, branch `trim-sections`) **Manifiesto** ("Nuevas ideas. Más estrategia…") stays on every device, but its **Ctrl + N photo shows on tablets and computers only** (≥ 768px); phones get the headline alone (photo not downloaded). |
-| D36 | Prototype referenced by the brief: https://claude.ai/artifact/73cUyYw6yvsBw6b4RRnodk — reference for interactions/timings; **the brief wins** where they differ. |
-
-## 2. Working rules (non-negotiable)
-1. **Do not assume.** If anything in a request, the PDFs, the images or this file is ambiguous or
-   contradictory, STOP and ask the user before writing code. List the doubt, propose options, wait.
-2. **One phase at a time.** Only work on the phase the user tells you to. At the end of each phase:
-   write the phase documentation (see §6), summarize what changed, list open questions, and STOP.
-   Do not start the next phase without explicit approval.
-3. **Files you did not create in this session are unchanged** unless the user says they edited them.
-   Re-read a file before editing it; never rewrite a file from memory.
-4. **Scope discipline.** Change only what the current task needs. No drive-by refactors, no new
-   dependencies without asking (state name, purpose, size/alternatives).
-5. **Never invent content.** No fake testimonials, client logos, metrics, prices, phone numbers,
-   emails or case-study results. Missing data → visible placeholder `[PENDIENTE: …]` + note in the phase doc.
-6. **Internal information must never appear on the public site** (see §5).
+## 2. Working rules
+1. **Don't assume.** If something is ambiguous or contradictory, stop, list the doubt with options, and wait.
+2. **One phase at a time** (P1–P6 in `docs/NEW-DESIGN.md`). At the end: progress-log entry in
+   `docs/NEW-DESIGN.md`, lint and build pass, summary, open questions, STOP. Never start the next
+   phase without approval.
+3. **Scope discipline.** Change only what the task needs. No drive-by refactors. Re-read a file before
+   editing it; never rewrite from memory.
+4. **Dependencies approved:** `gsap` (with its free plugins: ScrollTrigger, SplitText, DrawSVG,
+   CustomEase), `@gsap/react`, `lenis`, `next-intl`, `sharp` (dev, asset scripts). Anything else: ask first
+   (name, purpose, size, alternatives).
+5. **Never invent content.** No fake clients, projects, testimonials, metrics, prices or contact data.
+   Missing content → visible `[PENDIENTE: …]` placeholder + a note in the progress log. Playful
+   micro-copy (pills, captions, closing line) may be drafted, but is marked as a draft for approval.
+6. **Never publish confidential information** (§4.4).
 7. If you need a file, image or answer you don't have, ask for it by name.
 
-## 3. Source material (provided by the user)
-In `/brand-assets/` (flat folder, kept as-is for reference — D18):
-- `Digital_House_Modelo_de_Negocio.pdf` — **INTERNAL** business model (Sept 2026). Use only to
-  understand the business. Most of it is confidential (see §5; exceptions in D21).
-- `DigitalHouse_Portafolio_Servicios.pptx.pdf` — **PUBLIC** services portfolio (11 slides). Main content source.
-- `WhatsApp Image 2026-10-07 at 7.21.04 PM*.jpeg` — brand images (Ctrl + N post, laptop screenshot,
-  Sony camera story, "dH" monogram, wordmark burgundy-on-cream, wordmark cream-on-burgundy).
-Exact filename ↔ content mapping (IMG-0…IMG-5) is in `docs/phase-0-discovery.txt` §5.1.
+## 3. Confirmed decisions (new design)
+| # | Decision |
+|---|---|
+| N1 | Reference = two26.studio: replicate layout, section order, timings and interactions as closely as possible, with our own content. (2026-11-19) |
+| N2 | Pages: Home, `/proyectos` (+ `/proyectos/[slug]`), `/nosotros`. English: `/en`, `/en/work` (+ `/en/work/[slug]`), `/en/about`. Spanish is the main language (no prefix). |
+| N3 | `/proyectos` has **both** the two26 card stack grid and a text-only project list with a cursor-following preview image. |
+| N4 | Route changes use a short **wipe** made from the loader's exit strokes (two26 has none; our addition). |
+| N5 | Headlines: **Anton** (condensed, all caps) via `next/font`. Body: Manrope. Buttons and labels: Satoshi. |
+| N6 | The header has no office hours. Its **"Hablemos"** CTA (and every "let's talk" CTA) opens the **contact overlay**. |
+| N7 | The **floating WhatsApp button** stays: visible at all times, every page and breakpoint, never hidden by the menu, overlays or footer; `aria-label="Escríbenos por WhatsApp"`; brand colors; respects iOS safe-area insets. |
+| N8 | Logo animation = the "dH" lettering from the user's reference artifact, rebuilt with GSAP: strokes write "d" then "H", then the fill settles. Plays in the loader, as a short replay on header-logo hover, static in the footer. |
+| N9 | No global custom cursor (two26 has none); only contextual ones (testimonial arrow, project cursor pills, list preview), fine pointers only. |
 
-## 4. Design system — source of truth
-### 4.1 Which identity wins (CONFIRMED — D1; colors and fonts now from the web brief, D26)
-- **A. Brand identity (images)** — cream/ivory + deep burgundy, editorial, didone serif + heavy
-  geometric sans, natural-light photography. → **The only style source for the website.**
-- **B. PDF deck styling** (light blue, pale yellow, yellow script) → **never use**. PDFs = content only.
+## 4. Brand and content rules
+### 4.1 Names and voice
+- Brand name in text: **"DigitalHouse Growth Studio"**. Instagram: `@digitalhouse.gs`.
+- Spanish uses **tú**, consistently (never voseo, never usted).
+- English is a translation of the approved Spanish. Never write English copy that has no Spanish source.
 
-### 4.2 Color tokens (web brief brand board — D26; replaces the Phase 0 palette of D19)
-| Token | Value | Brief name | Use |
-|---|---|---|---|
-| `--burgundy-deep` | `#4A0710` | Guinda oscuro | **Predominant**: dark bands, headlines, buttons, text accents on ivory |
-| `--burgundy` | `#790B1A` | Guinda principal | Details only (team card backs, rotating hero word) |
-| `--ivory` | `#F7F3EA` | Marfil | Main background; text on dark bands |
-| `--beige` | `#E5DCCF` | Beige neutro | Secondary backgrounds |
-| `--charcoal` | `#262322` | Carbón | Body text |
-| `--warm-gray` | `#A7A19A` | Gris cálido | Lines; secondary text **on dark only** (2.3:1 on ivory fails AA) |
-| `--yellow` | `#FCE7A6` | Amarillo bebé | Accent (~10 %): selection box, active step |
-| `--sky` | `#D7E8F7` | Celeste bebé | Small touch: completed steps, details |
-Secondary text on light backgrounds = charcoal softened toward ivory (`color-mix`), so it keeps AA
-contrast. Old token names (`--cream`, `--ink`, `--sand`…) are kept as aliases so existing components
-keep working. No pure black / pure white backgrounds. Contrast must pass WCAG AA.
+### 4.2 Content rules
+- No promised results, deadlines or prices. Never the word "gratuita".
+- Specialists are not presented as staff (Matias Rossel is an ally: production and merchandising).
+- "Technogym" appears **only** as a client logo/name (Credentials-type uses).
+- Copy lives in `src/content/` as typed data (ES + EN), UI strings in `src/messages/*.json`;
+  never hard-coded in components.
+- Service areas (5): Consultoría y Estrategia (incluye Business Intelligence) · Marketing, Contenido
+  multimedia y Producción audiovisual · Desarrollo de soluciones digitales · Merchandising · Eventos.
 
-### 4.3 Typography
-- **Logo: never re-typeset.** Use the logos from the provided images (D8, D20): official lockup =
-  cream-on-burgundy wordmark (plus its burgundy-on-cream recolor for the header) and the "dH" monogram.
-  Crop them, export optimized PNG/WebP at 2x, and place each only on a background matching its own
-  (cream logo on burgundy, burgundy logo on cream). If you can produce a transparent version cleanly,
-  show it to the user for approval before using it. Official transparent files are coming (D29).
-- Fonts (web brief, D26 — replaces Bodoni Moda + Poppins of D15):
-  - **Manrope** 600–800 → headlines and key phrases; Manrope 400–500 → body text and menu.
-  - **Satoshi** 400–900 → buttons, labels, short highlighted texts (self-hosted from Fontshare,
-    Manrope as fallback).
-  - **Playfair Display italic** → only the rotating hero word (brief); the only serif on the site.
-- Handwritten annotations (arrows, "Creando nuevas estrategias") → prefer **SVG hand-drawn assets**;
-  if a font is needed, ask first (candidate: *Caveat*). Use sparingly — accents only.
-Fonts are loaded with `next/font`. Final choices are recorded in `docs/phase-1-*.txt`.
+### 4.3 Contact data (one file only: `src/content/contact.ts`)
+WhatsApp, email and Instagram come only from `contact.ts`. WhatsApp links open in a new tab with
+`rel="noopener noreferrer"` and the pre-filled text
+**"Hola, quiero más información sobre DigitalHouse Growth Studio."** (URL-encoded `?text=`).
 
-### 4.4 Visual motifs (from the images)
-- Generous whitespace, centered/symmetric compositions, calm editorial feel ("quiet luxury").
-- Soft **window/leaf shadow (gobo)** overlays on cream backgrounds — subtle, low opacity.
-- Light **paper/kraft grain texture** on some sections (very subtle noise, never busy).
-- Real objects as frames for the brand: laptop screen, digital camera screen, keyboard keys
-  ("Ctrl + N" = new ideas). Product mockups only from provided images.
-- Hand-drawn burgundy marker accents: underline swooshes under key words, curved arrows,
-  4-point sparkle star ✦, asterisk/burst, small "energy" lines.
-- **Instagram pill component**: tiny tracked label "SÍGUENOS EN" above an outlined pill
-  (1–1.5px burgundy border, fully rounded), IG icon │ thin vertical divider │ `@digitalhouse.gs`.
-- Headline pattern: first lines bold burgundy, last line regular ink, one key phrase underlined
-  with a hand-drawn swoosh (as in "Nuevas ideas. / Más estrategia. / Misma pasión por…").
-- Buttons: pill-shaped, either burgundy fill + cream text, or outlined burgundy. No gradients,
-  no heavy drop shadows, no neon, no glassmorphism.
-- Motion: slow, subtle (fade/translate 8–16px, 400–700ms ease-out). Respect `prefers-reduced-motion`.
+### 4.4 Confidential: NEVER publish
+From the internal business-model PDF: revenue splits (60/40, 50/50), "Nivel 1 / Nivel 2", specialist
+fees, the 10–15% coordination fee, the exchange-rate argument ("sale más barato"), "los clientes
+locales no son el foco", the internal roadmap phases (Credibilidad / Alcance / Educación), "Fair Play
+Elite está por cerrar", "Elaborado por…", "Documento interno", "(por ahora)" / "se incorporará un
+especialista", "todóloga", "argumento de venta".
 
-## 5. Confidential — NEVER publish
-From `modelo-de-negocio.pdf`: revenue split percentages (60/40, 50/50), "Nivel 1 / Nivel 2" structure,
-specialist fixed fees, the 10–15% coordination fee, the exchange-rate argument ("sale más barato"),
-"los clientes locales no son el foco", internal roadmap phases (Credibilidad / Alcance / Educación),
-"Fair Play Elite está por cerrar", "Elaborado por…", "Documento interno", "(por ahora)" /
-"se incorporará un especialista", "todóloga", "argumento de venta".
-Client names (Fair Play Élite, VIDA) are approved only as described in D13.
+### 4.5 Logos
+- Never redraw or re-typeset the official DigitalHouse wordmark; use the files in `public/brand/`.
+  The animated "dH" mark comes from the user's reference artifact (N8).
+- Client logos: the processed ivory lettering files in `public/clients/` (made by
+  `tools/client_logos.py`). Fair Play Élite and VIDA have no file: set them as text.
 
-## 6. Documentation rule (every phase)
-At the end of each phase create `docs/phase-<N>-<slug>.txt` (plain text, UTF-8) using this template:
-```
-PHASE <N> — <NAME>
-Date: <YYYY-MM-DD>   Status: <completed | partial>
-1. GOAL
-2. DECISIONS (with who confirmed them)
-3. STRUCTURE — files/folders created or modified (path + one-line purpose)
-4. SECTIONS / COMPONENTS — name, location, props, variants, which content it shows
-5. STYLES — tokens used/added, fonts, spacing, breakpoints, motion
-6. CONTENT — copy used and its source (PDF page/slide or user message)
-7. ASSETS — images used, where they live, how they were processed
-8. HOW TO RUN / TEST
-9. PENDING / OPEN QUESTIONS / PLACEHOLDERS
-10. CHANGELOG (bullet list)
-```
-Keep `docs/README.txt` as an index of all phase docs.
+## 5. Design system
+- **Colors:** `src/styles/tokens.css` (ivory, beige, burgundy deep, burgundy, charcoal, warm gray;
+  yellow and sky as small accents). Until the user defines roles: ivory background, **burgundy as
+  the "hot" accent** (strokes, footer, panels), charcoal / burgundy deep for headlines and sticker
+  pills. Text must pass WCAG AA.
+- **Fonts:** see N5, all through `next/font`.
+- **Style:** bold and playful: huge all-caps headlines, small rotated "sticker" pills, thick looping
+  stroke lines, springy pops, lots of breathing room, video-heavy sections, cheeky micro-copy.
+  Buttons: pills. No gradients on UI, no neon, no glassmorphism.
+- **Motion:** GSAP (+ ScrollTrigger, SplitText, DrawSVG) through `useGSAP` (automatic cleanup);
+  Lenis smooth scroll synced to ScrollTrigger through `gsap.ticker`. Timings follow two26 (see the
+  animation map). Every effect has a `prefers-reduced-motion` fallback (finished state, no smooth
+  scroll, no pin/scrub) and degrades gracefully on touch (no magnetic/hover-only effects, swipe
+  where needed). Animate `transform` and `opacity` where possible.
 
-## 7. Tech conventions (confirm in Phase 0 / Phase 1)
-- Next.js latest stable, App Router, TypeScript, ESLint. Record exact versions in phase-1 doc.
-- Styling: Tailwind CSS (confirmed, D16) with design tokens as CSS variables.
-- Images via `next/image`; fonts via `next/font`; metadata via the Metadata API.
-- Structure: `src/app`, `src/components/{layout,sections,ui}`, `src/content` (copy as typed data,
-  never hard-coded inside components), `src/styles`, `public/brand`.
-- Mobile-first; breakpoints recorded in the phase doc. Accessibility: semantic HTML, alt text,
-  focus states, AA contrast, `lang="es"`.
-- Commands: `npm run dev`, `npm run build`, `npm run lint` must pass before closing a phase.
-- Deploy target: Vercel (D9). Commercial site → needs Vercel **Pro** plan (Hobby is non-commercial only).
-- Floating WhatsApp button (D6): fixed bottom-right, burgundy circle + cream WhatsApp icon (brand
-  colors, not WhatsApp green unless the user asks), `aria-label="Escríbenos por WhatsApp"` (tú, D12),
-  opens `https://wa.me/59165999740` with the D17 pre-filled text (URL-encoded `?text=`) in a new tab with `rel="noopener noreferrer"`, never hidden by
-  the mobile menu, footer or cookie bars, respects safe-area insets on iOS.
-- Contact constants live in ONE file: `src/content/contact.ts` (phone, wa.me URL, email, Instagram).
+## 6. Tech conventions
+- Next.js 16 (App Router; middleware is called **proxy** — `src/proxy.ts`), React 19, TypeScript,
+  Tailwind v4, next-intl. Structure: `src/app/[locale]`, `src/components/{brand,layout,motion,ui,home,work,about}`,
+  `src/content`, `src/messages`, `src/i18n`, `src/lib`, `src/styles`, `public/`, `tools/`.
+- Images: `next/image` (AVIF/WebP). Videos: muted, autoplay, loop, `playsInline`, with posters,
+  lazy below the fold. Hero video ≤ 3 MB.
+- Accessibility: semantic HTML, keyboard reachable, visible focus, focus trap in overlays, Esc closes,
+  alt text, `lang` per locale.
+- Quality bar: Lighthouse mobile ≥ 90 performance / 100 accessibility / 100 SEO; metadata + OG per
+  page, sitemap with both locales, JSON-LD Organization.
+- Commands: `npm run dev`, `npm run lint`, `npm run build`. Lint and build must pass to close a phase.
+- Dev server: Claude may start it only for its own tests and must stop it afterwards; the user runs it themselves.
+- Deploy: Vercel. A commercial site needs the **Pro** plan. Production URL until a domain is
+  connected: `https://digital-house-site-indol.vercel.app`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

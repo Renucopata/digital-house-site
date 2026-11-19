@@ -15,6 +15,10 @@
   --yellow: #fce7a6; /* amarillo bebé — selection box, active step */
   --sky: #d7e8f7; /* celeste bebé — completed steps, details */
 
+  /* New design: the "hot" accent of two26's role (strokes, panels, footer). Burgundy until the
+     user defines the color roles (docs/NEW-DESIGN.md §4). */
+  --hot: var(--burgundy);
+
   /* Aliases kept from the Phase 1 names, so existing components follow the new palette */
   --cream: var(--ivory);
   --sand: var(--beige);

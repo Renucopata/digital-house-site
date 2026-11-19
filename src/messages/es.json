@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "homeTitle": "DigitalHouse Growth Studio",
+    "workTitle": "Proyectos",
+    "aboutTitle": "Nosotros"
+  },
+  "a11y": {
+    "skipLink": "Saltar al contenido",
+    "mainNav": "Navegación principal",
+    "homeLabel": "DigitalHouse Growth Studio: ir al inicio",
+    "whatsapp": "Escríbenos por WhatsApp",
+    "opensNewTab": "(se abre en una pestaña nueva)"
+  },
+  "nav": {
+    "work": "Proyectos",
+    "about": "Nosotros",
+    "cta": "Hablemos",
+    "menuOpen": "Abrir menú",
+    "menuClose": "Cerrar menú",
+    "language": "Idioma",
+    "switchTo": "English",
+    "switchToShort": "EN"
+  },
+  "contact": {
+    "dialogLabel": "Contacto",
+    "close": "Cerrar",
+    "headingLines": ["Cuéntanos", "tu negocio"],
+    "subline": "o solo saluda, también vale",
+    "intro": "Primero entendemos tu negocio. Lo demás nace de ahí.",
+    "whatsappLabel": "Escríbenos por WhatsApp",
+    "emailLabel": "Correo",
+    "instagramLabel": "Síguenos",
+    "illustrationPending": "[PENDIENTE: ilustración del overlay de contacto]"
+  },
+  "footer": {
+    "closingLines": ["Ok, suficiente", "scroll por", "hoy"],
+    "cta": "Hablemos",
+    "emailLabel": "Escríbenos",
+    "menuTitle": "Menú",
+    "socialTitle": "Redes",
+    "rights": "Todos los derechos reservados."
+  },
+  "placeholder": {
+    "home": "Inicio: las secciones llegan en la fase 3.",
+    "work": "Proyectos: la página llega en la fase 5.",
+    "about": "Nosotros: la página llega en la fase 5."
+  }
+}

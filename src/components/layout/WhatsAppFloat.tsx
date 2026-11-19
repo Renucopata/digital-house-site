@@ -6,16 +6,17 @@ import { WhatsAppIcon } from "@/components/ui/icons";
  * Brand colors (burgundy + cream). The cream ring keeps it visible over dark sections.
  * Respects iOS safe-area insets (requires viewport-fit=cover, set in the root layout).
  */
-export function WhatsAppFloat() {
+export function WhatsAppFloat({ label }: { label: string }) {
   return (
     <a
       href={contact.whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Escríbenos por WhatsApp"
-      title="Escríbenos por WhatsApp"
+      aria-label={label}
+      title={label}
       className={[
-        "theme-light fixed z-[1000] grid size-[var(--wa-size)] place-items-center rounded-full",
+        // above the header (900), mobile menu (1400) and contact overlay (1500), N7
+        "theme-light fixed z-[1600] grid size-[var(--wa-size)] place-items-center rounded-full",
         "bg-burgundy text-cream ring-2 ring-cream/80",
         "shadow-[0_6px_20px_-6px_rgb(72_31_30/0.45)]",
         "transition-[transform,background-color] duration-300 ease-soft hover:-translate-y-0.5 hover:bg-burgundy-deep",
