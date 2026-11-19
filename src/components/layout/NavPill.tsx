@@ -12,8 +12,9 @@ type NavPillProps = Omit<ComponentProps<typeof Link>, "className"> & { className
  */
 export function NavPill({ href, className, children, ...rest }: NavPillProps) {
   const pathname = usePathname();
-  const target = typeof href === "string" ? href : href.pathname;
-  const current = pathname === target || (target !== "/" && pathname.startsWith(`${target}/`));
+  // links to a section of a page (#hash) are never "the current page"
+  const target = typeof href === "string" ? href : href.hash ? null : href.pathname;
+  const current = target !== null && (pathname === target || (target !== "/" && pathname.startsWith(`${target}/`)));
   return (
     <Link
       href={href}

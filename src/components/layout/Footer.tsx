@@ -1,23 +1,25 @@
 import { useTranslations } from "next-intl";
+import { DhLogo } from "@/components/brand/DhLogo";
+import { Lockup } from "@/components/brand/Lockup";
 import { CtaButton } from "@/components/ui/CtaButton";
-import { Logo } from "@/components/ui/Logo";
 import { contact } from "@/content/contact";
 import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import { LanguageSwitch } from "./LanguageSwitch";
 
 /*
- * Closing CTA + footer (two26 effect 12): big humorous closing line, CTA, email, menu, socials,
- * looping-stroke texture and the big logo at the bottom.
- * P1: static. P4 adds the line reveals, kinetic letters and the stretching logo.
- * The footer is burgundy-deep for now so the cream wordmark (baked background) matches it.
+ * Footer (two26 effect 12) with the artifact's copy: big phrase, CTA, email, menu, socials,
+ * looping-stroke texture and the full logo at the bottom.
+ * Static for now; P4 adds the line reveals, kinetic letters and the stretching logo.
+ * Burgundy-deep until the color roles are defined (docs/NEW-DESIGN.md §4).
  */
 export function Footer() {
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
   const tA11y = useTranslations("a11y");
-  const lines = t.raw("closingLines") as string[];
   const year = new Date().getFullYear();
+  const link = "underline-offset-4 hover:underline";
+  const label = "font-label text-label tracking-[0.2em] text-fg-soft uppercase";
 
   return (
     <footer id="site-footer" className="theme-dark relative overflow-hidden bg-surface text-fg">
@@ -25,35 +27,39 @@ export function Footer() {
       <div className="relative mx-auto max-w-[90rem] px-[var(--gutter)] pt-16 pb-8 md:pt-24">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex flex-col items-start gap-6">
-            <h2 className="font-display text-[clamp(3rem,7vw,6rem)] leading-[0.92] uppercase">
-              {lines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h2>
+            <p className="max-w-[14ch] font-display text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95] uppercase">{t("phrase")}</p>
             <CtaButton tone="light">{t("cta")}</CtaButton>
             <div>
-              <p className="font-label text-label tracking-[0.2em] text-fg-soft uppercase">{t("emailLabel")}</p>
-              <a href={contact.mailto} className="text-lg underline-offset-4 hover:underline">
+              <p className={label}>{t("emailLabel")}</p>
+              <a href={contact.mailto} className={`text-lg ${link}`}>
                 {contact.email}
               </a>
             </div>
           </div>
 
           <nav aria-labelledby="footer-menu">
-            <p id="footer-menu" className="font-label text-label tracking-[0.2em] text-fg-soft uppercase">
+            <p id="footer-menu" className={label}>
               {t("menuTitle")}
             </p>
             <ul className="mt-3 flex flex-col gap-2 text-lg">
               <li>
-                <Link href="/proyectos" className="underline-offset-4 hover:underline">
+                <Link href="/proyectos" className={link}>
                   {tNav("work")}
                 </Link>
               </li>
               <li>
-                <Link href="/nosotros" className="underline-offset-4 hover:underline">
+                <Link href="/nosotros" className={link}>
                   {tNav("about")}
+                </Link>
+              </li>
+              <li>
+                <Link href={{ pathname: "/", hash: "servicios" }} className={link}>
+                  {tNav("services")}
+                </Link>
+              </li>
+              <li>
+                <Link href={{ pathname: "/", hash: "contacto" }} className={link}>
+                  {tNav("contact")}
                 </Link>
               </li>
               <li>
@@ -63,28 +69,35 @@ export function Footer() {
           </nav>
 
           <div>
-            <p className="font-label text-label tracking-[0.2em] text-fg-soft uppercase">{t("socialTitle")}</p>
+            <p className={label}>{t("socialTitle")}</p>
             <ul className="mt-3 flex flex-col gap-2 text-lg">
               <li>
-                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
+                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className={link}>
                   Instagram ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
                 </a>
               </li>
               <li>
-                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
+                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className={link}>
                   WhatsApp ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
+                </a>
+              </li>
+              <li>
+                <a href={contact.mailto} className={link}>
+                  {contact.email}
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <p className="mt-16 text-xs text-fg-soft">
-          © {year} {site.name}. {t("rights")}
-        </p>
-        <div className="mt-4">
-          <Logo variant="wordmark-cream" width={318} className="h-auto w-full max-w-[318px]" />
+        {/* full logo (N8); P4 adds two26's stretch-with-scroll effect */}
+        <div role="img" aria-label={site.name} className="mt-16 flex items-center gap-[0.3em] text-ivory [--mark:clamp(56px,11vw,160px)]" style={{ fontSize: "calc(var(--mark) * 0.66)" }}>
+          <DhLogo className="h-[var(--mark)] w-auto" />
+          <Lockup />
         </div>
+        <p className="mt-6 text-xs text-fg-soft">
+          {t("place")} © {year} {site.name}
+        </p>
       </div>
     </footer>
   );

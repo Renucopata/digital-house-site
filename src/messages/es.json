@@ -1,19 +1,21 @@
 {
   "meta": {
     "homeTitle": "DigitalHouse Growth Studio",
-    "workTitle": "Proyectos",
+    "workTitle": "Trabajos",
     "aboutTitle": "Nosotros"
   },
   "a11y": {
     "skipLink": "Saltar al contenido",
     "mainNav": "Navegación principal",
-    "homeLabel": "DigitalHouse Growth Studio: ir al inicio",
+    "homeLabel": "Digital House, inicio",
     "whatsapp": "Escríbenos por WhatsApp",
     "opensNewTab": "(se abre en una pestaña nueva)"
   },
   "nav": {
-    "work": "Proyectos",
+    "work": "Trabajos",
     "about": "Nosotros",
+    "services": "Servicios",
+    "contact": "Contacto",
     "cta": "Hablemos",
     "menuOpen": "Abrir menú",
     "menuClose": "Cerrar menú",
@@ -24,25 +26,23 @@
   "contact": {
     "dialogLabel": "Contacto",
     "close": "Cerrar",
-    "headingLines": ["Cuéntanos", "tu negocio"],
-    "subline": "o solo saluda, también vale",
-    "intro": "Primero entendemos tu negocio. Lo demás nace de ahí.",
-    "whatsappLabel": "Escríbenos por WhatsApp",
+    "headingLines": ["¿Tienes un negocio", "con ganas de crecer?"],
+    "subline": "o solo pasa a saludar",
+    "whatsappLabel": "WhatsApp",
     "emailLabel": "Correo",
-    "instagramLabel": "Síguenos",
+    "instagramLabel": "Instagram",
     "illustrationPending": "[PENDIENTE: ilustración del overlay de contacto]"
   },
   "footer": {
-    "closingLines": ["Ok, suficiente", "scroll por", "hoy"],
+    "phrase": "Nuevas ideas. Más estrategia. La misma pasión.",
+    "place": "Bolivia",
     "cta": "Hablemos",
     "emailLabel": "Escríbenos",
     "menuTitle": "Menú",
-    "socialTitle": "Redes",
-    "rights": "Todos los derechos reservados."
+    "socialTitle": "Redes"
   },
   "placeholder": {
-    "home": "Inicio: las secciones llegan en la fase 3.",
-    "work": "Proyectos: la página llega en la fase 5.",
+    "work": "Trabajos: la página llega en la fase 5.",
     "about": "Nosotros: la página llega en la fase 5."
   }
 }

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Anton, Manrope } from "next/font/google";
+import { Anton, Bodoni_Moda, Manrope, Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -10,12 +10,18 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
+import { Loader } from "@/components/motion/Loader";
 import { site } from "@/content/site";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 // Headlines: Anton, condensed, all caps (N5). One weight.
 const anton = Anton({ variable: "--font-anton", subsets: ["latin"], weight: "400", display: "swap" });
+
+// "digital HOUSE" lettering of the artifact: "digital" = Bodoni Moda, "HOUSE" = Montserrat Black
+// (also the walkers' signs).
+const bodoni = Bodoni_Moda({ variable: "--font-bodoni", subsets: ["latin"], weight: "400", display: "swap" });
+const montserrat = Montserrat({ variable: "--font-montserrat", subsets: ["latin"], weight: "900", display: "swap" });
 
 // Body and menu: Manrope (variable 200–800).
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
@@ -59,8 +65,15 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const tA11y = await getTranslations("a11y");
 
   return (
-    <html lang={locale} className={`${anton.variable} ${manrope.variable} ${satoshi.variable} h-full`}>
+    <html lang={locale} className={`${anton.variable} ${bodoni.variable} ${montserrat.variable} ${manrope.variable} ${satoshi.variable} h-full`}>
+      <head>
+        {/* without JS the loader could never leave, so it is not shown at all */}
+        <noscript>
+          <style>{".dh-loader{display:none}"}</style>
+        </noscript>
+      </head>
       <body className="min-h-full">
+        <Loader />
         <NextIntlClientProvider>
           <ContactProvider>
             <SkipLink />

@@ -64,6 +64,9 @@ export function MobileMenu() {
             <Link href="/nosotros" onClick={close} className={pill}>
               {t("about")}
             </Link>
+            <Link href={{ pathname: "/", hash: "servicios" }} onClick={close} className={pill}>
+              {t("services")}
+            </Link>
             <CtaButton onBeforeOpen={close}>{t("cta")}</CtaButton>
             <LanguageSwitch className="mt-4" />
           </nav>

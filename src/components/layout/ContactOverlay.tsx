@@ -8,8 +8,8 @@ import { useModal } from "@/lib/useModal";
 import { useContact } from "./ContactProvider";
 
 /*
- * Contact overlay (two26 effect 16), opened by every "Hablemos" CTA.
- * P1: structure and behavior only (focus trap, Esc, inert page, focus returns to the CTA).
+ * Contact overlay (two26 effect 16), opened by every "Hablemos" CTA. Copy from the artifact.
+ * Structure and behavior: focus trap, Esc, backdrop click, inert page, focus returns to the CTA.
  * The stroke-flood entrance and the staggered content come in P4.
  */
 export function ContactOverlay() {
@@ -23,6 +23,8 @@ export function ContactOverlay() {
   if (!isOpen) return null;
 
   const lines = t.raw("headingLines") as string[];
+  const channel = "inline-flex items-center gap-3 text-2xl underline-offset-4 hover:underline md:text-3xl";
+  const label = "font-label text-label tracking-[0.2em] text-fg-soft uppercase";
 
   return (
     <div
@@ -41,59 +43,47 @@ export function ContactOverlay() {
             onClick={close}
             className="rounded-full bg-ivory px-4 py-2 font-label text-sm font-bold text-burgundy-deep"
           >
-            ✕ {t("close")}
+            {t("close")} ✕
           </button>
         </div>
 
-        <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-2">
+        <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-[1.3fr_1fr]">
           <div>
-            <h2 id="contact-title" className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] uppercase">
+            <h2 id="contact-title" className="font-display text-[clamp(3rem,8.5vw,8rem)] leading-[0.92] uppercase">
               {lines.map((line) => (
                 <span key={line} className="block">
                   {line}
                 </span>
               ))}
             </h2>
-            <p className="mt-4 font-display text-[clamp(1.5rem,3vw,2.5rem)] text-fg-soft">{t("subline")}</p>
+            <p className="mt-4 font-display text-[clamp(1.5rem,3vw,2.5rem)] text-fg-soft uppercase">{t("subline")}</p>
           </div>
 
-          <div className="flex flex-col gap-8">
-            <p className="max-w-md text-lead">{t("intro")}</p>
-            <dl className="flex flex-col gap-6">
-              <div>
-                <dt className="font-label text-label tracking-[0.2em] uppercase">{t("whatsappLabel")}</dt>
-                <dd>
-                  <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-2xl underline-offset-4 hover:underline">
-                    <WhatsAppIcon className="size-6" />
-                    {contact.phoneDisplay}
-                    <span className="sr-only"> {tA11y("opensNewTab")}</span>
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="font-label text-label tracking-[0.2em] uppercase">{t("emailLabel")}</dt>
-                <dd>
-                  <a href={contact.mailto} className="text-2xl underline-offset-4 hover:underline">
-                    {contact.email}
-                  </a>
-                </dd>
-              </div>
-            </dl>
-            <p className="text-sm text-fg-soft">{t("illustrationPending")}</p>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-3">
-          <a
-            href={contact.instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 font-label text-sm"
-          >
-            <InstagramIcon className="size-4" />
-            {t("instagramLabel")} {contact.instagramLabel}
-            <span className="sr-only"> {tA11y("opensNewTab")}</span>
-          </a>
+          <ul className="flex flex-col gap-7">
+            <li>
+              <p className={label}>{t("whatsappLabel")}</p>
+              <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className={channel}>
+                <WhatsAppIcon className="size-6" />
+                {contact.phoneDisplay}
+                <span className="sr-only"> {tA11y("opensNewTab")}</span>
+              </a>
+            </li>
+            <li>
+              <p className={label}>{t("emailLabel")}</p>
+              <a href={contact.mailto} className={channel}>
+                {contact.email}
+              </a>
+            </li>
+            <li>
+              <p className={label}>{t("instagramLabel")}</p>
+              <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className={channel}>
+                <InstagramIcon className="size-6" />
+                {contact.instagramLabel}
+                <span className="sr-only"> {tA11y("opensNewTab")}</span>
+              </a>
+            </li>
+            <li className="text-sm text-fg-soft">{t("illustrationPending")}</li>
+          </ul>
         </div>
       </div>
     </div>

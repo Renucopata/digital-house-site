@@ -7,13 +7,15 @@
   "a11y": {
     "skipLink": "Skip to content",
     "mainNav": "Main navigation",
-    "homeLabel": "DigitalHouse Growth Studio: go to home",
+    "homeLabel": "Digital House, home",
     "whatsapp": "Message us on WhatsApp",
     "opensNewTab": "(opens in a new tab)"
   },
   "nav": {
     "work": "Work",
     "about": "About",
+    "services": "Services",
+    "contact": "Contact",
     "cta": "Let's talk",
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
@@ -24,24 +26,22 @@
   "contact": {
     "dialogLabel": "Contact",
     "close": "Close",
-    "headingLines": ["Tell us about", "your business"],
-    "subline": "or just say hi, that works too",
-    "intro": "First we understand your business. Everything else grows from there.",
-    "whatsappLabel": "Message us on WhatsApp",
+    "headingLines": ["Got a business", "that wants to grow?"],
+    "subline": "or just stop by to say hi",
+    "whatsappLabel": "WhatsApp",
     "emailLabel": "Email",
-    "instagramLabel": "Follow us",
+    "instagramLabel": "Instagram",
     "illustrationPending": "[PENDING: contact overlay illustration]"
   },
   "footer": {
-    "closingLines": ["Okay, enough", "scrolling for", "today"],
+    "phrase": "New ideas. More strategy. The same passion.",
+    "place": "Bolivia",
     "cta": "Let's talk",
     "emailLabel": "Write to us",
     "menuTitle": "Menu",
-    "socialTitle": "Social",
-    "rights": "All rights reserved."
+    "socialTitle": "Social"
   },
   "placeholder": {
-    "home": "Home: the sections arrive in phase 3.",
     "work": "Work: the page arrives in phase 5.",
     "about": "About: the page arrives in phase 5."
   }

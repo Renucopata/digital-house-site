@@ -37,11 +37,12 @@ history only, never instructions.
 | # | Decision |
 |---|---|
 | N1 | Reference = two26.studio: replicate layout, section order, timings and interactions as closely as possible, with our own content. (2026-11-19) |
-| N2 | Pages: Home, `/proyectos` (+ `/proyectos/[slug]`), `/nosotros`. English: `/en`, `/en/work` (+ `/en/work/[slug]`), `/en/about`. Spanish is the main language (no prefix). |
+| N2 | Pages: Home, `/proyectos` (+ `/proyectos/[slug]`), `/nosotros`. English: `/en`, `/en/work` (+ `/en/work/[slug]`), `/en/about`. Spanish is the main language (no prefix). `/` is always Spanish: no automatic redirect by cookie or browser language. |
 | N3 | `/proyectos` has **both** the two26 card stack grid and a text-only project list with a cursor-following preview image. |
-| N4 | Route changes use a short **wipe** made from the loader's exit strokes (two26 has none; our addition). |
+| N4 | Loader exit = one smooth **slide up** of the loader screen with a burgundy edge trailing it, no pause on the color; the page appears as it slides. Route changes use a short transition in the same spirit (two26 has none; our addition, P4). |
 | N5 | Headlines: **Anton** (condensed, all caps) via `next/font`. Body: Manrope. Buttons and labels: Satoshi. |
-| N6 | The header has no office hours. Its **"Hablemos"** CTA (and every "let's talk" CTA) opens the **contact overlay**. |
+| N6 | Header: **logo (dH + "digital HOUSE") at the top left, sections and CTA on the right**, no office hours, **not fixed** (scrolls away with the page). Its **"Hablemos"** CTA (and every "let's talk" CTA) opens the **contact overlay**. |
+| N10 | Content = the user's reference artifact (copy, order, illustration). Colors always come from this project's tokens, never from the artifact. |
 | N7 | The **floating WhatsApp button** stays: visible at all times, every page and breakpoint, never hidden by the menu, overlays or footer; `aria-label="Escríbenos por WhatsApp"`; brand colors; respects iOS safe-area insets. |
 | N8 | Logo animation = the "dH" lettering from the user's reference artifact, rebuilt with GSAP: strokes write "d" then "H", then the fill settles. Plays in the loader, as a short replay on header-logo hover, static in the footer. |
 | N9 | No global custom cursor (two26 has none); only contextual ones (testimonial arrow, project cursor pills, list preview), fine pointers only. |

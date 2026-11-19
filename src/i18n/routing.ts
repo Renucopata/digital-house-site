@@ -8,6 +8,8 @@ export const routing = defineRouting({
   locales: ["es", "en"],
   defaultLocale: "es",
   localePrefix: "as-needed",
+  // "/" is always Spanish: no redirect to /en from a cookie or the browser language (user, 2026-11-19)
+  localeDetection: false,
   pathnames: {
     "/": "/",
     "/proyectos": { es: "/proyectos", en: "/work" },
