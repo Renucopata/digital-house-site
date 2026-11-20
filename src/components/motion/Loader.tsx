@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { DhLogo } from "@/components/brand/DhLogo";
 import { Lockup } from "@/components/brand/Lockup";
 import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
+import { lockScroll, unlockScroll } from "@/lib/lenis";
 import { markLoaderDone } from "@/lib/loaderStore";
 
 /*
@@ -45,6 +46,14 @@ export function Loader() {
       let exiting = false;
       const previousOverflow = html.style.overflow;
       html.style.overflow = "hidden";
+      lockScroll();
+      let unlocked = false;
+      const unlock = () => {
+        if (unlocked) return;
+        unlocked = true;
+        html.style.overflow = previousOverflow;
+        unlockScroll();
+      };
 
       // start with the dH alone in the center: shift the row so the mark's center is the screen's
       const r = row.current!.getBoundingClientRect();
@@ -55,7 +64,7 @@ export function Loader() {
       const tryExit = contextSafe!(() => {
         if (!logoDone || !pageLoaded || exiting) return;
         exiting = true;
-        html.style.overflow = previousOverflow;
+        unlock();
         // the page (hero entrance) starts as the color begins to move
         markLoaderDone();
         gsap
@@ -95,7 +104,7 @@ export function Loader() {
       return () => {
         window.removeEventListener("load", onLoad);
         safety.kill();
-        html.style.overflow = previousOverflow;
+        unlock();
       };
     },
     { scope: root },

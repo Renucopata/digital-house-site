@@ -1,27 +1,48 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { faq, tr } from "@/content/home";
+import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 
 /*
  * FAQ (artifact "Antes de que preguntes"), two26 behavior: one question is always open (the first
  * at the start); opening another closes the current one. The answer is a bubble under the pill.
- * P4 adds two26's animation (pill shrinks, bubble grows with a spring).
+ * Motion (two26 effect 11): the open pill shrinks (CSS), the answer bubble grows from its corner
+ * with a spring (.5 s back.out(1.6)) and its text rises in. Reduced motion: instant.
  */
 export function Faq() {
   const locale = useLocale();
   const [open, setOpen] = useState(0);
   const uid = useId();
+  const list = useRef<HTMLUListElement>(null);
+  const first = useRef(true);
+
+  useGSAP(
+    () => {
+      if (first.current) {
+        first.current = false;
+        return;
+      }
+      if (prefersReducedMotion()) return;
+      const bubble = list.current?.querySelector<HTMLElement>(`[data-faq-answer="${open}"]`);
+      if (!bubble) return;
+      gsap
+        .timeline()
+        .fromTo(bubble, { scale: 0, transformOrigin: "100% 0%" }, { scale: 1, duration: 0.5, ease: "back.out(1.6)" })
+        .fromTo(bubble.firstElementChild, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, "-=0.25");
+    },
+    { dependencies: [open], scope: list },
+  );
 
   return (
     <section className="mx-auto grid max-w-[90rem] gap-10 px-[var(--gutter)] py-[var(--section-space)] lg:grid-cols-[1fr_1.4fr]">
       <div>
         <SectionLabel>{tr(faq.label, locale)}</SectionLabel>
-        <h2 className="mt-3 font-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.9] text-burgundy-deep uppercase">{tr(faq.title, locale)}</h2>
+        <h2 data-reveal="lines" className="mt-3 font-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.9] text-burgundy-deep uppercase">{tr(faq.title, locale)}</h2>
       </div>
-      <ul className="flex flex-col gap-3">
+      <ul ref={list} className="flex flex-col gap-3">
         {faq.items.map((item, i) => {
           const isOpen = open === i;
           return (
@@ -39,7 +60,9 @@ export function Faq() {
                 </button>
               </h3>
               <div id={`${uid}-a${i}`} role="region" aria-labelledby={`${uid}-q${i}`} hidden={!isOpen} className="mt-3 self-end">
-                <p className="max-w-md rounded-3xl border border-hot/40 bg-ivory px-5 py-4 text-burgundy-deep">{tr(item.a, locale)}</p>
+                <div data-faq-answer={i} className="max-w-md rounded-3xl border border-hot/40 bg-ivory px-5 py-4 text-burgundy-deep">
+                  <p>{tr(item.a, locale)}</p>
+                </div>
               </div>
             </li>
           );

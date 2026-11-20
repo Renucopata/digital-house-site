@@ -11,6 +11,9 @@ import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { Loader } from "@/components/motion/Loader";
+import { PageTransition } from "@/components/motion/PageTransition";
+import { Reveals } from "@/components/motion/Reveals";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { site } from "@/content/site";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -84,6 +87,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
             <Footer />
             <ContactOverlay />
           </ContactProvider>
+          {/* motion layer (P4): smooth scroll, scroll reveals, route transition */}
+          <SmoothScroll />
+          <Reveals />
+          <PageTransition />
         </NextIntlClientProvider>
         {/* N7: visible at all times, on every page and breakpoint, above every layer */}
         <WhatsAppFloat label={tA11y("whatsapp")} />

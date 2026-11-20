@@ -4,12 +4,14 @@ import { useTranslations } from "next-intl";
 import { useCallback, useRef, useState } from "react";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Link } from "@/i18n/navigation";
+import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import { useModal } from "@/lib/useModal";
 import { LanguageSwitch } from "./LanguageSwitch";
 
 /*
  * Full-screen mobile menu (two26 effect 15), below md only.
- * P1: open/close, focus trap, Esc, inert page; the icon morph and the tilted pill pops come in P4.
+ * Open/close, focus trap, Esc, inert page. Opening: the panel fades in and the link pills pop from
+ * small and tilted (two26: .75 s back.out(2.2), random tilt ±10°). Reduced motion: instant.
  */
 export function MobileMenu() {
   const t = useTranslations("nav");
@@ -18,6 +20,17 @@ export function MobileMenu() {
   const panel = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
   useModal(panel, open, close);
+
+  useGSAP(
+    () => {
+      if (!open || prefersReducedMotion()) return;
+      gsap
+        .timeline()
+        .from(panel.current, { opacity: 0, duration: 0.4, ease: "power2.out" })
+        .from("[data-menu-item]", { scale: 0.4, opacity: 0, rotation: () => gsap.utils.random(-10, 10), duration: 0.75, stagger: 0.07, ease: "back.out(2.2)" }, 0.1);
+    },
+    { scope: panel, dependencies: [open] },
+  );
 
   const pill = "rounded-full bg-ivory px-6 py-3 font-display text-3xl uppercase text-charcoal";
 
@@ -43,6 +56,7 @@ export function MobileMenu() {
           role="dialog"
           aria-modal="true"
           aria-label={tA11y("mainNav")}
+          data-lenis-prevent
           className="fixed inset-0 z-[1400] flex flex-col bg-beige px-[var(--gutter)] py-3"
         >
           <div className="flex justify-end">
@@ -58,17 +72,21 @@ export function MobileMenu() {
             </button>
           </div>
           <nav aria-label={tA11y("mainNav")} className="mt-8 flex flex-col items-end gap-3">
-            <Link href="/proyectos" onClick={close} className={pill}>
+            <Link href="/proyectos" onClick={close} className={pill} data-menu-item>
               {t("work")}
             </Link>
-            <Link href="/nosotros" onClick={close} className={pill}>
+            <Link href="/nosotros" onClick={close} className={pill} data-menu-item>
               {t("about")}
             </Link>
-            <Link href={{ pathname: "/", hash: "servicios" }} onClick={close} className={pill}>
+            <Link href={{ pathname: "/", hash: "servicios" }} onClick={close} className={pill} data-menu-item>
               {t("services")}
             </Link>
-            <CtaButton onBeforeOpen={close}>{t("cta")}</CtaButton>
-            <LanguageSwitch className="mt-4" />
+            <span data-menu-item>
+              <CtaButton onBeforeOpen={close}>{t("cta")}</CtaButton>
+            </span>
+            <span data-menu-item>
+              <LanguageSwitch className="mt-4" />
+            </span>
           </nav>
         </div>
       ) : null}

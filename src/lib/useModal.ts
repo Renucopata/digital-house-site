@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type RefObject } from "react";
+import { lockScroll, unlockScroll } from "./lenis";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -24,6 +25,7 @@ export function useModal(ref: RefObject<HTMLElement | null>, open: boolean, onCl
     const root = document.documentElement;
     const previousOverflow = root.style.overflow;
     root.style.overflow = "hidden";
+    lockScroll(); // Lenis would keep scrolling the page behind otherwise
 
     (initialFocus?.current ?? layer.querySelector<HTMLElement>(FOCUSABLE) ?? layer).focus();
 
@@ -52,6 +54,7 @@ export function useModal(ref: RefObject<HTMLElement | null>, open: boolean, onCl
       document.removeEventListener("keydown", onKey);
       background.forEach((el) => (el.inert = false));
       root.style.overflow = previousOverflow;
+      unlockScroll();
       opener?.focus?.();
     };
   }, [ref, open, onClose, initialFocus]);

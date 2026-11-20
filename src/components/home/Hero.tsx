@@ -17,14 +17,14 @@ const pillSpots = [
 export function Hero() {
   const locale = useLocale();
   return (
-    <section id="inicio" className="overflow-hidden px-[var(--gutter)] pt-[clamp(110px,16vh,150px)] pb-5 text-center">
+    <section id="inicio" data-hero className="overflow-hidden px-[var(--gutter)] pt-[clamp(110px,16vh,150px)] pb-5 text-center">
       <div className="relative mt-2.5 inline-block">
         {hero.pills.map((pill, i) => (
-          <Pill key={pill.es} rotate={pillSpots[i].rotate} className={`absolute z-[2] text-[clamp(11px,1.3vw,15px)] ${pillSpots[i].className}`}>
+          <Pill key={pill.es} data-reveal="pop" rotate={pillSpots[i].rotate} className={`absolute z-[2] text-[clamp(11px,1.3vw,15px)] ${pillSpots[i].className}`}>
             {tr(pill, locale)}
           </Pill>
         ))}
-        <h1 className="font-display text-[clamp(72px,17vw,210px)] leading-[0.88] text-hot uppercase">
+        <h1 data-reveal="lines" className="font-display text-[clamp(72px,17vw,210px)] leading-[0.88] text-hot uppercase">
           {hero.titleLines.map((line) => (
             <span key={line.es} className="block">
               {tr(line, locale)}
@@ -32,13 +32,14 @@ export function Hero() {
           ))}
         </h1>
       </div>
-      <p className="mx-auto mt-6 max-w-[34ch] text-lg leading-snug text-burgundy-deep md:text-xl">
+      <p data-reveal="fade" className="mx-auto mt-6 max-w-[34ch] text-lg leading-snug text-burgundy-deep md:text-xl">
         {tr(hero.statement.before, locale)}
         <strong className="text-hot">{tr(hero.statement.strong, locale)}</strong>
         {tr(hero.statement.after, locale)}
       </p>
       <div
         role="img"
+        data-reveal="fade"
         aria-label={tr(hero.illustrationAlt, locale)}
         className="mx-auto mt-2.5 w-[min(820px,100%)] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
         dangerouslySetInnerHTML={{ __html: walkersSvg }}

@@ -1,16 +1,17 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { contact } from "@/content/contact";
 import { team, tr } from "@/content/home";
+import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 
 /*
  * Team (artifact "Las personas detrás"): one card at a time with ← 1 / 5 →, each with a quote,
  * name, role, bio, three specialties and a WhatsApp link to talk to that person.
  * Avatars use initials until approved portraits exist (the artifact draws line-art stickers in JS;
- * to port later). P4 adds the deck shuffle.
+ * to port later). Changing person shuffles the card in like a deck (two26 effect 10, .38 s).
  */
 const wa = (text: string) => `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(text)}`;
 const initials = (name: string) =>
@@ -22,18 +23,41 @@ const initials = (name: string) =>
 export function Team() {
   const locale = useLocale();
   const [index, setIndex] = useState(0);
+  const dir = useRef(1);
+  const card = useRef<HTMLElement>(null);
   const total = team.members.length;
   const m = team.members[index];
-  const go = (d: number) => setIndex((i) => (i + d + total) % total);
+  const go = (d: number) => {
+    dir.current = d;
+    setIndex((i) => (i + d + total) % total);
+  };
+
+  // the new card arrives tilted from the side you moved toward and settles (skipped on first render)
+  const first = useRef(true);
+  useGSAP(
+    () => {
+      if (first.current) {
+        first.current = false;
+        return;
+      }
+      if (prefersReducedMotion()) return;
+      gsap.fromTo(
+        card.current,
+        { yPercent: 6, xPercent: 8 * dir.current, rotation: 4 * dir.current, opacity: 0 },
+        { yPercent: 0, xPercent: 0, rotation: 0, opacity: 1, duration: 0.55, ease: "back.out(1.6)" },
+      );
+    },
+    { dependencies: [index] },
+  );
   const counter = `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
 
   return (
     <section id="equipo" className="mx-auto max-w-[90rem] px-[var(--gutter)] py-[var(--section-space)]">
       <SectionLabel>{tr(team.label, locale)}</SectionLabel>
-      <h2 className="mt-3 font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.9] text-hot uppercase">{tr(team.title, locale)}</h2>
-      <p className="mt-4 max-w-xl text-lg text-burgundy-deep">{tr(team.intro, locale)}</p>
+      <h2 data-reveal="lines" className="mt-3 font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.9] text-hot uppercase">{tr(team.title, locale)}</h2>
+      <p data-reveal="fade" className="mt-4 max-w-xl text-lg text-burgundy-deep">{tr(team.intro, locale)}</p>
 
-      <article aria-roledescription="slide" aria-label={counter} className="theme-dark mt-10 grid gap-8 rounded-[var(--radius-card)] bg-surface p-6 text-fg md:grid-cols-[auto_1fr] md:p-10">
+      <article ref={card} aria-roledescription="slide" aria-label={counter} className="theme-dark mt-10 grid gap-8 rounded-[var(--radius-card)] bg-surface p-6 text-fg md:grid-cols-[auto_1fr] md:p-10">
         <div className="flex flex-col items-center gap-3">
           <span aria-hidden="true" className="grid aspect-square w-[min(180px,40vw)] place-items-center rounded-full bg-ivory font-display text-6xl text-burgundy-deep">
             {initials(m.name)}

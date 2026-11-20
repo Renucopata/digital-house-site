@@ -210,7 +210,7 @@ Services are your 5 areas:
   - `DhLogo` (write / replay / static), `Loader` with the two-stroke exit, `loaderDone` store.
   - Skip on internal navigation; reduced-motion path.
 - **P3 Home sections** ✅ layout + content (2026-11-19). **Changed by the user:** all content now comes from the reference artifact, in its order: hero (centered "Crecer se ve muy bien" + pills Growth studio / Hecho en Bolivia / Cero improvisación + walkers illustration), ribbon, about, selected works (8), client logos, services (7), how we work, team, FAQ, closing CTA. No testimonials and no video gallery (not in the artifact). Old one-page sections deleted.
-- **P4 Motion layer.** Lenis + ScrollTrigger sync; every effect in §1 for global and home; buttons (magnetic, kinetic); overlay and menu choreography; page transition wipe. Reduced-motion and touch fallbacks.
+- **P4 Motion layer.** ✅ (2026-11-19) Lenis + ScrollTrigger sync; every effect in §1 for global and home; buttons (magnetic, kinetic); overlay and menu choreography; page transition wipe. Reduced-motion and touch fallbacks.
 - **P5 Pages.**
   - `/work`: hero + illustration, stack grid, text list with hover preview, closing CTA.
   - `/work/[slug]` case study: hero, cover media, text blocks, media grid, next project.
@@ -293,3 +293,17 @@ Services are your 5 areas:
   - Loader exit: replaced the two-stroke sweep with one smooth slide up (1 s, power3.inOut) of the beige screen with a curved burgundy edge trailing it; no hold on the color. The hero is marked ready the moment the slide starts, so the page shows from below as it moves (N4).
   - Language: `localeDetection: false`, so `/` is always Spanish. Before, a NEXT_LOCALE=en cookie (set after clicking EN) or an English browser redirected `/` and `/es` to `/en`. `/es` → `/` is expected (Spanish has no prefix). Checked with an English cookie + English browser: `/`, `/es`, `/proyectos` stay Spanish; `/en`, `/en/work` English.
   - Colors: confirmed that only this project's tokens are used (N10).
+- **2026-11-19 · P4 Motion layer done.**
+  - `SmoothScroll` (Lenis on the window, duration 1.7 / touch 1.1, native touch, gsap.ticker + ScrollTrigger sync, top/anchor + refresh on route change) and `lib/lenis.ts` (counted scroll locks used by the loader, mobile menu and overlay).
+  - `Reveals` (layout-wide, re-runs per route): `data-reveal` = lines (SplitText masked lines, back.out(1.4)), fade, pop (pills), card (clip window 42.5 % + 36px radius → 0, inner scale 1.45 + tilt, 1.25 s power3.out), ribbon (draws in from the right); hero = one timeline at ×0.75 started when the loader begins to slide; all scroll reveals are created after the loader so nothing plays hidden. `data-kinetic` = per-letter hover pop (footer links and email).
+  - `VelocityMarquee`: ribbon text and both client rows drift, flip direction when scrolling up and speed up with scroll velocity (damped).
+  - About: pinned read-along (2200 / 1550 / 1150 px, scrub .8 / .6): letters light up with a small pop and tilt, keyword pills pop at 18 / 42 / 64 / 84 %.
+  - Services: winding line measured from the real icon positions, drawn with scrub 1.2; icons and bubbles pop with back.out(3.5) as it passes (rebuilt on resize).
+  - Process: route fills with scroll, step numbers pop. Team: card shuffles in from the side you move to. FAQ: answer bubble grows from its corner (back.out(1.6)), text rises.
+  - Footer: phrase lines rise, kinetic link letters, `StretchLogo` (scaleY .15 → grows with scroll and velocity → elastic settle at the bottom).
+  - CTA buttons: burgundy burst ×10 from the arrow circle, looping arrow kick, magnetic pull with trailing content, elastic return (mouse only). Nav pills: outline draws on hover.
+  - Contact overlay: thick burgundy stroke draws and floods the screen (.9 s), close pill pops, headline letters pop with tilt, channels rise; closing fades content and undraws the stroke before unmounting. Mobile menu: panel fades, pills pop tilted.
+  - `PageTransition` (N4): internal links slide a curved burgundy curtain up (.5 s), the page changes behind it, the curtain keeps sliding up and off (.6 s). Same-page anchors, new tabs and modified clicks behave normally.
+  - Reduced motion: no Lenis, no pin/scrub, nothing hidden (checked: 0 hidden elements), overlay/menu instant, plain navigation.
+  - Checked with Playwright (1440 and 390 touch): loader → hero, scroll through every section, pin, services line, overlay open/Esc/focus return, route transition to /proyectos, mobile menu, no sideways overflow, no console errors.
+  - Not done / waiting: card hover brush + second image (needs the project photos), team sticker portraits, contact illustration. The two26 curved-path ribbon was not used: the artifact's straight tilted ribbon is kept (content follows the artifact).

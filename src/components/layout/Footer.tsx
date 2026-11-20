@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { DhLogo } from "@/components/brand/DhLogo";
 import { Lockup } from "@/components/brand/Lockup";
+import { StretchLogo } from "@/components/motion/StretchLogo";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { contact } from "@/content/contact";
 import { site } from "@/content/site";
@@ -10,7 +11,7 @@ import { LanguageSwitch } from "./LanguageSwitch";
 /*
  * Footer (two26 effect 12) with the artifact's copy: big phrase, CTA, email, menu, socials,
  * looping-stroke texture and the full logo at the bottom.
- * Static for now; P4 adds the line reveals, kinetic letters and the stretching logo.
+ * Motion: phrase lines rise, link letters pop on hover (data-kinetic), the logo stretches with scroll.
  * Burgundy-deep until the color roles are defined (docs/NEW-DESIGN.md §4).
  */
 export function Footer() {
@@ -27,12 +28,12 @@ export function Footer() {
       <div className="relative mx-auto max-w-[90rem] px-[var(--gutter)] pt-16 pb-8 md:pt-24">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex flex-col items-start gap-6">
-            <p className="max-w-[14ch] font-display text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95] uppercase">{t("phrase")}</p>
+            <p data-reveal="lines" className="max-w-[14ch] font-display text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95] uppercase">{t("phrase")}</p>
             <CtaButton tone="light">{t("cta")}</CtaButton>
             <div>
               <p className={label}>{t("emailLabel")}</p>
               <a href={contact.mailto} className={`text-lg ${link}`}>
-                {contact.email}
+                <span data-kinetic>{contact.email}</span>
               </a>
             </div>
           </div>
@@ -44,22 +45,22 @@ export function Footer() {
             <ul className="mt-3 flex flex-col gap-2 text-lg">
               <li>
                 <Link href="/proyectos" className={link}>
-                  {tNav("work")}
+                  <span data-kinetic>{tNav("work")}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/nosotros" className={link}>
-                  {tNav("about")}
+                  <span data-kinetic>{tNav("about")}</span>
                 </Link>
               </li>
               <li>
                 <Link href={{ pathname: "/", hash: "servicios" }} className={link}>
-                  {tNav("services")}
+                  <span data-kinetic>{tNav("services")}</span>
                 </Link>
               </li>
               <li>
                 <Link href={{ pathname: "/", hash: "contacto" }} className={link}>
-                  {tNav("contact")}
+                  <span data-kinetic>{tNav("contact")}</span>
                 </Link>
               </li>
               <li>
@@ -73,12 +74,12 @@ export function Footer() {
             <ul className="mt-3 flex flex-col gap-2 text-lg">
               <li>
                 <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className={link}>
-                  Instagram ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
+                  <span data-kinetic>Instagram</span> ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
                 </a>
               </li>
               <li>
                 <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className={link}>
-                  WhatsApp ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
+                  <span data-kinetic>WhatsApp</span> ↗<span className="sr-only"> {tA11y("opensNewTab")}</span>
                 </a>
               </li>
               <li>
@@ -90,11 +91,11 @@ export function Footer() {
           </div>
         </div>
 
-        {/* full logo (N8); P4 adds two26's stretch-with-scroll effect */}
-        <div role="img" aria-label={site.name} className="mt-16 flex items-center gap-[0.3em] text-ivory [--mark:clamp(56px,11vw,160px)]" style={{ fontSize: "calc(var(--mark) * 0.66)" }}>
+        {/* full logo (N8), stretching with the scroll (two26) */}
+        <StretchLogo label={site.name} className="mt-16 flex items-center gap-[0.3em] text-ivory [--mark:clamp(56px,11vw,160px)]" style={{ fontSize: "calc(var(--mark) * 0.66)" }}>
           <DhLogo className="h-[var(--mark)] w-auto" />
           <Lockup />
-        </div>
+        </StretchLogo>
         <p className="mt-6 text-xs text-fg-soft">
           {t("place")} © {year} {site.name}
         </p>

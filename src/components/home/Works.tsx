@@ -24,13 +24,13 @@ export function Works() {
   return (
     <section id="trabajos" className="mx-auto max-w-[90rem] px-[var(--gutter)] py-[var(--section-space)]">
       <SectionLabel>{tr(works.label, locale)}</SectionLabel>
-      <h2 className="mt-3 font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.9] text-hot uppercase">{tr(works.title, locale)}</h2>
+      <h2 data-reveal="lines" className="mt-3 font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.9] text-hot uppercase">{tr(works.title, locale)}</h2>
 
       <ul className="mt-10 grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-6">
         {works.items.map((item) => (
           <li key={item.slug} className={sizeClass[item.size].item}>
             <Link href="/proyectos" className="group block">
-              <figure className={cn("relative overflow-hidden rounded-[var(--radius-card)] bg-beige", sizeClass[item.size].media)}>
+              <figure data-reveal="card" className={cn("relative overflow-hidden rounded-[var(--radius-card)] bg-beige", sizeClass[item.size].media)}>
                 {item.image ? (
                   <Image src={item.image} alt={tr(item.imageAlt, locale)} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover" />
                 ) : (
@@ -55,7 +55,7 @@ export function Works() {
       </ul>
 
       <div className="mt-16 flex flex-wrap items-center justify-between gap-6">
-        <p className="font-display text-[clamp(2rem,4vw,3.5rem)] leading-none text-burgundy-deep uppercase">{tr(works.more, locale)}</p>
+        <p data-reveal="lines" className="font-display text-[clamp(2rem,4vw,3.5rem)] leading-none text-burgundy-deep uppercase">{tr(works.more, locale)}</p>
         <Link href="/proyectos" className="rounded-full border-2 border-burgundy-deep px-5 py-2 font-label font-bold text-burgundy-deep transition-colors hover:bg-burgundy-deep hover:text-ivory">
           {tr(works.moreCta, locale)}
         </Link>
