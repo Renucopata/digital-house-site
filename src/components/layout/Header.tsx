@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { DhLogo } from "@/components/brand/DhLogo";
 import { Lockup } from "@/components/brand/Lockup";
 import { CtaButton } from "@/components/ui/CtaButton";
+import { aboutHref, workHref } from "@/content/launch";
 import { Link } from "@/i18n/navigation";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { MobileMenu } from "./MobileMenu";
@@ -27,8 +28,8 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <nav aria-label={tA11y("mainNav")} className="hidden items-center gap-2 md:flex">
-            <NavPill href="/proyectos">{t("work")}</NavPill>
-            <NavPill href="/nosotros">{t("about")}</NavPill>
+            <NavPill href={workHref}>{t("work")}</NavPill>
+            <NavPill href={aboutHref}>{t("about")}</NavPill>
             <NavPill href={{ pathname: "/", hash: "servicios" }}>{t("services")}</NavPill>
           </nav>
           <LanguageSwitch className="hidden md:inline-flex" />

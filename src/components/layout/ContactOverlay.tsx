@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { contact } from "@/content/contact";
+import { launch } from "@/content/launch";
 import { gsap, prefersReducedMotion, SplitText, useGSAP } from "@/lib/gsap";
 import { useModal } from "@/lib/useModal";
 import { useContact } from "./ContactProvider";
@@ -126,9 +127,11 @@ export function ContactOverlay() {
                 <span className="sr-only"> {tA11y("opensNewTab")}</span>
               </a>
             </li>
-            <li data-overlay-rise className="text-sm text-fg-soft">
-              {t("illustrationPending")}
-            </li>
+            {launch.placeholders ? (
+              <li data-overlay-rise className="text-sm text-fg-soft">
+                {t("illustrationPending")}
+              </li>
+            ) : null}
           </ul>
         </div>
       </div>

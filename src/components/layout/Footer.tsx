@@ -5,6 +5,7 @@ import { StretchLogo } from "@/components/motion/StretchLogo";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { contact } from "@/content/contact";
 import { site } from "@/content/site";
+import { aboutHref, workHref } from "@/content/launch";
 import { Link } from "@/i18n/navigation";
 import { LanguageSwitch } from "./LanguageSwitch";
 
@@ -44,12 +45,12 @@ export function Footer() {
             </p>
             <ul className="mt-3 flex flex-col gap-2 text-lg">
               <li>
-                <Link href="/proyectos" className={link}>
+                <Link href={workHref} className={link}>
                   <span data-kinetic>{tNav("work")}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/nosotros" className={link}>
+                <Link href={aboutHref} className={link}>
                   <span data-kinetic>{tNav("about")}</span>
                 </Link>
               </li>

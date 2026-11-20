@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useCallback, useRef, useState } from "react";
 import { CtaButton } from "@/components/ui/CtaButton";
+import { aboutHref, workHref } from "@/content/launch";
 import { Link } from "@/i18n/navigation";
 import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import { useModal } from "@/lib/useModal";
@@ -72,10 +73,10 @@ export function MobileMenu() {
             </button>
           </div>
           <nav aria-label={tA11y("mainNav")} className="mt-8 flex flex-col items-end gap-3">
-            <Link href="/proyectos" onClick={close} className={pill} data-menu-item>
+            <Link href={workHref} onClick={close} className={pill} data-menu-item>
               {t("work")}
             </Link>
-            <Link href="/nosotros" onClick={close} className={pill} data-menu-item>
+            <Link href={aboutHref} onClick={close} className={pill} data-menu-item>
               {t("about")}
             </Link>
             <Link href={{ pathname: "/", hash: "servicios" }} onClick={close} className={pill} data-menu-item>

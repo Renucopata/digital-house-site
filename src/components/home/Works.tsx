@@ -3,6 +3,7 @@ import { useLocale } from "next-intl";
 import { Pill } from "@/components/ui/Pill";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { tr, works, type WorkItem } from "@/content/home";
+import { launch, workHref } from "@/content/launch";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 
@@ -29,12 +30,12 @@ export function Works() {
       <ul className="mt-10 grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-6">
         {works.items.map((item) => (
           <li key={item.slug} className={sizeClass[item.size].item}>
-            <Link href="/proyectos" className="group block">
+            <Link href={workHref} className="group block">
               <figure data-reveal="card" className={cn("relative overflow-hidden rounded-[var(--radius-card)] bg-beige", sizeClass[item.size].media)}>
                 {item.image ? (
                   <Image src={item.image} alt={tr(item.imageAlt, locale)} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover" />
                 ) : (
-                  <span className="absolute inset-0 grid place-items-center p-4 text-center text-sm text-fg-soft">{tr(works.imagePending, locale)}</span>
+                  launch.placeholders && <span className="absolute inset-0 grid place-items-center p-4 text-center text-sm text-fg-soft">{tr(works.imagePending, locale)}</span>
                 )}
                 <Pill rotate={-4} className="absolute top-4 left-4 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                   {tr(item.pill, locale)}
@@ -56,9 +57,11 @@ export function Works() {
 
       <div className="mt-16 flex flex-wrap items-center justify-between gap-6">
         <p data-reveal="lines" className="font-display text-[clamp(2rem,4vw,3.5rem)] leading-none text-burgundy-deep uppercase">{tr(works.more, locale)}</p>
-        <Link href="/proyectos" className="rounded-full border-2 border-burgundy-deep px-5 py-2 font-label font-bold text-burgundy-deep transition-colors hover:bg-burgundy-deep hover:text-ivory">
+        {launch.workPage ? (
+          <Link href="/proyectos" className="rounded-full border-2 border-burgundy-deep px-5 py-2 font-label font-bold text-burgundy-deep transition-colors hover:bg-burgundy-deep hover:text-ivory">
           {tr(works.moreCta, locale)}
-        </Link>
+          </Link>
+        ) : null}
       </div>
     </section>
   );

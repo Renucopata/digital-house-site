@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
+import { launch } from "@/content/launch";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 
@@ -12,6 +13,8 @@ export function LanguageSwitch({ className }: { className?: string }) {
   const pathname = usePathname();
   const params = useParams();
   const other = locale === "es" ? "en" : "es";
+  // hidden until the English translations are approved (src/content/launch.ts)
+  if (!launch.english) return null;
 
   return (
     <Link
