@@ -1,21 +1,46 @@
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
+import { Closing } from "@/components/home/Closing";
+import { PageHero } from "@/components/work/PageHero";
+import { WorkList } from "@/components/work/WorkList";
+import { WorkStack } from "@/components/work/WorkStack";
+import { tr } from "@/content/home";
 import { launch } from "@/content/launch";
+import { workPage } from "@/content/pages";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/proyectos">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
-  // unfinished page: kept out of search engines until it launches (src/content/launch.ts)
+  // kept out of search engines until it launches (src/content/launch.ts)
   return { title: t("workTitle"), robots: launch.workPage ? undefined : { index: false, follow: false } };
 }
 
-/** /proyectos · /en/work (P1 placeholder; the page arrives in P5). */
-export default function WorkPage({ params }: PageProps<"/[locale]/proyectos">) {
-  const { locale } = use(params);
+/** /proyectos · /en/work (P5): hero → card stack → text list with preview → closing CTA. */
+export default async function WorkPage({ params }: PageProps<"/[locale]/proyectos">) {
+  const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations();
-  return <PagePlaceholder title={t("meta.workTitle")} note={t("placeholder.work")} />;
+  return (
+    <>
+      <PageHero
+        label={tr(workPage.label, locale)}
+        titleLines={[tr(workPage.title, locale)]}
+        pills={workPage.pills.map((p) => tr(p, locale))}
+        intro={
+          <p>
+            {tr(workPage.intro.before, locale)}
+            <strong className="text-hot">{tr(workPage.intro.strong, locale)}</strong>
+            {tr(workPage.intro.after, locale)}
+          </p>
+        }
+      />
+      <WorkStack />
+      <section className="pt-[var(--section-space)]">
+        <h2 data-reveal="lines" className="mx-auto mb-8 max-w-[90rem] px-[var(--gutter)] font-display text-[clamp(2.5rem,6vw,5rem)] leading-none text-burgundy-deep uppercase">
+          {tr(workPage.listTitle, locale)}
+        </h2>
+        <WorkList />
+      </section>
+      <Closing />
+    </>
+  );
 }

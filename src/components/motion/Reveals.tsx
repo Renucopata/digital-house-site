@@ -31,10 +31,14 @@ export function Reveals() {
       const hero = document.querySelector<HTMLElement>("[data-hero]");
       const heroTl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } }).timeScale(0.75);
       if (hero) {
+        const heroSplits: SplitText[] = [];
         hero.querySelectorAll<HTMLElement>('[data-reveal="lines"]').forEach((el) => {
           const split = SplitText.create(el, { type: "lines", mask: "lines" });
+          heroSplits.push(split);
           heroTl.from(split.lines, { yPercent: 110, opacity: 0, duration: 0.85, stagger: 0.12, ease: "back.out(1.4)" }, 0);
         });
+        // masks off once the lines have landed: tight leading would otherwise clip accents (É, Á)
+        heroTl.eventCallback("onComplete", () => heroSplits.forEach((s) => s.revert()));
         // pills drop in from above (artifact) with two26's spring
         heroTl.from(hero.querySelectorAll('[data-reveal="pop"]'), { y: -120, scale: 0.4, opacity: 0, duration: 0.8, stagger: 0.12, ease: "back.out(2)" }, 0.45);
         heroTl.from(hero.querySelectorAll('[data-reveal="fade"]'), { y: 30, opacity: 0, duration: 0.9, stagger: 0.15, ease: "power3.out" }, 0.6);
@@ -52,7 +56,15 @@ export function Reveals() {
             mask: "lines",
             autoSplit: true,
             onSplit: (self) =>
-              gsap.from(self.lines, { yPercent: 110, duration: 0.85, stagger: 0.12, ease: "back.out(1.4)", scrollTrigger: once(el) }),
+              gsap.from(self.lines, {
+                yPercent: 110,
+                duration: 0.85,
+                stagger: 0.12,
+                ease: "back.out(1.4)",
+                scrollTrigger: once(el),
+                // masks off once landed, so accents above the tight line box are never clipped
+                onComplete: () => self.revert(),
+              }),
           });
         });
 

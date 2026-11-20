@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f7f3ea",
+  themeColor: "#eadfdb", // salt (page background)
   viewportFit: "cover", // safe-area insets for the floating WhatsApp button (N7)
 };
 

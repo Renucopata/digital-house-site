@@ -26,7 +26,10 @@
   "contact": {
     "dialogLabel": "Contacto",
     "close": "Cerrar",
-    "headingLines": ["¿Tienes un negocio", "con ganas de crecer?"],
+    "headingLines": [
+      "¿Tienes un negocio",
+      "con ganas de crecer?"
+    ],
     "subline": "o solo pasa a saludar",
     "whatsappLabel": "WhatsApp",
     "emailLabel": "Correo",
@@ -41,8 +44,15 @@
     "menuTitle": "Menú",
     "socialTitle": "Redes"
   },
-  "placeholder": {
-    "work": "Trabajos: la página llega en la fase 5.",
-    "about": "Nosotros: la página llega en la fase 5."
+  "work": {
+    "back": "Volver a trabajos",
+    "context": "El contexto",
+    "solution": "La solución",
+    "next": "Siguiente proyecto",
+    "viewProject": "Ver proyecto"
+  },
+  "about": {
+    "openMember": "Ver más sobre",
+    "close": "Cerrar"
   }
 }

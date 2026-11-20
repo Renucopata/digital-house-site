@@ -105,7 +105,7 @@ export function Team() {
 
       <div className="mt-12 flex flex-wrap items-center justify-between gap-6">
         <p className="max-w-xl text-xl text-burgundy-deep">{tr(team.closing, locale)}</p>
-        <a href={wa(tr(team.ctaMessage, locale))} target="_blank" rel="noopener noreferrer" className="rounded-full bg-hot px-6 py-3 font-label font-bold text-ivory">
+        <a href={wa(tr(team.ctaMessage, locale))} target="_blank" rel="noopener noreferrer" className="rounded-full bg-hot px-6 py-3 font-label text-[19px] font-bold text-ivory">
           {tr(team.cta, locale)}
         </a>
       </div>

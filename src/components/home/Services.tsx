@@ -54,22 +54,36 @@ export function Services() {
       const icons = gsap.utils.toArray<HTMLElement>("[data-svc-icon]", ul);
       const bubbles = gsap.utils.toArray<HTMLElement>("[data-svc-desc]", ul);
 
-      // smooth path through the icon centers, entering from the top right
+      // the artifact's path (buildSvcLine): enter from the top right; between two icons the line
+      // leaves sideways, swings out, curls once in a full loop, then comes into the next icon
       const build = () => {
         const box = ul.getBoundingClientRect();
-        svg.current!.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
+        const W = box.width;
+        const H = box.height;
+        svg.current!.setAttribute("viewBox", `0 0 ${W} ${H}`);
         const pts = icons.map((el) => {
           const r = el.getBoundingClientRect();
           return { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2 };
         });
-        let d = `M ${box.width + 40} ${pts[0].y - 160}`;
-        let prev = { x: box.width + 40, y: pts[0].y - 160 };
-        for (const p of pts) {
-          const dy = (p.y - prev.y) * 0.55;
-          d += ` C ${prev.x} ${prev.y + dy}, ${p.x} ${p.y - dy}, ${p.x} ${p.y}`;
-          prev = p;
+        if (!pts.length) return;
+        const R = Math.max(26, Math.min(56, W * 0.035)); // loop radius
+        const f = (n: number) => n.toFixed(1);
+        let d = `M${f(W * 0.97)} ${f(-10)} C${f(W * 0.9)} ${f(pts[0].y * 0.5)} ${f(pts[0].x)} ${f(pts[0].y * 0.35)} ${f(pts[0].x)} ${f(pts[0].y)}`;
+        for (let i = 0; i < pts.length - 1; i++) {
+          const A = pts[i];
+          const B = pts[i + 1];
+          const g = B.y - A.y;
+          const out = A.x > W / 2 ? -1 : 1;
+          const mx = out > 0 ? Math.min(W - R * 2.5, Math.max(A.x, B.x) + W * 0.18) : Math.max(R * 2.5, Math.min(A.x, B.x) - W * 0.18);
+          const my = A.y + g * 0.5;
+          d += ` C${f(A.x)} ${f(A.y + g * 0.3)} ${f(mx - out * W * 0.06)} ${f(my - R - g * 0.12)} ${f(mx)} ${f(my - R)}`;
+          // the curl: a full loop (two half arcs), then on
+          const sweep = out > 0 ? 1 : 0;
+          d += ` A${f(R)} ${f(R)} 0 1 ${sweep} ${f(mx)} ${f(my + R)} A${f(R)} ${f(R)} 0 1 ${sweep} ${f(mx)} ${f(my - R)}`;
+          d += ` C${f(mx + out * R * 1.4)} ${f(my + g * 0.12)} ${f(B.x)} ${f(B.y - g * 0.32)} ${f(B.x)} ${f(B.y)}`;
         }
-        d += ` C ${prev.x} ${prev.y + 120}, ${box.width * 0.5} ${box.height + 40}, ${box.width * 0.5} ${box.height + 80}`;
+        const L = pts[pts.length - 1];
+        d += ` C${f(L.x)} ${f(L.y + (H - L.y) * 0.5)} ${f(W * 0.15)} ${f(H * 0.98)} ${f(W * 0.04)} ${f(H + 10)}`;
         line.current!.setAttribute("d", d);
         ghost.current!.setAttribute("d", d);
       };
@@ -103,21 +117,21 @@ export function Services() {
 
       <ul ref={list} className="relative mx-auto mt-14 flex max-w-[90rem] flex-col gap-14 px-[var(--gutter)] md:gap-20">
         <svg ref={svg} aria-hidden="true" className="pointer-events-none absolute inset-0 size-full overflow-visible" fill="none">
-          <path ref={ghost} stroke="var(--hot)" strokeOpacity="0.15" strokeWidth="7" strokeLinecap="round" />
-          <path ref={line} stroke="var(--hot)" strokeWidth="7" strokeLinecap="round" />
+          <path ref={ghost} stroke="var(--hot)" strokeOpacity="0.16" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+          <path ref={line} stroke="var(--hot)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         {services.items.map((item) => (
           <li key={item.after.es} className="relative md:ml-[var(--x)] md:w-fit" style={{ "--x": item.x } as React.CSSProperties}>
             <h3 className="flex flex-wrap items-center gap-x-3 font-display text-[clamp(2.25rem,5.5vw,5rem)] leading-none text-hot uppercase">
               {item.before ? <span>{tr(item.before, locale)}</span> : null}
-              <span aria-hidden="true" data-svc-icon className="grid size-[0.8em] place-items-center rounded-lg border-2 border-hot bg-ivory">
+              <span aria-hidden="true" data-svc-icon className="grid size-[0.8em] -rotate-6 place-items-center rounded-lg border-[3px] border-hot bg-salt text-burgundy-deep">
                 <svg viewBox="0 0 24 24" className="size-[62%]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   {icons[item.icon]}
                 </svg>
               </span>
               <span>{tr(item.after, locale)}</span>
             </h3>
-            <p data-svc-desc className="mt-3 max-w-xs -rotate-3 rounded-2xl border border-hot/50 bg-ivory px-4 py-2 text-sm text-burgundy-deep md:ml-[30%]">
+            <p data-svc-desc className="mt-3 max-w-xs -rotate-3 rounded-2xl border-[1.5px] border-hot bg-salt px-4 py-2 text-sm text-burgundy-deep md:ml-[30%]">
               {tr(item.desc, locale)}
             </p>
           </li>

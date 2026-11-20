@@ -1,4 +1,4 @@
-# CLAUDE.md — DigitalHouse Growth Studio · new design (branch `new-design`)
+# CLAUDE.md — DigitalHouse Growth Studio · new design (live on `main` since 2026-11-20)
 
 Read at the start of every Claude Code session. Follow it strictly.
 
@@ -7,12 +7,13 @@ Marketing website for **DigitalHouse Growth Studio**, a business, brand and digi
 (*"No vendemos estética. Vendemos crecimiento."*). On this branch the site is rebuilt to copy the
 **structure, section rhythm, motion and interactions of https://two26.studio**, with Digital House's
 own brand, logo, copy and content. Never copy two26's text, logo, illustrations, photos, videos or
-project names. The old one-page site stays on `main` until the new design is approved.
+project names. The new design is the base on `main` (merged 2026-11-20); unfinished parts are hidden
+with the switches in `src/content/launch.ts`.
 
 **Instruction files:**
 - This file: rules and decisions.
 - `docs/NEW-DESIGN.md`: the approved plan (animation map, file tree, content schema, phases),
-  open questions and the progress log. Read it before any work on this branch.
+  open questions and the progress log. Read it before any work.
 
 If they disagree, STOP and ask. The old `docs/phase-*.txt` files and `PLAN.md` describe the old site:
 history only, never instructions.

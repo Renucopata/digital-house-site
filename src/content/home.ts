@@ -4,6 +4,8 @@
  * `L` = one text in both languages; pick it with `tr(text, locale)`.
  */
 
+import { workImages } from "./work-images";
+
 export type L = { es: string; en: string };
 export const tr = (text: L, locale: string): string => (locale === "en" ? text.en : text.es);
 
@@ -147,6 +149,9 @@ export const works = {
   moreCta: { es: "Ver proyectos →", en: "See projects →" },
   imagePending: { es: "[PENDIENTE: foto del proyecto]", en: "[PENDING: project photo]" },
 };
+
+// covers: the first numbered photo of each project (src/content/work-images.ts, npm run works:images)
+for (const item of works.items) item.image ??= workImages[item.slug]?.[0]?.src;
 
 /* ---------- Client logos (two rows, opposite directions) ---------- */
 export type ClientLogo = { name: string; logo?: { src: string; width: number; height: number } };

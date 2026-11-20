@@ -1,21 +1,51 @@
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
+import { Capabilities } from "@/components/about/Capabilities";
+import { Moodboard } from "@/components/about/Moodboard";
+import { RulesStack } from "@/components/about/RulesStack";
+import { StoryTeam } from "@/components/about/StoryTeam";
+import { Closing } from "@/components/home/Closing";
+import { walkersSvg } from "@/components/home/walkers.svg";
+import { PageHero } from "@/components/work/PageHero";
+import { hero, tr } from "@/content/home";
 import { launch } from "@/content/launch";
+import { aboutPage } from "@/content/pages";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/nosotros">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
-  // unfinished page: kept out of search engines until it launches (src/content/launch.ts)
+  // kept out of search engines until it launches (src/content/launch.ts)
   return { title: t("aboutTitle"), robots: launch.aboutPage ? undefined : { index: false, follow: false } };
 }
 
-/** /nosotros · /en/about (P1 placeholder; the page arrives in P5). */
-export default function AboutPage({ params }: PageProps<"/[locale]/nosotros">) {
-  const { locale } = use(params);
+/**
+ * /nosotros · /en/about (P5): hero + illustration → story → team (cards + dialog) → behind the
+ * scenes (hidden until photos exist) → house rules → capabilities → closing CTA.
+ */
+export default async function AboutPage({ params }: PageProps<"/[locale]/nosotros">) {
+  const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations();
-  return <PagePlaceholder title={t("meta.aboutTitle")} note={t("placeholder.about")} />;
+  return (
+    <>
+      <PageHero
+        label={tr(aboutPage.label, locale)}
+        titleLines={[tr(aboutPage.title, locale)]}
+        pills={aboutPage.pills.map((p) => tr(p, locale))}
+        intro={<p>{tr(aboutPage.intro, locale)}</p>}
+        illustration={
+          <div
+            role="img"
+            aria-label={tr(hero.illustrationAlt, locale)}
+            className="w-[min(560px,100%)] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
+            dangerouslySetInnerHTML={{ __html: walkersSvg }}
+          />
+        }
+      />
+      <StoryTeam />
+      <Moodboard />
+      <RulesStack />
+      <Capabilities />
+      <Closing />
+    </>
+  );
 }

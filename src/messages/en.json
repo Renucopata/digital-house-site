@@ -26,7 +26,10 @@
   "contact": {
     "dialogLabel": "Contact",
     "close": "Close",
-    "headingLines": ["Got a business", "that wants to grow?"],
+    "headingLines": [
+      "Got a business",
+      "that wants to grow?"
+    ],
     "subline": "or just stop by to say hi",
     "whatsappLabel": "WhatsApp",
     "emailLabel": "Email",
@@ -41,8 +44,15 @@
     "menuTitle": "Menu",
     "socialTitle": "Social"
   },
-  "placeholder": {
-    "work": "Work: the page arrives in phase 5.",
-    "about": "About: the page arrives in phase 5."
+  "work": {
+    "back": "Back to work",
+    "context": "The context",
+    "solution": "The solution",
+    "next": "Next project",
+    "viewProject": "View project"
+  },
+  "about": {
+    "openMember": "More about",
+    "close": "Close"
   }
 }

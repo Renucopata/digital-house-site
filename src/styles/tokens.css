@@ -1,31 +1,34 @@
 /*
  * Design tokens — DigitalHouse Growth Studio.
- * Colors from the web brief brand board (D26, 2026-10-23; replaces the Phase 0 palette of D19).
- * Yellow and light blue are small accents only (~10 % of the page).
+ * Colors = the reference artifact's palette (user, 2026-11-20; artifact names in brackets).
+ * Token names are kept so every component follows the new values.
  */
 
 :root {
-  /* Brand palette (brief names in comments) */
-  --burgundy-deep: #4a0710; /* guinda oscuro — predominant: dark bands, headlines, buttons */
-  --burgundy: #790b1a; /* guinda principal — details only */
-  --ivory: #f7f3ea; /* marfil — main background, text on dark */
-  --beige: #e5dccf; /* beige neutro — secondary backgrounds */
-  --charcoal: #262322; /* carbón — body text */
-  --warm-gray: #a7a19a; /* gris cálido — lines; secondary text on dark only (2.3:1 on ivory) */
-  --yellow: #fce7a6; /* amarillo bebé — selection box, active step */
-  --sky: #d7e8f7; /* celeste bebé — completed steps, details */
+  /* Palette */
+  --salt: #eadfdb; /* [salt] page background */
+  --beige: #e0d2ca; /* [salt-2] secondary backgrounds, image placeholders */
+  --burgundy-deep: #630a2a; /* [velvet] body text, dark sections (process, team panel, footer) */
+  --burgundy: #d63b36; /* [paprika / accent] headlines, strokes, ribbon, closing band, arrows */
+  --ivory: #fdf1e0; /* [cream] text and buttons on dark / paprika, light cards */
+  --charcoal: #111111; /* [ink] sticker pills, black buttons */
+  --warm-gray: #a7a19a; /* lines; secondary text on dark only */
+  --yellow: #fce7a6; /* small accents */
+  --sky: #d7e8f7; /* small accents */
 
-  /* New design: the "hot" accent of two26's role (strokes, panels, footer). Burgundy until the
-     user defines the color roles (docs/NEW-DESIGN.md §4). */
+  /* The "hot" accent of two26's role = the artifact's paprika */
   --hot: var(--burgundy);
+  /* Paprika on salt is 3.5:1: fine for big type, too light for small text (WCAG AA needs 4.5:1).
+     Small accent text (labels, categories) uses this slightly deeper paprika: 4.6:1 on salt. */
+  --accent-text: #b83030;
 
   /* Aliases kept from the Phase 1 names, so existing components follow the new palette */
   --cream: var(--ivory);
   --sand: var(--beige);
   --sand-deep: var(--beige);
   --ink: var(--charcoal);
-  /* secondary text on light: charcoal softened toward ivory, still AA (≈ 6:1) */
-  --ink-soft: color-mix(in srgb, var(--charcoal) 75%, var(--ivory));
+  /* secondary text on light: velvet softened toward salt, still AA */
+  --ink-soft: color-mix(in srgb, var(--burgundy-deep) 80%, var(--salt));
 
   /* Layout */
   --container-max: 72rem; /* 1152px */
@@ -59,8 +62,8 @@
  */
 :root,
 .theme-light {
-  --surface: var(--ivory);
-  --fg: var(--charcoal);
+  --surface: var(--salt);
+  --fg: var(--burgundy-deep);
   --fg-soft: var(--ink-soft);
   --accent: var(--burgundy-deep);
   --on-accent: var(--ivory);
@@ -70,8 +73,8 @@
 
 .theme-sand {
   --surface: var(--beige);
-  --fg: var(--charcoal);
-  --fg-soft: color-mix(in srgb, var(--charcoal) 80%, var(--beige));
+  --fg: var(--burgundy-deep);
+  --fg-soft: color-mix(in srgb, var(--burgundy-deep) 82%, var(--beige));
   --accent: var(--burgundy-deep);
   --on-accent: var(--ivory);
   --line: color-mix(in srgb, var(--burgundy-deep) 40%, transparent);

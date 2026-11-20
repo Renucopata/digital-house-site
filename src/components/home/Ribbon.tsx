@@ -12,7 +12,7 @@ export function Ribbon() {
   return (
     // the wrapper clips the tilted band so it never widens the page
     <div aria-hidden="true" className="relative z-[1] overflow-hidden py-6">
-      <div data-reveal="ribbon" className="-mx-4 -rotate-2 bg-hot py-3 text-ivory">
+      <div data-reveal="ribbon" className="-mx-4 -rotate-2 bg-hot py-3 text-salt">
         <VelocityMarquee speed={60}>
           <span className="pr-[0.5em] font-display text-[clamp(28px,4.4vw,58px)] leading-none whitespace-nowrap uppercase">{text}</span>
         </VelocityMarquee>

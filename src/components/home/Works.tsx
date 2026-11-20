@@ -33,7 +33,7 @@ export function Works() {
             <Link href={workHref} className="group block">
               <figure data-reveal="card" className={cn("relative overflow-hidden rounded-[var(--radius-card)] bg-beige", sizeClass[item.size].media)}>
                 {item.image ? (
-                  <Image src={item.image} alt={tr(item.imageAlt, locale)} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover" />
+                  <Image src={item.image} alt={tr(item.imageAlt, locale)} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover transition-transform duration-[600ms] ease-[cubic-bezier(.2,.8,.2,1)] group-hover:scale-105 group-hover:-rotate-[0.6deg]" />
                 ) : (
                   launch.placeholders && <span className="absolute inset-0 grid place-items-center p-4 text-center text-sm text-fg-soft">{tr(works.imagePending, locale)}</span>
                 )}
@@ -44,7 +44,7 @@ export function Works() {
               <div className="mt-3 flex items-start justify-between gap-4">
                 <div>
                   <h3 className="font-display text-[clamp(1.5rem,2.4vw,2.25rem)] leading-none text-burgundy-deep uppercase">{item.client}</h3>
-                  <span className="mt-1 block font-label text-xs font-bold tracking-[0.12em] text-hot uppercase">{tr(item.category, locale)}</span>
+                  <span className="mt-1 block font-label text-xs font-bold tracking-[0.12em] text-accent-text uppercase">{tr(item.category, locale)}</span>
                 </div>
                 <span aria-hidden="true" className="grid size-9 shrink-0 place-items-center rounded-full bg-hot text-ivory transition-transform group-hover:-rotate-45">
                   →
