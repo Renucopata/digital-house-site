@@ -156,5 +156,108 @@ export const workImages: Record<string, WorkImage[]> = {
       "width": 1600,
       "height": 900
     }
+  ],
+  "bosque-sur": [
+    {
+      "src": "/works/bosque-sur/01.webp",
+      "width": 1020,
+      "height": 1006
+    },
+    {
+      "src": "/works/bosque-sur/02.webp",
+      "width": 1602,
+      "height": 876
+    },
+    {
+      "src": "/works/bosque-sur/03.webp",
+      "width": 1472,
+      "height": 788
+    },
+    {
+      "src": "/works/bosque-sur/04.webp",
+      "width": 1015,
+      "height": 538
+    },
+    {
+      "src": "/works/bosque-sur/05.webp",
+      "width": 1020,
+      "height": 542
+    },
+    {
+      "src": "/works/bosque-sur/06.webp",
+      "width": 1011,
+      "height": 540
+    }
+  ],
+  "guinness": [
+    {
+      "src": "/works/guinness/01.webp",
+      "width": 800,
+      "height": 1000
+    },
+    {
+      "src": "/works/guinness/02.webp",
+      "width": 1264,
+      "height": 862
+    },
+    {
+      "src": "/works/guinness/03.webp",
+      "width": 1472,
+      "height": 920
+    },
+    {
+      "src": "/works/guinness/04.webp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "/works/guinness/05.webp",
+      "width": 1100,
+      "height": 1100
+    }
+  ],
+  "carabao": [
+    {
+      "src": "/works/carabao/01.webp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "/works/carabao/02.webp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "/works/carabao/03.webp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "/works/carabao/04.webp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "/works/carabao/05.webp",
+      "width": 1100,
+      "height": 1100
+    }
+  ],
+  "bendita": [
+    {
+      "src": "/works/bendita/01.webp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "/works/bendita/02.webp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "/works/bendita/03.webp",
+      "width": 1100,
+      "height": 1100
+    }
   ]
 };

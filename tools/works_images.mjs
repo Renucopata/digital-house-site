@@ -17,7 +17,11 @@ const FOLDERS = {
   fury_cup: "fury-cup",
   vida: "vida",
   zaleriz: "zareliz",
-  // add new projects here, e.g. bosque_sur: "bosque-sur"
+  bosque_sur: "bosque-sur",
+  guinness: "guinness",
+  carabao: "carabao",
+  bendita: "bendita",
+  // add new projects here: "<folder in brand-assets/new-design/works>": "<slug>"
 };
 
 const result = {};
