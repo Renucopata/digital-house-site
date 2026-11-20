@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 570" overflow="visible">
+  <defs>
+    <!-- crayon / riso grain: the fill is punched by noise -->
+    <filter id="wk-grain" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.25 1.42" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in" result="g"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="w"/>
+      <feDisplacementMap in="g" in2="w" scale="3"/>
+    </filter>
+    <!-- speckled ink fill (black pants, sneakers) -->
+    <filter id="wk-speck" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="11" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.9 1.55" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in"/>
+    </filter>
+    <!-- hand-drawn wobble for the ink lines -->
+    <filter id="wk-wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="5" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="2.6"/>
+    </filter>
+  </defs>
+
+  <!-- big loose loops at the sides (paprika), drawn on a loop -->
+  <path class="spiral" style="--len:980" d="M30 330 C0 220 120 170 170 230 C210 280 140 340 100 300 C70 270 110 230 140 255"/>
+  <path class="spiral s2" style="--len:1100" d="M735 230 C770 320 690 390 630 360 C570 330 600 250 660 260 C710 270 700 330 660 325"/>
+
+  <g stroke="#111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+
+    <!-- ===================== MAN: curly hair, paprika hoodie, board "d" ===================== -->
+    <g>
+      <!-- legs (swing from the hip) -->
+      <g class="leg legB">
+        <path d="M240 262 L270 262 C268 310 264 360 260 398 C252 440 242 478 232 510 L200 502 C210 470 222 432 228 396 C232 350 236 300 240 262 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <path d="M246 392 C250 398 256 400 260 398 M236 300 L240 330" filter="url(#wk-wobble)"/>
+        <g filter="url(#wk-speck)"><path d="M199 499 L233 508 C245 516 249 531 245 542 L239 547 C222 541 204 529 191 519 C189 510 192 503 199 499 Z" fill="#111" stroke="none"/></g>
+        <path d="M199 499 L233 508 C245 516 249 531 245 542 L239 547 C222 541 204 529 191 519 C189 510 192 503 199 499 Z" filter="url(#wk-wobble)"/>
+        <path d="M192 520 L240 545 M212 512 L220 520 M222 516 L229 523" stroke="#fdf1e0" stroke-width="2"/>
+      </g>
+      <g class="leg legA">
+        <path d="M262 262 L292 262 C304 320 312 360 316 396 C322 440 330 480 334 512 L304 516 C298 478 292 440 286 402 C278 360 268 310 262 262 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <path d="M290 398 C296 404 304 404 312 398 M300 440 L306 470" filter="url(#wk-wobble)"/>
+        <g filter="url(#wk-speck)"><path d="M300 511 L336 509 C352 513 364 521 366 533 L366 542 L296 542 C294 530 296 520 300 511 Z" fill="#111" stroke="none"/></g>
+        <path d="M300 511 L336 509 C352 513 364 521 366 533 L366 542 L296 542 C294 530 296 520 300 511 Z" filter="url(#wk-wobble)"/>
+        <path d="M296 536 L366 536 M326 515 L333 525 M336 515 L343 525" stroke="#fdf1e0" stroke-width="2"/>
+      </g>
+
+      <g class="bob">
+        <!-- neck -->
+        <path d="M268 108 L267 126 M281 107 L282 124" filter="url(#wk-wobble)"/>
+        <!-- hoodie body -->
+        <g filter="url(#wk-grain)"><path d="M248 124 C262 116 286 116 298 124 C306 152 308 204 305 270 L234 270 C230 210 234 152 248 124 Z" fill="#d63b36" stroke="none"/></g>
+        <path d="M248 124 C262 116 286 116 298 124 C306 152 308 204 305 270 L234 270 C230 210 234 152 248 124 Z" filter="url(#wk-wobble)"/>
+        <path d="M235 256 L305 256" filter="url(#wk-wobble)"/>
+        <!-- hood + drawstrings -->
+        <path d="M252 124 C254 138 290 140 294 122 M262 136 L263 160 M284 136 L286 158" filter="url(#wk-wobble)"/>
+
+        <!-- board "d" (held at the hip, in front of the body) -->
+        <g class="sign">
+          <path d="M176 150 L370 166 L364 270 L170 256 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+          <g filter="url(#wk-grain)" stroke="#d63b36" stroke-width="15" stroke-linecap="round">
+            <circle cx="218" cy="222" r="24"/>
+            <path d="M245 174 L245 248"/>
+          </g>
+          <!-- back hand on the board's edge -->
+          <path d="M186 190 C174 186 165 194 168 203 C163 208 166 217 175 216 C180 221 190 216 189 207 Z M170 204 L181 203 M174 211 L184 209" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        </g>
+
+        <!-- near arm over the board (sleeve + fist) -->
+        <g filter="url(#wk-grain)"><path d="M274 128 C292 124 304 140 304 162 L302 234 C298 242 284 242 280 234 L277 162 C275 150 270 138 274 128 Z" fill="#d63b36" stroke="none"/></g>
+        <path d="M274 128 C292 124 304 140 304 162 L302 234 C298 242 284 242 280 234 L277 162 C275 150 270 138 274 128 Z" filter="url(#wk-wobble)"/>
+        <path d="M280 226 L302 226" filter="url(#wk-wobble)"/>
+        <path d="M281 236 C276 246 281 258 292 259 C302 260 306 250 302 238 M286 246 L297 245 M286 251 L296 251" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+
+        <!-- head base (fills the skull behind face and hair) -->
+        <ellipse cx="268" cy="74" rx="21" ry="31" fill="#fdf1e0" stroke="none"/>
+        <!-- head: face in profile -->
+        <path d="M283 50 C288 56 289 62 289 68 C292 73 297 78 301 82 C297 85 293 86 291 87 C293 90 293 92 290 94 C292 97 292 100 289 103 C288 108 283 111 276 111 C270 111 264 108 262 104" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <path d="M262 76 C253 74 251 89 261 91 M258 80 C256 83 257 86 260 87" filter="url(#wk-wobble)"/>
+        <path d="M277 63 C281 61 285 61 288 63 M285 98 L291 97" filter="url(#wk-wobble)"/>
+        <circle cx="283" cy="71" r="1.9" fill="#111" stroke="none"/>
+        <!-- curly hair -->
+        <g filter="url(#wk-speck)"><path d="M286 52 C291 44 287 35 278 36 C278 27 266 25 261 32 C255 25 243 29 245 38 C236 37 232 47 238 53 C230 57 232 69 240 71 C234 78 237 89 246 89 C245 97 253 103 261 99 C262 93 258 87 262 81 C258 70 268 62 274 60 C279 58 284 57 286 52 Z" fill="#111" stroke="none"/></g>
+        <path d="M286 52 C291 44 287 35 278 36 C278 27 266 25 261 32 C255 25 243 29 245 38 C236 37 232 47 238 53 C230 57 232 69 240 71 C234 78 237 89 246 89 C245 97 253 103 261 99" filter="url(#wk-wobble)"/>
+        <path d="M252 44 C256 40 262 42 260 48 M268 38 C273 35 278 39 275 44 M244 60 C248 56 254 59 251 64 M248 78 C252 74 257 78 253 82" stroke="#fdf1e0" stroke-width="1.8"/>
+      </g>
+    </g>
+
+    <!-- ===================== WOMAN: glasses, long wavy hair, board "H" ===================== -->
+    <g>
+      <g class="leg legB">
+        <g filter="url(#wk-speck)"><path d="M500 256 L536 256 C530 340 512 440 494 522 L448 516 C468 430 488 340 500 256 Z" fill="#111" stroke="none"/></g>
+        <path d="M500 256 L536 256 C530 340 512 440 494 522 L448 516 C468 430 488 340 500 256 Z" filter="url(#wk-wobble)"/>
+        <path d="M451 512 L494 520 C501 530 499 540 492 546 L486 548 C468 540 452 530 440 522 C440 516 444 512 451 512 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <path d="M444 524 L490 547 M466 518 C468 526 476 528 480 522" filter="url(#wk-wobble)"/>
+      </g>
+      <g class="leg legA">
+        <g filter="url(#wk-grain)"><path d="M520 256 L556 256 C570 330 590 430 606 520 L560 528 C552 440 536 340 520 256 Z" fill="#d63b36" stroke="none"/></g>
+        <path d="M520 256 L556 256 C570 330 590 430 606 520 L560 528 C552 440 536 340 520 256 Z" filter="url(#wk-wobble)"/>
+        <path d="M548 300 C552 360 560 420 570 480" filter="url(#wk-wobble)"/>
+        <path d="M562 520 L606 518 C618 522 626 530 626 538 L626 544 L558 544 C556 534 558 526 562 520 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <path d="M557 539 L626 539 M590 521 C588 529 596 532 602 526" filter="url(#wk-wobble)"/>
+      </g>
+
+      <g class="bob b2">
+        <!-- head base -->
+        <ellipse cx="526" cy="74" rx="20" ry="31" fill="#fdf1e0" stroke="none"/>
+        <!-- long wavy hair (behind the head) -->
+        <g class="hair">
+          <g filter="url(#wk-grain)"><path d="M542 51 C540 37 525 31 511 35 C498 40 492 53 494 67 C488 79 495 89 490 101 C485 114 494 123 489 136 C486 147 495 156 507 153 C502 142 511 133 508 121 C506 110 515 104 519 95 C521 83 517 71 523 62 C529 56 538 56 542 51 Z" fill="#d63b36" stroke="none"/></g>
+          <path d="M542 51 C540 37 525 31 511 35 C498 40 492 53 494 67 C488 79 495 89 490 101 C485 114 494 123 489 136 C486 147 495 156 507 153 C502 142 511 133 508 121 C506 110 515 104 519 95" filter="url(#wk-wobble)"/>
+          <path d="M504 48 C498 60 505 72 500 84 M503 98 C497 110 505 121 499 134" filter="url(#wk-wobble)"/>
+        </g>
+        <!-- neck -->
+        <path d="M527 108 L526 126 M540 107 L541 124" filter="url(#wk-wobble)"/>
+        <!-- blouse -->
+        <path d="M506 124 C520 116 544 116 556 124 C562 152 562 202 560 262 L496 262 C492 208 494 152 506 124 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <path d="M522 122 L531 140 L543 121 M531 150 L531 151 M531 166 L531 167" filter="url(#wk-wobble)"/>
+
+        <!-- board "H" -->
+        <g class="sign s2">
+          <path d="M428 150 L622 140 L628 248 L434 260 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+          <g filter="url(#wk-grain)" stroke="#d63b36" stroke-width="15" stroke-linecap="round">
+            <path d="M458 174 L460 238 M512 171 L514 235 M460 205 L513 203"/>
+          </g>
+          <path d="M440 190 C428 186 419 194 422 203 C417 208 420 217 429 216 C434 221 444 216 443 207 Z M424 204 L435 203 M428 211 L438 209" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        </g>
+
+        <!-- near arm (cream sleeve) gripping the board -->
+        <path d="M532 128 C550 124 560 140 560 162 L558 230 C554 238 540 238 537 230 L534 162 C532 150 528 138 532 128 Z" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <path d="M537 222 L558 222" filter="url(#wk-wobble)"/>
+        <path d="M538 232 C533 242 538 254 549 255 C559 256 563 246 559 234 M543 242 L554 241 M543 247 L553 247" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+
+        <!-- face in profile -->
+        <path d="M540 52 C544 58 545 64 545 69 C548 74 552 78 555 82 C551 85 548 86 546 87 C548 90 547 92 545 94 C547 97 546 100 543 103 C541 108 536 110 530 110 C526 110 522 108 520 104" fill="#fdf1e0" filter="url(#wk-wobble)"/>
+        <!-- glasses: lens, bridge, temple to the ear -->
+        <circle cx="537" cy="72" r="8.5" filter="url(#wk-wobble)" stroke-width="2.6"/>
+        <path d="M545 71 L549 72 M528 71 L513 73" stroke-width="2.4" filter="url(#wk-wobble)"/>
+        <circle cx="538" cy="73" r="1.8" fill="#111" stroke="none"/>
+        <path d="M530 61 C534 59 539 59 543 61" filter="url(#wk-wobble)"/>
+        <path d="M541 97 C543 96 546 96 548 97" stroke="#d63b36" stroke-width="2.4"/>
+        <path d="M514 76 C507 76 506 88 514 90" filter="url(#wk-wobble)"/>
+      </g>
+    </g>
+  </g>
+</svg>
