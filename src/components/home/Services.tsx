@@ -115,23 +115,44 @@ export function Services() {
         </h2>
       </div>
 
-      <ul ref={list} className="relative mx-auto mt-14 flex max-w-[90rem] flex-col gap-14 px-[var(--gutter)] md:gap-20">
+      {/*
+        Phones follow the artifact's mobile layout (user, 2026-11-21): 90px between services and room
+        above/below the line, each service keeps 40 % of its desktop indent (still a zigzag), the title
+        breaks after the icon ("BRAND ▢" / "STRATEGY"), bubbles at most ~30ch, no indent, alternating tilts.
+        Desktop (md+) is unchanged.
+      */}
+      <ul
+        ref={list}
+        className="relative mx-auto mt-6 flex max-w-[90rem] flex-col gap-[90px] px-[var(--gutter)] pt-[60px] pb-[80px] md:mt-14 md:gap-20 md:pt-0 md:pb-0"
+      >
         <svg ref={svg} aria-hidden="true" className="pointer-events-none absolute inset-0 size-full overflow-visible" fill="none">
           <path ref={ghost} stroke="var(--hot)" strokeOpacity="0.16" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
           <path ref={line} stroke="var(--hot)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        {services.items.map((item) => (
-          <li key={item.after.es} className="relative md:ml-[var(--x)] md:w-fit" style={{ "--x": item.x } as React.CSSProperties}>
-            <h3 className="flex flex-wrap items-center gap-x-3 font-display text-[clamp(2.25rem,5.5vw,5rem)] leading-none text-hot uppercase">
+        {services.items.map((item, i) => (
+          <li
+            key={item.after.es}
+            className="relative ml-[calc(var(--x)*0.4)] max-w-[calc(100%_-_var(--x)*0.4)] md:ml-[var(--x)] md:w-fit md:max-w-none"
+            style={{ "--x": item.x } as React.CSSProperties}
+          >
+            <h3 className="flex flex-wrap items-center gap-x-3 font-display text-[clamp(2.75rem,5.5vw,5rem)] leading-[0.95] text-hot uppercase">
               {item.before ? <span>{tr(item.before, locale)}</span> : null}
-              <span aria-hidden="true" data-svc-icon className="grid size-[0.8em] -rotate-6 place-items-center rounded-lg border-[3px] border-hot bg-salt text-burgundy-deep">
+              <span
+                aria-hidden="true"
+                data-svc-icon
+                className={`grid size-[0.8em] place-items-center rounded-lg border-[3px] border-hot bg-salt text-burgundy-deep ${i % 2 ? "-rotate-6" : "rotate-[5deg]"}`}
+              >
                 <svg viewBox="0 0 24 24" className="size-[62%]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   {icons[item.icon]}
                 </svg>
               </span>
-              <span>{tr(item.after, locale)}</span>
+              {/* on phones the second word starts a new line, as in the artifact */}
+              <span className={item.before ? "basis-full md:basis-auto" : undefined}>{tr(item.after, locale)}</span>
             </h3>
-            <p data-svc-desc className="mt-3 max-w-xs -rotate-3 rounded-2xl border-[1.5px] border-hot bg-salt px-4 py-2 text-sm text-burgundy-deep md:ml-[30%]">
+            <p
+              data-svc-desc
+              className={`mt-3.5 max-w-[30ch] rounded-2xl border-[1.5px] border-hot bg-salt px-4 py-2.5 text-[15px] leading-[1.4] text-burgundy-deep md:ml-[30%] md:max-w-xs md:text-sm ${i % 2 ? "rotate-[1.5deg]" : "-rotate-[1.5deg]"} md:-rotate-3`}
+            >
               {tr(item.desc, locale)}
             </p>
           </li>
