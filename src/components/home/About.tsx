@@ -75,7 +75,7 @@ export function About() {
           )}
         </p>
         {about.keywords.map((kw, i) => (
-          <Pill key={kw.es} data-about-pill data-at={keywordSpots[i].at} rotate={keywordSpots[i].rotate} className={`absolute hidden sm:inline-block ${keywordSpots[i].className}`}>
+          <Pill key={kw.es} data-about-pill data-at={keywordSpots[i].at} rotate={keywordSpots[i].rotate} className={`absolute max-sm:hidden ${keywordSpots[i].className}`}>
             {tr(kw, locale)}
           </Pill>
         ))}

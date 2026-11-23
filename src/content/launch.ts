@@ -4,7 +4,7 @@
  */
 export const launch = {
   /** /proyectos page (P5). Off: "Trabajos" links scroll to the home section instead. */
-  workPage: false,
+  workPage: true, // on since 2026-11-21: all 8 case studies have photos and texts
   /** /nosotros page (P5). Off: "Nosotros" links scroll to the home section instead. */
   aboutPage: false,
   /** English version (translations pending approval). Off: the EN switch is hidden. */

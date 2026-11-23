@@ -30,7 +30,8 @@ export function Works() {
       <ul className="mt-10 grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-6">
         {works.items.map((item) => (
           <li key={item.slug} className={sizeClass[item.size].item}>
-            <Link href={workHref} className="group block">
+            {/* each card opens its own case study (or, while the pages are off, the section itself) */}
+            <Link href={launch.workPage ? { pathname: "/proyectos/[slug]", params: { slug: item.slug } } : workHref} className="group block">
               <figure data-reveal="card" className={cn("relative overflow-hidden rounded-[var(--radius-card)] bg-beige", sizeClass[item.size].media)}>
                 {item.image ? (
                   <Image src={item.image} alt={tr(item.imageAlt, locale)} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover transition-transform duration-[600ms] ease-[cubic-bezier(.2,.8,.2,1)] group-hover:scale-105 group-hover:-rotate-[0.6deg]" />

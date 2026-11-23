@@ -12,6 +12,8 @@ import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
  * name, role, bio, three specialties and a WhatsApp link to talk to that person.
  * Avatars use initials until approved portraits exist (the artifact draws line-art stickers in JS;
  * to port later). Changing person shuffles the card in like a deck (two26 effect 10, .38 s).
+ * Tap the card (or swipe it left / right) to see the next person (user, 2026-11-21: no visible arrows).
+ * Keyboard users get previous / next buttons that appear when focused.
  */
 const wa = (text: string) => `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(text)}`;
 const initials = (name: string) =>
@@ -27,6 +29,8 @@ export function Team() {
   const card = useRef<HTMLElement>(null);
   const total = team.members.length;
   const m = team.members[index];
+  const press = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
   const go = (d: number) => {
     dir.current = d;
     setIndex((i) => (i + d + total) % total);
@@ -57,7 +61,33 @@ export function Team() {
       <h2 data-reveal="lines" className="mt-3 font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.9] text-hot uppercase">{tr(team.title, locale)}</h2>
       <p data-reveal="fade" className="mt-4 max-w-xl text-lg text-burgundy-deep">{tr(team.intro, locale)}</p>
 
-      <article ref={card} aria-roledescription="slide" aria-label={counter} className="theme-dark mt-10 grid gap-8 rounded-[var(--radius-card)] bg-surface p-6 text-fg md:grid-cols-[auto_1fr] md:p-10">
+      <article
+        ref={card}
+        aria-roledescription="slide"
+        aria-label={counter}
+        onPointerDown={(e) => {
+          press.current = { x: e.clientX, y: e.clientY };
+          swiped.current = false;
+        }}
+        onPointerUp={(e) => {
+          const start = press.current;
+          press.current = null;
+          if (!start) return;
+          const dx = e.clientX - start.x;
+          const dy = e.clientY - start.y;
+          // a horizontal swipe: left = next, right = previous
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            swiped.current = true;
+            go(dx < 0 ? 1 : -1);
+          }
+        }}
+        onClick={(e) => {
+          // a tap anywhere on the card shows the next person (links inside keep working)
+          if (swiped.current || (e.target as Element).closest("a, button")) return;
+          go(1);
+        }}
+        className="theme-dark mt-10 grid cursor-pointer touch-pan-y gap-8 rounded-[var(--radius-card)] bg-surface p-6 text-fg select-none md:grid-cols-[auto_1fr] md:p-10"
+      >
         <div className="flex flex-col items-center gap-3">
           <span aria-hidden="true" className="grid aspect-square w-[min(180px,40vw)] place-items-center rounded-full bg-ivory font-display text-6xl text-burgundy-deep">
             {initials(m.name)}
@@ -92,13 +122,14 @@ export function Team() {
       </article>
 
       <div className="mt-6 flex items-center justify-center gap-4">
-        <button type="button" onClick={() => go(-1)} aria-label={tr(team.prev, locale)} className="grid size-11 place-items-center rounded-full border-2 border-burgundy-deep text-burgundy-deep">
+        {/* keyboard only: hidden until focused */}
+        <button type="button" onClick={() => go(-1)} aria-label={tr(team.prev, locale)} className="sr-only text-burgundy-deep focus:not-sr-only focus:rounded-full focus:border-2 focus:border-burgundy-deep focus:px-3 focus:py-1">
           ←
         </button>
         <span aria-live="polite" className="font-label text-sm text-burgundy-deep">
           {index + 1} / {total}
         </span>
-        <button type="button" onClick={() => go(1)} aria-label={tr(team.next, locale)} className="grid size-11 place-items-center rounded-full border-2 border-burgundy-deep text-burgundy-deep">
+        <button type="button" onClick={() => go(1)} aria-label={tr(team.next, locale)} className="sr-only text-burgundy-deep focus:not-sr-only focus:rounded-full focus:border-2 focus:border-burgundy-deep focus:px-3 focus:py-1">
           →
         </button>
       </div>
