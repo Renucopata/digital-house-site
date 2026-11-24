@@ -154,28 +154,30 @@ export const works = {
 for (const item of works.items) item.image ??= workImages[item.slug]?.[0]?.src;
 
 /* ---------- Client logos (two rows, opposite directions) ---------- */
-export type ClientLogo = { name: string; logo?: { src: string; width: number; height: number } };
+/** Client logos: complete, original colors, no background (tools/client_logos.py). `h` = display
+ *  height in px on desktop (75 % on phones), set so every logo has about the same visual weight. */
+export type ClientLogo = { name: string; logo?: { src: string; width: number; height: number; h: number } };
 
 export const clientsLabel: L = { es: "Marcas con las que trabajamos", en: "Brands we have worked with" };
 
 export const clientRows: ClientLogo[][] = [
   [
-    { name: "Technogym", logo: { src: "/clients/technogym.png", width: 928, height: 160 } },
-    { name: "Guinness", logo: { src: "/clients/guinness.png", width: 727, height: 160 } },
-    { name: "Carabao", logo: { src: "/clients/carabao.png", width: 472, height: 160 } },
-    { name: "Universidad Católica Boliviana", logo: { src: "/clients/ucb.png", width: 367, height: 160 } },
-    { name: "Zareliz", logo: { src: "/clients/zareliz.png", width: 439, height: 160 } },
-    { name: "Totto", logo: { src: "/clients/totto.png", width: 474, height: 160 } },
+    { name: "Technogym", logo: { src: "/client-logos/technogym.png", width: 813, height: 200, h: 44 } },
+    { name: "Guinness", logo: { src: "/client-logos/guinness.png", width: 382, height: 200, h: 64 } },
+    { name: "Carabao", logo: { src: "/client-logos/carabao.png", width: 179, height: 200, h: 80 } },
+    { name: "Universidad Católica Boliviana", logo: { src: "/client-logos/ucb.png", width: 410, height: 200, h: 61 } },
+    { name: "Zareliz", logo: { src: "/client-logos/zareliz.png", width: 548, height: 200, h: 53 } },
+    { name: "Totto", logo: { src: "/client-logos/totto.png", width: 566, height: 200, h: 52 } },
     { name: "VIDA" },
   ],
   [
-    { name: "Fury Cup", logo: { src: "/clients/fury-cup.png", width: 739, height: 160 } },
-    { name: "Cámara Italia Bolivia", logo: { src: "/clients/italia-bolivia.png", width: 402, height: 160 } },
-    { name: "La Suprema", logo: { src: "/clients/la-suprema.png", width: 373, height: 160 } },
-    { name: "Aster Surgery", logo: { src: "/clients/aster-surgery.png", width: 1701, height: 160 } },
-    { name: "Burguesa", logo: { src: "/clients/burguesa.png", width: 737, height: 160 } },
-    { name: "Schmidts Pharma", logo: { src: "/clients/schmidts-pharma.png", width: 478, height: 160 } },
-    { name: "IALS", logo: { src: "/clients/ials.png", width: 281, height: 160 } },
+    { name: "Fury Cup", logo: { src: "/client-logos/fury-cup.png", width: 298, height: 200, h: 72 } },
+    { name: "Cámara Italia Bolivia", logo: { src: "/client-logos/italia-bolivia.png", width: 292, height: 200, h: 73 } },
+    { name: "La Suprema", logo: { src: "/client-logos/la-suprema.png", width: 343, height: 200, h: 67 } },
+    { name: "Aster Surgery", logo: { src: "/client-logos/aster-surgery.png", width: 328, height: 200, h: 69 } },
+    { name: "Burguesa", logo: { src: "/client-logos/burguesa.png", width: 229, height: 200, h: 80 } },
+    { name: "Schmidts Pharma", logo: { src: "/client-logos/schmidts-pharma.png", width: 709, height: 200, h: 47 } },
+    { name: "IALS", logo: { src: "/client-logos/ials.png", width: 353, height: 200, h: 66 } },
   ],
 ];
 

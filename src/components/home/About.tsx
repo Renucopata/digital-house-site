@@ -30,7 +30,7 @@ export function About() {
       if (prefersReducedMotion()) return;
       const w = window.innerWidth;
       const distance = w < 480 ? 1150 : w < 992 ? 1550 : 2200;
-      const split = SplitText.create(text.current!, { type: "words,chars" });
+      const split = SplitText.create(text.current!, { type: "words,chars", aria: "hidden" });
       const pills = gsap.utils.toArray<HTMLElement>("[data-about-pill]", root.current);
 
       const tl = gsap.timeline({
@@ -75,15 +75,7 @@ export function About() {
           )}
         </p>
         {about.keywords.map((kw, i) => (
-          <Pill key={kw.es} data-about-pill data-at={keywordSpots[i].at} rotate={keywordSpots[i].rotate} className={`absolute max-sm:hidden ${keywordSpots[i].className}`}>
-            {tr(kw, locale)}
-          </Pill>
-        ))}
-      </div>
-      {/* on phones the pills sit under the text instead of over it */}
-      <div className="mt-8 flex flex-wrap justify-center gap-2 sm:hidden">
-        {about.keywords.map((kw, i) => (
-          <Pill key={kw.es} data-about-pill data-at={keywordSpots[i].at} rotate={keywordSpots[i].rotate}>
+          <Pill key={kw.es} data-about-pill data-at={keywordSpots[i].at} rotate={keywordSpots[i].rotate} className={`absolute ${keywordSpots[i].className}`}>
             {tr(kw, locale)}
           </Pill>
         ))}

@@ -7,9 +7,9 @@
   "a11y": {
     "skipLink": "Skip to content",
     "mainNav": "Main navigation",
-    "homeLabel": "Digital House, home",
     "whatsapp": "Message us on WhatsApp",
-    "opensNewTab": "(opens in a new tab)"
+    "opensNewTab": "(opens in a new tab)",
+    "homeSuffix": "home"
   },
   "nav": {
     "work": "Work",

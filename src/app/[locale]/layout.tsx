@@ -51,8 +51,10 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   return {
     metadataBase: new URL(site.url),
     title: { default: site.name, template: `%s · ${site.name}` },
-    description: locale === "es" ? site.tagline : undefined,
     applicationName: site.name,
+    // per-page description, canonical, Open Graph and Twitter: src/lib/seo.ts (pageMetadata)
+    openGraph: { siteName: site.name, type: "website", locale: locale === "en" ? "en_US" : "es_BO" },
+    twitter: { card: "summary_large_image" },
   };
 }
 

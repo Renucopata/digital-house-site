@@ -8,6 +8,7 @@ import { caseOrder, cases, caseStudy } from "@/content/pages";
 import { workImages } from "@/content/work-images";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/cn";
 
 /*
@@ -24,11 +25,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/proyecto
   const { slug, locale } = await params;
   const data = cases[slug];
   const item = works.items.find((w) => w.slug === slug);
-  return {
+  return pageMetadata({
+    href: { pathname: "/proyectos/[slug]", params: { slug } },
+    locale,
     title: item?.client,
-    description: data ? tr(data.intro, locale) : undefined,
-    robots: launch.workPage ? undefined : { index: false, follow: false },
-  };
+    description: data ? tr(data.intro, locale) : "",
+    index: launch.workPage,
+  });
 }
 
 export default async function CaseStudyPage({ params }: PageProps<"/[locale]/proyectos/[slug]">) {

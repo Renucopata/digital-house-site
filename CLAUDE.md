@@ -78,8 +78,8 @@ especialista", "todóloga", "argumento de venta".
 ### 4.5 Logos
 - Never redraw or re-typeset the official DigitalHouse wordmark; use the files in `public/brand/`.
   The animated "dH" mark comes from the user's reference artifact (N8).
-- Client logos: the processed ivory lettering files in `public/clients/` (made by
-  `tools/client_logos.py`). Fair Play Élite and VIDA have no file: set them as text.
+- Client logos: the complete logos in their original colors, background removed, in
+  `public/client-logos/` (made by `tools/client_logos.py`), on a light band (2026-11-24). Fair Play Élite and VIDA have no file: set them as text.
 
 ## 5. Design system
 - **Colors:** `src/styles/tokens.css` (ivory, beige, burgundy deep, burgundy, charcoal, warm gray;

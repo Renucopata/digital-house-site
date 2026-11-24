@@ -27,13 +27,18 @@ export function Reveals() {
       if (prefersReducedMotion()) return;
       const all = <T extends Element>(sel: string) => Array.from(document.querySelectorAll<T>(sel));
 
-      /* ---------- hero: one timeline after the loader ---------- */
+      /* ---------- hero: one timeline, built when the loader starts to leave ----------
+         The hero stays fully painted underneath the loader until then (the loader covers it), so
+         the browser records the big headline as painted early (good LCP). The from-states are only
+         applied at the moment the loader starts sliding up, while the top of the page is still
+         covered, so visitors see exactly the same entrance. */
       const hero = document.querySelector<HTMLElement>("[data-hero]");
-      const heroTl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } }).timeScale(0.75);
-      if (hero) {
+      const buildHero = () => {
+        if (!hero) return;
+        const heroTl = gsap.timeline({ defaults: { ease: "power2.out" } }).timeScale(0.75);
         const heroSplits: SplitText[] = [];
         hero.querySelectorAll<HTMLElement>('[data-reveal="lines"]').forEach((el) => {
-          const split = SplitText.create(el, { type: "lines", mask: "lines" });
+          const split = SplitText.create(el, { type: "lines", mask: "lines", aria: "hidden" });
           heroSplits.push(split);
           heroTl.from(split.lines, { yPercent: 110, opacity: 0, duration: 0.85, stagger: 0.12, ease: "back.out(1.4)" }, 0);
         });
@@ -42,17 +47,20 @@ export function Reveals() {
         // pills drop in from above (artifact) with two26's spring
         heroTl.from(hero.querySelectorAll('[data-reveal="pop"]'), { y: -120, scale: 0.4, opacity: 0, duration: 0.8, stagger: 0.12, ease: "back.out(2)" }, 0.45);
         heroTl.from(hero.querySelectorAll('[data-reveal="fade"]'), { y: 30, opacity: 0, duration: 0.9, stagger: 0.15, ease: "power3.out" }, 0.6);
-      }
+      };
       const outsideHero = (el: Element) => !hero || !hero.contains(el);
       const once = (trigger: Element, start = "top 85%") => ({ trigger, start, once: true });
 
       /* ---------- scroll reveals, created once the loader is gone ---------- */
       const startReveals = contextSafe!(() => {
-        heroTl.play();
+        buildHero();
 
         all<HTMLElement>('[data-reveal="lines"]').filter(outsideHero).forEach((el) => {
           SplitText.create(el, {
             type: "lines",
+            // split pieces hidden from screen readers, which read a clean copy instead
+            // (an aria-label is not allowed on every element, e.g. <p>)
+            aria: "hidden",
             mask: "lines",
             autoSplit: true,
             onSplit: (self) =>
@@ -102,7 +110,7 @@ export function Reveals() {
       const cleanups: (() => void)[] = [stopWaiting];
       if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         all<HTMLElement>("[data-kinetic]").forEach((el) => {
-          const split = SplitText.create(el, { type: "chars" });
+          const split = SplitText.create(el, { type: "chars", aria: "hidden" });
           const enter = () =>
             split.chars.forEach((c, i) => {
               gsap

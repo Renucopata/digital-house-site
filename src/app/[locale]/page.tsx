@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { About } from "@/components/home/About";
@@ -11,6 +12,15 @@ import { Services } from "@/components/home/Services";
 import { Team } from "@/components/home/Team";
 import { Works } from "@/components/home/Works";
 import { StructuredData } from "@/components/layout/StructuredData";
+import { hero, tr } from "@/content/home";
+import { pageMetadata } from "@/lib/seo";
+
+export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
+  const { locale } = await params;
+  // description = the hero statement (artifact copy)
+  const description = `${tr(hero.statement.before, locale)}${tr(hero.statement.strong, locale)}${tr(hero.statement.after, locale)}`;
+  return pageMetadata({ href: "/", locale, description });
+}
 
 /** Home: the artifact's content and order, laid out two26-style (motion layer in P4). */
 export default function HomePage({ params }: PageProps<"/[locale]">) {

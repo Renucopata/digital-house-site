@@ -161,7 +161,7 @@ export function Services() {
 
       <p data-reveal="fade" className="mx-auto mt-16 max-w-[90rem] px-[var(--gutter)] text-xl text-burgundy-deep md:text-2xl">
         {tr(services.note.before, locale)}
-        <strong className="text-hot">{tr(services.note.strong, locale)}</strong>
+        <strong className="text-accent-text">{tr(services.note.strong, locale)}</strong>
         {tr(services.note.after, locale)}
       </p>
     </section>

@@ -25,9 +25,10 @@ photos.py       3      Crops of the approved brand photos (D22) into            
 og.py           6      Share image 1200x630: cream wordmark on burgundy-deep +   og.py public/brand <Poppins-Regular.ttf>
                        tracked tagline → src/app/opengraph-image.png and          src/app
                        twitter-image.png (Poppins .ttf from github.com/google/fonts, ofl/poppins)
-client_logos.py 7      Credenciales (D43): lettering only of each client logo     client_logos.py brand-assets/logos
-                       (symbols, sub-lines, ®/™ cut out), ivory on transparent,   public/clients tools/.out
-                       160 px tall → public/clients/*.png (+ clients-sheet.png)
+client_logos.py 7      Client band (2026-11-24): complete logos in their original  client_logos.py brand-assets/logos
+                       colors, background removed (sub-lines, ®/™ cut; pure-white  public/client-logos tools/.out
+                       parts → black), 200 px tall → public/client-logos/*.png
+                       (+ clients-sheet.png and display heights for home.ts)
 textures.mjs    6      (Node 22, no deps) Pre-renders the blurred window/leaf     node tools/textures.mjs <chrome.exe>
                        shadow with headless Chrome → public/textures/             public/textures
                        window-shadow.webp (300x200, used as a CSS mask)

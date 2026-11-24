@@ -34,7 +34,7 @@ export function Hero() {
       </div>
       <p data-reveal="fade" className="mx-auto mt-6 max-w-[34ch] text-lg leading-snug text-burgundy-deep md:text-xl">
         {tr(hero.statement.before, locale)}
-        <strong className="text-hot">{tr(hero.statement.strong, locale)}</strong>
+        <strong className="text-accent-text">{tr(hero.statement.strong, locale)}</strong>
         {tr(hero.statement.after, locale)}
       </p>
       <div

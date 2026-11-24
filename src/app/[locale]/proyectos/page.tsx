@@ -7,12 +7,14 @@ import { WorkStack } from "@/components/work/WorkStack";
 import { tr } from "@/content/home";
 import { launch } from "@/content/launch";
 import { workPage } from "@/content/pages";
+import { pageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/proyectos">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
+  const description = `${tr(workPage.title, locale)}. ${tr(workPage.intro.before, locale)}${tr(workPage.intro.strong, locale)}${tr(workPage.intro.after, locale)}`;
   // kept out of search engines until it launches (src/content/launch.ts)
-  return { title: t("workTitle"), robots: launch.workPage ? undefined : { index: false, follow: false } };
+  return pageMetadata({ href: "/proyectos", locale, title: t("workTitle"), description, index: launch.workPage });
 }
 
 /** /proyectos · /en/work (P5): hero → card stack → text list with preview → closing CTA. */
@@ -28,7 +30,7 @@ export default async function WorkPage({ params }: PageProps<"/[locale]/proyecto
         intro={
           <p>
             {tr(workPage.intro.before, locale)}
-            <strong className="text-hot">{tr(workPage.intro.strong, locale)}</strong>
+            <strong className="text-accent-text">{tr(workPage.intro.strong, locale)}</strong>
             {tr(workPage.intro.after, locale)}
           </p>
         }

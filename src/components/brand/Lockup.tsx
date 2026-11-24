@@ -8,6 +8,7 @@ export function Lockup({ className }: { className?: string }) {
   return (
     <span className={cn("inline-flex items-baseline gap-[0.28em] leading-none whitespace-nowrap", className)}>
       <span className="font-[family-name:var(--font-bodoni)] text-[1.25em] font-normal tracking-[-0.02em]">digital</span>
+      {/* a real space, so screen readers and the link's name read "digital HOUSE" (the gap is visual) */}{" "}
       <span className="font-[family-name:var(--font-montserrat)] font-black tracking-[-0.02em]">HOUSE</span>
     </span>
   );

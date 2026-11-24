@@ -92,7 +92,7 @@ export function Team() {
           <span aria-hidden="true" className="grid aspect-square w-[min(180px,40vw)] place-items-center rounded-full bg-ivory font-display text-6xl text-burgundy-deep">
             {initials(m.name)}
           </span>
-          {m.badge ? <span className="rounded-full bg-hot px-3 py-1 font-label text-xs font-bold uppercase">{tr(m.badge, locale)}</span> : null}
+          {m.badge ? <span className="rounded-full bg-accent-text px-3 py-1 font-label text-xs font-bold text-ivory uppercase">{tr(m.badge, locale)}</span> : null}
           <span className="font-label text-sm text-fg-soft">{counter}</span>
         </div>
         <div>

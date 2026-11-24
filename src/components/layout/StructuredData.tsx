@@ -1,4 +1,5 @@
 import { contact } from "@/content/contact";
+import { hero } from "@/content/home";
 import { site } from "@/content/site";
 
 /**
@@ -13,9 +14,10 @@ const graph = {
       "@id": `${site.url}/#organizacion`,
       name: site.name,
       url: `${site.url}/`,
-      description: `${site.tagline} ${site.statement}`,
+      // the hero statement (artifact copy)
+      description: `${hero.statement.before.es}${hero.statement.strong.es}${hero.statement.after.es}`,
       logo: `${site.url}/brand/logo-monogram-cream.png`,
-      image: `${site.url}/opengraph-image.png`,
+      image: `${site.url}/share/og.png`,
       email: contact.email,
       telephone: contact.phoneE164,
       sameAs: [contact.instagramUrl],

@@ -10,12 +10,13 @@ import { PageHero } from "@/components/work/PageHero";
 import { hero, tr } from "@/content/home";
 import { launch } from "@/content/launch";
 import { aboutPage } from "@/content/pages";
+import { pageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/nosotros">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
   // kept out of search engines until it launches (src/content/launch.ts)
-  return { title: t("aboutTitle"), robots: launch.aboutPage ? undefined : { index: false, follow: false } };
+  return pageMetadata({ href: "/nosotros", locale, title: t("aboutTitle"), description: tr(aboutPage.intro, locale), index: launch.aboutPage });
 }
 
 /**

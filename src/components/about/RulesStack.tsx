@@ -26,7 +26,7 @@ export function RulesStack() {
         gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { trigger: card, start: i === 0 ? "top center" : "top bottom", end: () => `top ${parseFloat(getComputedStyle(card).top) || 0}px`, scrub: true } });
         const title = card.querySelector<HTMLElement>("[data-rule-title]")!;
         // mask per line (a mask per letter would clip accents like É / Í)
-        const split = SplitText.create(title, { type: "lines,words,chars", mask: "lines" });
+        const split = SplitText.create(title, { type: "lines,words,chars", mask: "lines", aria: "hidden" });
         gsap
           // masks are removed when the motto has landed, so accents (É, Í) are never clipped
           .timeline({ scrollTrigger: { trigger: card, start: i === 0 ? "top 72%" : "top 75%", once: true }, onComplete: () => split.revert() })

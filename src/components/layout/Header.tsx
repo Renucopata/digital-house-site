@@ -21,9 +21,11 @@ export function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-[900]">
       <div id="site-header-bar" className="flex items-center justify-between gap-4 px-[var(--gutter)] py-3 md:py-4">
-        <Link href="/" aria-label={tA11y("homeLabel")} className="flex items-center gap-2 rounded-full text-burgundy-deep">
+        {/* named by its visible text ("digital HOUSE") + a hidden ", inicio", so the name always matches what is seen */}
+        <Link href="/" className="flex items-center gap-2 rounded-full text-burgundy-deep">
           <DhLogo mode="replay" penWidth={30} className="h-7 w-auto md:h-8" />
           <Lockup className="text-[1.05rem] md:text-[1.2rem]" />
+          <span className="sr-only">, {tA11y("homeSuffix")}</span>
         </Link>
 
         <div className="flex items-center gap-2">

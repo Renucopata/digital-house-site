@@ -149,7 +149,7 @@ export function StoryTeam() {
                   </span>
                   <span className="mt-4 text-lg font-bold">{m.name}</span>
                   <span className="text-sm text-fg-soft">{tr(m.role, locale)}</span>
-                  {m.badge ? <span className="mt-2 w-fit rounded-full bg-hot px-2.5 py-0.5 font-label text-xs font-bold text-ivory uppercase">{tr(m.badge, locale)}</span> : null}
+                  {m.badge ? <span className="mt-2 w-fit rounded-full bg-accent-text px-2.5 py-0.5 font-label text-xs font-bold text-ivory uppercase">{tr(m.badge, locale)}</span> : null}
                 </button>
               </li>
             ))}

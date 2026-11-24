@@ -42,7 +42,7 @@ export function ContactOverlay() {
           gsap.set(stroke.current, { drawSVG: "100%", strokeWidth: FLOOD });
           return;
         }
-        const split = SplitText.create(heading.current!, { type: "words,chars" });
+        const split = SplitText.create(heading.current!, { type: "words,chars", aria: "hidden" });
         gsap
           .timeline()
           .fromTo(stroke.current, { drawSVG: "0%", strokeWidth: 0 }, { drawSVG: "100%", strokeWidth: FLOOD, duration: 0.9, ease: "power2.inOut" })
