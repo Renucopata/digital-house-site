@@ -25,7 +25,15 @@ export const caseStudy = {
     field: { es: "Rubro", en: "Industry" } as L,
     did: { es: "Qué hicimos", en: "What we did" } as L,
   },
+  /** Sponsors section (artifact: Fury Cup). EN = draft translation, pending approval. */
+  sponsors: {
+    label: { es: "Patrocinadores", en: "Sponsors" } as L,
+    title: { es: "Las marcas que se sumaron", en: "The brands that joined" } as L,
+  },
 };
+
+/** A sponsor logo: file in public/works/<slug>/sponsors/, display height in px (the artifact's). */
+export type SponsorLogo = { file: string; name: string; h: number; width: number; height: number };
 
 export type CaseData = {
   /** Client's full name (case-study meta). */
@@ -36,6 +44,8 @@ export type CaseData = {
   intro: L;
   /** Per image, in the numbered order: true = full width, false = half (artifact layout). */
   wide: boolean[];
+  /** "Las marcas que se sumaron" (artifact), in the artifact's order and sizes. */
+  sponsors?: SponsorLogo[];
 };
 
 /** Case studies, copied from the reference artifact (2026-11-20). Order = the artifact's. */
@@ -63,6 +73,16 @@ export const cases: Record<string, CaseData> = {
       "Fury Cup de Altura was the first amateur football championship to bring together top brands as sponsors. We brought in the sponsors, designed their activations and created experiences so every brand was lived on the pitch: inflatable arches, brand zones, Tigo Sports coverage and even a sunscreen dispenser for players and fans. A tournament played for real and lived as an event.",
     ),
     wide: [true, false, false, true, false, false],
+    sponsors: [
+      { file: "dxt", name: "DXT Magazine", h: 62, width: 511, height: 220 },
+      { file: "la-republica", name: "La República Ginebra", h: 50, width: 560, height: 156 },
+      { file: "check", name: "Check · Seguros Digitales Crediseguro", h: 61, width: 533, height: 220 },
+      { file: "bago", name: "Bagó", h: 55, width: 560, height: 186 },
+      { file: "fury-energy", name: "Fury Energy", h: 96, width: 152, height: 220 },
+      { file: "amstel", name: "Amstel", h: 46, width: 560, height: 134 },
+      { file: "tigo-sports", name: "Tigo Sports", h: 44, width: 560, height: 118 },
+      { file: "powerade", name: "Powerade", h: 55, width: 560, height: 185 },
+    ],
   },
   zareliz: {
     client: "Zareliz Modas",

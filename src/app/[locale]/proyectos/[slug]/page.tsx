@@ -48,11 +48,11 @@ export default async function CaseStudyPage({ params }: PageProps<"/[locale]/pro
   const metaLabel = "mb-1.5 block font-label text-xs font-bold tracking-[0.12em] text-accent-text uppercase";
 
   return (
-    <article>
+    <article data-case-study>
       {/* sticky bar */}
       {/* starts below the header (which sits over the top of the page), then sticks to the top */}
       <div className="sticky top-0 z-[5] mt-16 flex items-center justify-between bg-surface/90 px-[var(--gutter)] py-4 backdrop-blur-md md:mt-[4.5rem]">
-        <Link href="/proyectos" className="rounded-full bg-charcoal px-4 py-2.5 font-label text-sm font-bold text-white transition-colors hover:bg-hot">
+        <Link href="/proyectos" className="rounded-full bg-charcoal px-4 py-2.5 font-label text-sm font-bold text-ivory transition-colors hover:bg-hot">
           ← {t("back")}
         </Link>
         <span className="font-[family-name:var(--font-bodoni)] text-[15px] opacity-70">{count}</span>
@@ -102,6 +102,33 @@ export default async function CaseStudyPage({ params }: PageProps<"/[locale]/pro
         </div>
       ) : launch.placeholders ? (
         <p className="mx-auto max-w-[90rem] px-[var(--gutter)] pb-16 text-fg-soft">{tr(caseStudy.mediaPending, locale)}</p>
+      ) : null}
+
+      {/* sponsors (artifact: "Las marcas que se sumaron"): centered row, each logo at its own height, grows 6 % on hover */}
+      {data.sponsors?.length ? (
+        <section aria-labelledby="sponsors-title" className="mx-auto max-w-[90rem] px-[var(--gutter)] pb-[clamp(50px,7vw,90px)]">
+          <span data-reveal="fade" className="block font-label text-xs font-bold tracking-[0.14em] text-accent-text uppercase">
+            {tr(caseStudy.sponsors.label, locale)}
+          </span>
+          <h2 id="sponsors-title" data-reveal="lines" className="mt-3 mb-[clamp(20px,3vw,32px)] font-display text-[clamp(34px,5vw,72px)] leading-none text-burgundy-deep uppercase">
+            {tr(caseStudy.sponsors.title, locale)}
+          </h2>
+          <ul data-reveal="fade" className="flex flex-wrap items-center justify-center gap-x-[clamp(36px,5vw,80px)] gap-y-[clamp(28px,4vw,64px)] py-[clamp(10px,2vw,24px)]">
+            {data.sponsors.map((sp) => (
+              <li key={sp.file} className="group flex items-center">
+                <Image
+                  src={`/works/${slug}/sponsors/${sp.file}.png`}
+                  alt={sp.name}
+                  width={sp.width}
+                  height={sp.height}
+                  sizes={`${Math.min(240, Math.round((sp.width / sp.height) * sp.h))}px`}
+                  style={{ height: sp.h }}
+                  className="block w-auto max-w-[min(240px,70vw)] object-contain transition-transform duration-250 group-hover:scale-[1.06]"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
       ) : null}
 
       {/* next project band */}

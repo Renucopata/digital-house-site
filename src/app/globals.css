@@ -147,6 +147,11 @@ html.lenis body {
   overflow: hidden;
 }
 
+/* Case-study pages end with the "next project" band: no site footer there (user, 2026-11-24). */
+body:has([data-case-study]) #site-footer {
+  display: none;
+}
+
 @media print {
   [data-reveal] {
     opacity: 1 !important;
